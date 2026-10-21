@@ -982,13 +982,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                     className="min-w-0 rounded-xl border border-[#202020]/15 bg-[#FFFEFB] p-2.5 flex flex-col items-center gap-2"
                   >
                     <span className="text-xs font-bold tracking-wide text-[#202020] font-mono">{size}</span>
-                    <div className="grid w-full grid-cols-[28px_minmax(0,1fr)_28px] items-center gap-1">
+                    <div className="grid w-full grid-cols-[20px_minmax(16px,1fr)_20px] items-center gap-0.5">
                       <button
                         type="button"
                         aria-label={`Decrease ${size} quantity`}
                         onClick={() => handleQuantityChange(size, -1)}
                         disabled={(sizeQuantities[size] || 0) <= 0}
-                        className="h-7 w-7 justify-self-center shrink-0 rounded-lg border border-[#202020]/10 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5] disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="h-7 w-5 justify-self-center shrink-0 rounded-md border border-[#202020]/10 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5] disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
@@ -999,7 +999,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         min="0"
                         value={sizeQuantities[size]}
                         onChange={(e) => handleDirectQuantitySet(size, parseInt(e.target.value, 10) || 0)}
-                        className="w-full min-w-0 appearance-none bg-transparent text-center text-base font-extrabold text-[#202020] font-mono focus:outline-none focus:ring-2 focus:ring-[#08B9E8] rounded tabular-nums"
+                        className="block w-full min-w-[16px] appearance-none bg-transparent text-center text-sm font-extrabold text-[#202020] font-mono focus:outline-none focus:ring-2 focus:ring-[#08B9E8] rounded tabular-nums p-0"
                       />
                       <button
                         type="button"
