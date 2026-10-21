@@ -974,43 +974,26 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                 </div>
               </div>
 
-              {/* Responsive size controls: prevent horizontal overflow on small screens */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2">
+              {/* Size selector with a simple 0–100 quantity dropdown for each size */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
                 {Object.keys(sizeQuantities).map((size) => (
-                  <div
+                  <label
                     key={size}
-                    className="min-w-0 rounded-xl border border-[#202020]/15 bg-[#FFFEFB] p-2 sm:p-3 flex flex-col items-center gap-2"
+                    className="min-w-0 rounded-xl border border-[#202020]/15 bg-[#FFFEFB] p-3 flex flex-col gap-2"
                   >
                     <span className="text-sm font-extrabold tracking-wide text-[#202020] font-mono">{size}</span>
-                    <div className="grid w-full min-w-0 grid-cols-[32px_minmax(0,1fr)_32px] items-center gap-1">
-                      <button
-                        type="button"
-                        aria-label={`Decrease ${size} quantity`}
-                        onClick={() => handleQuantityChange(size, -1)}
-                        disabled={(sizeQuantities[size] || 0) <= 0}
-                        className="h-8 w-8 justify-self-center rounded-lg border border-[#202020]/15 bg-[#FFF0D8] text-[#202020] flex items-center justify-center hover:bg-[#FFE2B5] disabled:opacity-40 disabled:cursor-not-allowed"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </button>
-                      <input
-                        aria-label={`${size} quantity`}
-                        type="number"
-                        inputMode="numeric"
-                        min="0"
-                        value={sizeQuantities[size]}
-                        onChange={(e) => handleDirectQuantitySet(size, parseInt(e.target.value, 10) || 0)}
-                        className="block w-full min-w-0 appearance-none bg-transparent text-center text-lg font-extrabold leading-8 text-[#202020] font-mono focus:outline-none focus:ring-2 focus:ring-[#08B9E8] rounded tabular-nums p-0"
-                      />
-                      <button
-                        type="button"
-                        aria-label={`Increase ${size} quantity`}
-                        onClick={() => handleQuantityChange(size, 1)}
-                        className="h-8 w-8 justify-self-center rounded-lg border border-[#202020]/15 bg-[#FFF0D8] text-[#202020] flex items-center justify-center hover:bg-[#FFE2B5]"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                    <span className="text-xs text-[#5E5850]">Quantity</span>
+                    <select
+                      aria-label={`Quantity for size ${size}`}
+                      value={sizeQuantities[size] || 0}
+                      onChange={(e) => handleDirectQuantitySet(size, Number(e.target.value))}
+                      className="w-full min-w-0 h-11 rounded-lg border border-[#202020]/20 bg-[#FFF0D8] px-3 text-base font-bold text-[#202020] focus:outline-none focus:ring-2 focus:ring-[#08B9E8]"
+                    >
+                      {Array.from({ length: 101 }, (_, quantity) => (
+                        <option key={quantity} value={quantity}>{quantity}</option>
+                      ))}
+                    </select>
+                  </label>
                 ))}
               </div>
 
