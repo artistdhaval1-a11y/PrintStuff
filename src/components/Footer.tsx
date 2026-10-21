@@ -13,7 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand info */}
           <div className="space-y-4 md:col-span-1">
-            <div className="flex items-center gap-3"><img src="/printstuff-tag-logo.png" alt="PrintStuff tag logo" className="h-14 w-14 object-contain" /><img src="/printstuff-wordmark-black.png" alt="PrintStuff wordmark" className="h-10 w-auto max-w-[190px] object-contain mix-blend-multiply" /></div>
+            <div className="flex items-center gap-3"><img src="https://raw.githubusercontent.com/artistdhaval1-a11y/PrintStuff/ai-studio-version/printstuff-tag-logo.png" alt="PrintStuff tag logo" className="h-14 w-14 object-contain" /><img src="https://raw.githubusercontent.com/artistdhaval1-a11y/PrintStuff/ai-studio-version/printstuff-wordmark-black.png" alt="PrintStuff wordmark" className="h-10 w-auto max-w-[190px] object-contain mix-blend-multiply" /></div>
             <p className="text-[#5E5850] leading-relaxed text-xs">
               Premium custom apparel manufacturing and direct textile printing. Engineered for startups, athletic teams, events, and corporate merchandise.
             </p>
