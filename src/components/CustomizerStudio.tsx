@@ -982,13 +982,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                     className="min-w-0 rounded-xl border border-[#202020]/15 bg-[#FFFEFB] p-2.5 flex flex-col items-center gap-2"
                   >
                     <span className="text-xs font-bold tracking-wide text-[#202020] font-mono">{size}</span>
-                    <div className="flex w-full items-center justify-center gap-1">
+                    <div className="grid w-full grid-cols-[28px_minmax(0,1fr)_28px] items-center gap-1">
                       <button
                         type="button"
                         aria-label={`Decrease ${size} quantity`}
                         onClick={() => handleQuantityChange(size, -1)}
                         disabled={(sizeQuantities[size] || 0) <= 0}
-                        className="h-8 w-8 shrink-0 rounded-lg border border-[#202020]/10 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5] disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="h-7 w-7 justify-self-center shrink-0 rounded-lg border border-[#202020]/10 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5] disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
@@ -1005,7 +1005,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         type="button"
                         aria-label={`Increase ${size} quantity`}
                         onClick={() => handleQuantityChange(size, 1)}
-                        className="h-8 w-8 shrink-0 rounded-lg border border-[#202020]/10 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5]"
+                        className="h-7 w-7 justify-self-center shrink-0 rounded-lg border border-[#202020]/10 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5]"
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
