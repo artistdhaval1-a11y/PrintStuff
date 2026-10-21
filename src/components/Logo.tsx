@@ -19,23 +19,24 @@ export const Logo: React.FC<LogoProps> = ({
   const isSm = size === 'sm';
 
   const tagClass = isSm
-    ? 'w-7 h-7 shrink-0 drop-shadow-sm'
+    ? 'w-7 h-7 shrink-0'
     : isHeader
-    ? 'w-10 h-10 sm:w-12 sm:h-12 shrink-0 drop-shadow-md'
-    : 'w-8 h-8 sm:w-10 sm:h-10 shrink-0 drop-shadow-md';
+    ? 'w-9 h-9 sm:w-10 sm:h-10 shrink-0'
+    : 'w-8 h-8 sm:w-9 sm:h-9 shrink-0';
 
   const wordmarkBoxClass = isSm
     ? 'h-6 max-w-[110px]'
     : isHeader
-    ? 'h-8 sm:h-10 min-w-[120px] max-w-[210px] sm:max-w-[260px]'
-    : 'h-7 sm:h-8 max-w-[150px] sm:max-w-[180px]';
+    ? 'h-7 sm:h-8 min-w-[112px] max-w-[170px] sm:max-w-[190px]'
+    : 'h-7 sm:h-8 max-w-[150px] sm:max-w-[170px]';
 
   return (
-    <div className={`flex items-center gap-2.5 sm:gap-3.5 select-none shrink-0 ${className}`}>
-      {/* 1st Logo: Official PrintStuff Apparel Tag Emblem */}
+    <div
+      className={`inline-flex items-center gap-2.5 sm:gap-3 select-none shrink-0 rounded-xl bg-black px-3 py-2 border border-neutral-800 shadow-lg ${className}`}
+      aria-label="PrintStuff brand logo"
+    >
       <PrintStuffTagLogo className={tagClass} />
-
-      {/* 2nd Logo: Official PrintStuff Wordmark */}
+      <span className="h-8 w-px bg-neutral-700/80" aria-hidden="true" />
       <div className="flex flex-col justify-center shrink-0">
         <div className="relative flex items-center">
           <PrintStuffWordmark
@@ -43,9 +44,8 @@ export const Logo: React.FC<LogoProps> = ({
             color={wordmarkColor}
           />
         </div>
-
         {showSubtitle && (
-          <span className="text-[8.5px] sm:text-[9.5px] font-sans font-bold tracking-[0.22em] text-neutral-400 uppercase -mt-0.5 ml-0.5 whitespace-nowrap">
+          <span className="text-[8px] sm:text-[9px] font-sans font-bold tracking-[0.16em] text-neutral-400 uppercase mt-0.5 whitespace-nowrap">
             Custom Apparel Co.
           </span>
         )}
