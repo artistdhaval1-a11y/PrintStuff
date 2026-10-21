@@ -603,7 +603,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
 
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-neutral-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#202020] bg-[#D7FF00] hover:bg-[#e5ff59] rounded-lg transition-colors"
                 >
                   <Upload className="w-3.5 h-3.5" />
                   <span>Upload File</span>
@@ -993,7 +993,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       const item = buildCurrentCartItem();
                       onAddToCart(item);
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-3 text-xs font-bold text-neutral-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl transition-all shadow-md active:scale-98"
+                    className="inline-flex items-center gap-2 px-4 py-3 text-xs font-bold text-[#202020] bg-[#D7FF00] hover:bg-[#e5ff59] rounded-xl transition-all shadow-md active:scale-98"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     <span>Add to Bag</span>
