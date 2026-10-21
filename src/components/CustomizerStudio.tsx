@@ -975,7 +975,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
               </div>
 
               {/* Responsive size controls: no overlapping +/- buttons on narrow screens */}
-              <div className="grid grid-cols-2 min-[420px]:grid-cols-3 sm:grid-cols-5 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                 {Object.keys(sizeQuantities).map((size) => (
                   <div
                     key={size}
@@ -999,7 +999,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         min="0"
                         value={sizeQuantities[size]}
                         onChange={(e) => handleDirectQuantitySet(size, parseInt(e.target.value, 10) || 0)}
-                        className="w-9 min-w-0 appearance-none bg-transparent text-center text-sm font-bold text-[#202020] font-mono focus:outline-none focus:ring-2 focus:ring-[#08B9E8] rounded"
+                        className="w-full min-w-0 appearance-none bg-transparent text-center text-base font-extrabold text-[#202020] font-mono focus:outline-none focus:ring-2 focus:ring-[#08B9E8] rounded tabular-nums"
                       />
                       <button
                         type="button"
