@@ -9,13 +9,13 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
-    <footer className="bg-neutral-950 border-t border-neutral-800 text-neutral-400 text-xs">
+    <footer className="bg-[#FFF0D8] border-t-2 border-[#202020] text-[#5E5850] text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand info */}
           <div className="space-y-4 md:col-span-1">
             <Logo />
-            <p className="text-neutral-400 leading-relaxed text-xs">
+            <p className="text-[#5E5850] leading-relaxed text-xs">
               Premium custom apparel manufacturing and direct textile printing. Engineered for startups, athletic teams, events, and corporate merchandise.
             </p>
             <div className="flex items-center gap-2 pt-2">
@@ -23,7 +23,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 href={`https://wa.me/${WHATSAPP_RAW_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-800/80 text-emerald-400 hover:bg-emerald-900/60 transition-colors font-mono font-semibold"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#08B9E8]/20 border border-[#202020]/20 text-[#202020] hover:bg-emerald-900/60 transition-colors font-mono font-semibold"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>{WHATSAPP_PHONE_NUMBER}</span>
@@ -33,12 +33,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Quick Navigation */}
           <div className="space-y-3">
-            <div className="font-display font-bold text-white text-sm">Navigation</div>
+            <div className="font-display font-bold text-[#202020] text-sm">Navigation</div>
             <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => onNavigate('hero')}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-[#F01875] transition-colors"
                 >
                   Home Showcase
                 </button>
@@ -46,7 +46,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('catalog')}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-[#F01875] transition-colors"
                 >
                   Apparel Catalogue
                 </button>
@@ -54,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('studio')}
-                  className="hover:text-white transition-colors text-emerald-400 font-semibold"
+                  className="hover:text-[#F01875] transition-colors text-[#F01875] font-semibold"
                 >
                   Interactive Custom Studio
                 </button>
@@ -62,7 +62,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('pricing')}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-[#F01875] transition-colors"
                 >
                   Tiered Wholesale Pricing
                 </button>
@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => onNavigate('quality')}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-[#F01875] transition-colors"
                 >
                   Fabric GSM Standards
                 </button>
@@ -80,7 +80,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Apparel Range */}
           <div className="space-y-3">
-            <div className="font-display font-bold text-white text-sm">Product Range</div>
+            <div className="font-display font-bold text-[#202020] text-sm">Product Range</div>
             <ul className="space-y-2">
               <li>Crew Neck T-Shirt (180 GSM Biowashed)</li>
               <li>Zipper Hoodie (320 GSM Brushed Loopknit)</li>
@@ -93,7 +93,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Order Details & Logistics */}
           <div className="space-y-3">
-            <div className="font-display font-bold text-white text-sm">Order & Delivery</div>
+            <div className="font-display font-bold text-[#202020] text-sm">Order & Delivery</div>
             <div className="space-y-2 text-neutral-400">
               <p>• Minimum Order: 1 Piece</p>
               <p>• Pan-India Courier & Cargo Delivery</p>
@@ -104,7 +104,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-neutral-500">
+        <div className="mt-12 pt-8 border-t border-[#202020]/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-[#5E5850]">
           <div>
             &copy; {new Date().getFullYear()} PrintStuff Apparel Solutions. All rights reserved.
           </div>
