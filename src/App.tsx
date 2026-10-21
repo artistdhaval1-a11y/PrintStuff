@@ -113,7 +113,7 @@ export default function App() {
 
   return (
     <BrandProvider>
-      <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col selection:bg-emerald-500 selection:text-black">
+      <div className="min-h-screen bg-[#FFF9ED] text-[#202020] flex flex-col selection:bg-[#D7FF00] selection:text-[#202020]">
         {/* Toast Notification */}
         {notification && (
           <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-emerald-500 text-neutral-950 rounded-xl font-bold text-xs shadow-2xl animate-fade-in">
