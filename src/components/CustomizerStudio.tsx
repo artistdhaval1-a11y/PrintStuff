@@ -956,91 +956,98 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
             </div>
 
             {/* 2. QUANTITY & SIZE MATRIX MODULE */}
-            <div className="p-5 bg-white border border-[#202020]/15 rounded-2xl space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-display font-bold text-[#202020] text-base">
-                    Order Quantities & Sizing
+            <div className="rounded-2xl border border-[#202020]/15 bg-white p-4 sm:p-5 space-y-4 shadow-sm">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="font-display font-bold text-[#202020] text-base sm:text-lg">
+                    Order Quantities &amp; Sizing
                   </h3>
-                  <p className="text-xs text-[#5E5850]">
-                    Minimum order: 1 piece &bull; Volume discounts apply automatically
+                  <p className="mt-1 text-xs leading-relaxed text-[#5E5850]">
+                    Minimum order: 1 piece <span aria-hidden="true">•</span> Volume discounts apply automatically
                   </p>
                 </div>
-
-                <div className="text-right">
-                  <div className="text-xs font-mono text-[#5E5850]">Total Quantity</div>
-                  <div className="text-xl font-display font-bold text-[#087FA0] tabular-nums">
-                    {totalQuantity} pcs
+                <div className="shrink-0 rounded-xl bg-[#EAFBFF] px-3 py-2 text-right">
+                  <div className="text-[10px] sm:text-xs font-mono text-[#5E5850]">Total quantity</div>
+                  <div className="text-xl sm:text-2xl font-display font-extrabold text-[#087FA0] tabular-nums leading-tight">
+                    {totalQuantity} <span className="text-sm font-bold">pcs</span>
                   </div>
                 </div>
               </div>
 
-              {/* Sizes Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2">
+              {/* Responsive size controls: no overlapping +/- buttons on narrow screens */}
+              <div className="grid grid-cols-2 min-[420px]:grid-cols-3 sm:grid-cols-5 gap-2">
                 {Object.keys(sizeQuantities).map((size) => (
                   <div
                     key={size}
-                    className="p-2.5 rounded-xl bg-white border border-[#202020]/15 flex flex-col items-center space-y-1.5"
+                    className="min-w-0 rounded-xl border border-[#202020]/15 bg-[#FFFEFB] p-2.5 flex flex-col items-center gap-2"
                   >
-                    <span className="text-xs font-bold text-[#202020] font-mono">{size}</span>
-                    <div className="flex items-center gap-1">
+                    <span className="text-xs font-bold tracking-wide text-[#202020] font-mono">{size}</span>
+                    <div className="flex w-full items-center justify-center gap-1">
                       <button
+                        type="button"
+                        aria-label={`Decrease ${size} quantity`}
                         onClick={() => handleQuantityChange(size, -1)}
-                        className="w-6 h-6 rounded bg-[#FFF0D8] hover:bg-[#FFF0D8] text-[#5E5850] flex items-center justify-center transition-colors"
+                        disabled={(sizeQuantities[size] || 0) <= 0}
+                        className="h-8 w-8 shrink-0 rounded-lg border border-[#202020]/10 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5] disabled:opacity-40 disabled:cursor-not-allowed"
                       >
-                        <Minus className="w-3 h-3" />
+                        <Minus className="w-3.5 h-3.5" />
                       </button>
                       <input
+                        aria-label={`${size} quantity`}
                         type="number"
+                        inputMode="numeric"
                         min="0"
                         value={sizeQuantities[size]}
-                        onChange={(e) => handleDirectQuantitySet(size, parseInt(e.target.value) || 0)}
-                        className="w-10 text-center bg-transparent text-sm font-bold text-[#202020] font-mono focus:outline-none"
+                        onChange={(e) => handleDirectQuantitySet(size, parseInt(e.target.value, 10) || 0)}
+                        className="w-9 min-w-0 appearance-none bg-transparent text-center text-sm font-bold text-[#202020] font-mono focus:outline-none focus:ring-2 focus:ring-[#08B9E8] rounded"
                       />
                       <button
+                        type="button"
+                        aria-label={`Increase ${size} quantity`}
                         onClick={() => handleQuantityChange(size, 1)}
-                        className="w-6 h-6 rounded bg-[#FFF0D8] hover:bg-[#FFF0D8] text-[#5E5850] flex items-center justify-center transition-colors"
+                        className="h-8 w-8 shrink-0 rounded-lg border border-[#202020]/10 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5]"
                       >
-                        <Plus className="w-3 h-3" />
+                        <Plus className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 ))}
               </div>
 
-
-              {/* Subtotal Calculation */}
-              <div className="pt-3 border-t border-[#202020]/15 flex items-center justify-between">
-                <div>
-                  <div className="text-xs text-[#5E5850]">Calculated Subtotal</div>
-                  <div className="text-2xl font-display font-extrabold text-[#202020] tabular-nums">
-                    ₹{totalPrice.toLocaleString()}
+              {/* Price summary and actions adapt to mobile widths */}
+              <div className="border-t border-[#202020]/15 pt-4 grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] gap-4 sm:items-center">
+                <div className="min-w-0">
+                  <div className="text-xs text-[#5E5850]">Calculated subtotal</div>
+                  <div className="mt-0.5 text-2xl sm:text-3xl font-display font-extrabold text-[#202020] tabular-nums">
+                    ₹{totalPrice.toLocaleString('en-IN')}
                   </div>
-                  <div className="text-[10px] text-[#5E5850] font-mono">
-                    ({totalQuantity} pcs &times; ₹{unitPrice}/pc) &bull; Shipping extra as per location
+                  <div className="mt-1 text-[11px] leading-relaxed text-[#5E5850] font-mono">
+                    ({totalQuantity} pcs × ₹{unitPrice}/pc) <span aria-hidden="true">•</span> Shipping extra as per location
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="grid grid-cols-2 sm:flex gap-2">
                   <button
+                    type="button"
                     onClick={() => {
                       const item = buildCurrentCartItem();
                       onAddToCart(item);
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-3 text-xs font-bold text-[#202020] bg-[#D7FF00] hover:bg-[#e5ff59] rounded-xl transition-all shadow-md active:scale-98"
+                    className="min-h-12 inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-3 text-sm font-bold text-[#202020] bg-[#D7FF00] hover:bg-[#e5ff59] rounded-xl transition-all shadow-sm active:scale-[0.98]"
                   >
-                    <ShoppingBag className="w-4 h-4" />
+                    <ShoppingBag className="w-4 h-4 shrink-0" />
                     <span>Add to Bag</span>
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => {
                       const item = buildCurrentCartItem();
                       onDirectWhatsApp(item);
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-3 text-xs font-bold text-[#202020] bg-[#FFF0D8] hover:bg-[#FFF0D8] border border-[#202020]/20 rounded-xl transition-colors active:scale-98"
+                    className="min-h-12 inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-3 text-sm font-bold text-[#202020] bg-[#FFF0D8] hover:bg-[#FFE2B5] border border-[#202020]/20 rounded-xl transition-colors active:scale-[0.98]"
                   >
-                    <MessageCircle className="w-4 h-4 text-[#087FA0]" />
+                    <MessageCircle className="w-4 h-4 shrink-0 text-[#087FA0]" />
                     <span>Enquire</span>
                   </button>
                 </div>
