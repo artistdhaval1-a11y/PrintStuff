@@ -1,0 +1,6 @@
+{
+  "name": "PrintStuff | Custom Apparel & Merchandise Printing",
+  "description": "Premium custom printing e-commerce studio for t-shirts, hoodies, polo shirts, and caps. Interactive multi-artwork customizer, tiered volume pricing, and direct WhatsApp order flow.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
