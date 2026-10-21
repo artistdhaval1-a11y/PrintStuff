@@ -34,8 +34,8 @@ export const Hero: React.FC<HeroProps> = ({ onStartCustomizing, onBrowseCatalog 
           <div className="relative rounded-2xl overflow-hidden border-4 border-[#202020] bg-white shadow-[10px_10px_0_#F01875]">
             <img src={HERO_PODIUM_IMAGE} alt="PrintStuff custom apparel collection featuring T-shirt, hoodie, polo, and cap" className="w-full h-auto object-cover transform hover:scale-102 transition-transform duration-700" referrerPolicy="no-referrer" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#202020]/70 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 text-xs text-[#202020] bg-white/95 backdrop-blur-md px-4 py-3 rounded-xl border border-[#D7FF00]/40">
-              <span className="font-black text-[#202020]">MADE TO STAND OUT</span><span className="font-mono text-[#D7FF00] text-[11px]">180–320 GSM</span>
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 text-xs text-white bg-[#202020]/90 backdrop-blur-md px-4 py-3 rounded-xl border border-[#D7FF00] shadow-[0_0_18px_rgba(215,255,0,0.12)]">
+              <span className="font-black text-white">MADE TO STAND OUT</span><span className="font-mono text-[#D7FF00] text-[11px]">180–320 GSM</span>
             </div>
           </div>
         </div>
