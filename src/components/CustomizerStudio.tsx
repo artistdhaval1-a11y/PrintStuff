@@ -974,23 +974,23 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                 </div>
               </div>
 
-              {/* Responsive size controls: large, easy-to-tap quantity controls */}
-              <div className="grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+              {/* Responsive size controls: prevent horizontal overflow on small screens */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2">
                 {Object.keys(sizeQuantities).map((size) => (
                   <div
                     key={size}
-                    className="min-w-0 rounded-xl border border-[#202020]/15 bg-[#FFFEFB] p-3 flex flex-col items-center gap-2.5"
+                    className="min-w-0 rounded-xl border border-[#202020]/15 bg-[#FFFEFB] p-2 sm:p-3 flex flex-col items-center gap-2"
                   >
                     <span className="text-sm font-extrabold tracking-wide text-[#202020] font-mono">{size}</span>
-                    <div className="grid w-full grid-cols-[44px_minmax(40px,1fr)_44px] items-center gap-2">
+                    <div className="grid w-full min-w-0 grid-cols-[32px_minmax(0,1fr)_32px] items-center gap-1">
                       <button
                         type="button"
                         aria-label={`Decrease ${size} quantity`}
                         onClick={() => handleQuantityChange(size, -1)}
                         disabled={(sizeQuantities[size] || 0) <= 0}
-                        className="h-11 w-11 justify-self-center rounded-xl border border-[#202020]/15 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="h-8 w-8 justify-self-center rounded-lg border border-[#202020]/15 bg-[#FFF0D8] text-[#202020] flex items-center justify-center hover:bg-[#FFE2B5] disabled:opacity-40 disabled:cursor-not-allowed"
                       >
-                        <Minus className="w-5 h-5" />
+                        <Minus className="w-4 h-4" />
                       </button>
                       <input
                         aria-label={`${size} quantity`}
@@ -999,15 +999,15 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         min="0"
                         value={sizeQuantities[size]}
                         onChange={(e) => handleDirectQuantitySet(size, parseInt(e.target.value, 10) || 0)}
-                        className="block w-full min-w-0 appearance-none bg-transparent text-center text-xl font-extrabold leading-10 text-[#202020] font-mono focus:outline-none focus:ring-2 focus:ring-[#08B9E8] rounded tabular-nums p-0"
+                        className="block w-full min-w-0 appearance-none bg-transparent text-center text-lg font-extrabold leading-8 text-[#202020] font-mono focus:outline-none focus:ring-2 focus:ring-[#08B9E8] rounded tabular-nums p-0"
                       />
                       <button
                         type="button"
                         aria-label={`Increase ${size} quantity`}
                         onClick={() => handleQuantityChange(size, 1)}
-                        className="h-11 w-11 justify-self-center rounded-xl border border-[#202020]/15 bg-[#FFF0D8] text-[#202020] flex items-center justify-center transition-colors hover:bg-[#FFE2B5] active:scale-95"
+                        className="h-8 w-8 justify-self-center rounded-lg border border-[#202020]/15 bg-[#FFF0D8] text-[#202020] flex items-center justify-center hover:bg-[#FFE2B5]"
                       >
-                        <Plus className="w-5 h-5" />
+                        <Plus className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
