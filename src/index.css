@@ -8,28 +8,30 @@
 
 body {
   font-family: var(--font-sans);
+  background: #FFF9ED;
+  color: #202020;
 }
 
 h1, h2, h3, .font-display {
   font-family: var(--font-display);
 }
 
-/* Custom subtle scrollbar */
+/* Bright candy-colour scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #121214;
+  background: #FFF0D8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #08B9E8;
   border-radius: 4px;
+  border: 1px solid #FFF0D8;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #F01875;
 }
-
