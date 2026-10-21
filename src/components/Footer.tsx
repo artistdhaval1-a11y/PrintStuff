@@ -1,5 +1,4 @@
 import React from 'react';
-import { Logo } from './Logo';
 import { WHATSAPP_RAW_NUMBER, WHATSAPP_PHONE_NUMBER } from '../data/products';
 import { MessageCircle } from 'lucide-react';
 
@@ -14,7 +13,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand info */}
           <div className="space-y-4 md:col-span-1">
-            <Logo />
             <p className="text-[#5E5850] leading-relaxed text-xs">
               Premium custom apparel manufacturing and direct textile printing. Engineered for startups, athletic teams, events, and corporate merchandise.
             </p>
