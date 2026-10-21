@@ -1,6 +1,5 @@
 import React from 'react';
 import { ShoppingBag, MessageCircle } from 'lucide-react';
-import { Logo } from './Logo';
 import { WHATSAPP_RAW_NUMBER } from '../data/products';
 
 interface HeaderProps { cartCount: number; onOpenCart: () => void; onNavigate: (sectionId: string) => void; }
@@ -8,7 +7,7 @@ interface HeaderProps { cartCount: number; onOpenCart: () => void; onNavigate: (
 export const Header: React.FC<HeaderProps> = ({ cartCount, onOpenCart, onNavigate }) => (
   <header className="sticky top-0 z-40 w-full bg-[#FFF9ED]/95 backdrop-blur-md border-b-2 border-[#202020]">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6">
-      <div className="flex items-center shrink-0"><button onClick={() => onNavigate('hero')} className="flex items-center gap-3 shrink-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7FF00] rounded py-1 transition-opacity hover:opacity-95" aria-label="PrintStuff Home"><Logo size="header" allowQuickUpload={false} /></button></div>
+      <div className="w-2 shrink-0" aria-hidden="true" />
       <nav className="hidden lg:flex items-center gap-6 text-sm font-bold text-[#4A4640]">
         <button onClick={() => onNavigate('catalog')} className="hover:text-[#08B9E8] transition-colors whitespace-nowrap shrink-0">Shop</button>
         <button onClick={() => onNavigate('studio')} className="hover:text-[#F01875] transition-colors whitespace-nowrap shrink-0 text-[#F01875] font-black">Custom Studio ✦</button>
