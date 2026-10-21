@@ -347,18 +347,18 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
   };
 
   return (
-    <section id="studio" className="py-12 bg-neutral-950 border-b border-neutral-800">
+    <section id="studio" className="py-12 bg-[#FFF9ED] border-b-2 border-[#202020]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#087FA0] mb-2">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Interactive Customisation Studio</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-display font-extrabold text-[#202020] tracking-tight">
             Design & Customise Your Apparel
           </h2>
-          <p className="text-sm text-neutral-400 mt-1 max-w-2xl">
+          <p className="text-sm text-[#5E5850] mt-1 max-w-2xl">
             Upload custom graphics, adjust precision placement, select fabric colours, and get instant bulk pricing. 
             All original photography is rendered naturally with real fabric textures and shadows.
           </p>
@@ -369,10 +369,10 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
           {/* LEFT COLUMN: Garment Stage Mockup Viewport */}
           <div className="lg:col-span-7 flex flex-col space-y-4">
             {/* Viewport Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-neutral-900 border border-neutral-800 rounded-xl">
+            <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white border border-[#202020]/15 rounded-xl">
               {/* Product Selector Dropdown */}
               <div className="flex items-center gap-2">
-                <span className="text-xs font-medium text-neutral-400">Garment:</span>
+                <span className="text-xs font-medium text-[#5E5850]">Garment:</span>
                 <select
                   value={selectedProduct.id}
                   onChange={(e) => {
@@ -383,7 +383,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       setCurrentView('front');
                     }
                   }}
-                  className="bg-neutral-950 border border-neutral-700 text-white text-xs font-semibold rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                  className="bg-white border border-[#202020]/20 text-[#202020] text-xs font-semibold rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#08B9E8]"
                 >
                   {PRODUCTS.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -396,13 +396,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
               {/* Front / Back View Switcher */}
               <div className="flex items-center gap-2">
                 {selectedProduct.images.back ? (
-                  <div className="flex items-center p-1 bg-neutral-950 rounded-lg border border-neutral-800">
+                  <div className="flex items-center p-1 bg-white rounded-lg border border-[#202020]/15">
                     <button
                       onClick={() => setCurrentView('front')}
                       className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
                         currentView === 'front'
-                          ? 'bg-emerald-500 text-neutral-950 shadow-sm'
-                          : 'text-neutral-400 hover:text-white'
+                          ? 'bg-[#D7FF00] text-[#202020] shadow-sm'
+                          : 'text-[#5E5850] hover:text-[#202020]'
                       }`}
                     >
                       Front View
@@ -411,15 +411,15 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       onClick={() => setCurrentView('back')}
                       className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
                         currentView === 'back'
-                          ? 'bg-emerald-500 text-neutral-950 shadow-sm'
-                          : 'text-neutral-400 hover:text-white'
+                          ? 'bg-[#D7FF00] text-[#202020] shadow-sm'
+                          : 'text-[#5E5850] hover:text-[#202020]'
                       }`}
                     >
                       Back View
                     </button>
                   </div>
                 ) : (
-                  <span className="text-xs text-neutral-400 font-mono px-2 py-1 bg-neutral-950 rounded border border-neutral-800">
+                  <span className="text-xs text-[#5E5850] font-mono px-2 py-1 bg-white rounded border border-[#202020]/15">
                     Front Crown View
                   </span>
                 )}
@@ -430,8 +430,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                   title="Toggle printable boundary guide"
                   className={`px-2.5 py-1 text-xs rounded-lg border transition-colors flex items-center gap-1.5 ${
                     showPrintZoneGuide
-                      ? 'bg-neutral-800 border-neutral-700 text-emerald-400'
-                      : 'bg-neutral-950 border-neutral-800 text-neutral-400 hover:text-white'
+                      ? 'bg-[#FFF0D8] border-[#202020]/20 text-[#087FA0]'
+                      : 'bg-white border-[#202020]/15 text-[#5E5850] hover:text-[#202020]'
                   }`}
                 >
                   <Eye className="w-3.5 h-3.5" />
@@ -442,7 +442,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
 
             {/* STAGE CANVAS: Real Untouched Commercial Photograph */}
             <div
-              className="relative w-full aspect-[3/4] bg-neutral-950 rounded-2xl border border-neutral-800 overflow-hidden select-none flex items-center justify-center shadow-2xl"
+              className="relative w-full aspect-[3/4] bg-white rounded-2xl border border-[#202020]/15 overflow-hidden select-none flex items-center justify-center shadow-2xl"
               onMouseMove={handleMouseMoveCanvas}
               onMouseUp={handleMouseUpCanvas}
             >
@@ -470,8 +470,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
               >
                 {/* Visual Guidelines (Dashed hairline) */}
                 {showPrintZoneGuide && (
-                  <div className="absolute inset-0 border-2 border-dashed border-emerald-400/40 rounded-lg pointer-events-none">
-                    <span className="absolute top-1 left-1.5 text-[9px] font-mono text-emerald-400/70 tracking-widest uppercase bg-neutral-950/80 px-1 py-0.5 rounded">
+                  <div className="absolute inset-0 border-2 border-dashed border-[#08B9E8]/40 rounded-lg pointer-events-none">
+                    <span className="absolute top-1 left-1.5 text-[9px] font-mono text-[#087FA0]/70 tracking-widest uppercase bg-white/80 px-1 py-0.5 rounded">
                       Printable Zone ({currentView})
                     </span>
                   </div>
@@ -490,7 +490,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       onMouseDown={(e) => handleMouseDownArtwork(art, e)}
                       className={`absolute cursor-move transition-shadow ${
                         isSelected
-                          ? 'ring-2 ring-emerald-400 ring-offset-1 ring-offset-neutral-950/80'
+                          ? 'ring-2 ring-[#08B9E8] ring-offset-1 ring-offset-white'
                           : 'hover:ring-1 hover:ring-white/50'
                       }`}
                       style={{
@@ -520,20 +520,20 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
               </div>
 
               {/* Natural Color Preservation Label */}
-              <div className="absolute bottom-4 left-4 bg-neutral-950/90 backdrop-blur-md px-3 py-2 rounded-xl border border-neutral-800 flex items-center gap-3 text-xs shadow-lg">
+              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-2 rounded-xl border border-[#202020]/15 flex items-center gap-3 text-xs shadow-lg">
                 <div className="flex items-center gap-2">
                   <span
                     className="w-4 h-4 rounded-full border border-white/20 shadow-inner shrink-0"
                     style={{ backgroundColor: selectedColor.hex }}
                   />
                   <div>
-                    <div className="text-[10px] uppercase font-mono text-neutral-400">Order Colour</div>
-                    <div className="font-semibold text-white leading-tight">{selectedColor.name}</div>
+                    <div className="text-[10px] uppercase font-mono text-[#5E5850]">Order Colour</div>
+                    <div className="font-semibold text-[#202020] leading-tight">{selectedColor.name}</div>
                   </div>
                 </div>
 
-                <div className="border-l border-neutral-800 pl-3">
-                  <span className="text-[10px] text-neutral-400 font-mono">
+                <div className="border-l border-[#202020]/15 pl-3">
+                  <span className="text-[10px] text-[#5E5850] font-mono">
                     {selectedColor.isOriginalPhotoColor
                       ? 'Original Studio Black'
                       : 'Dyed to standard fabric spec'}
@@ -542,16 +542,16 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
               </div>
 
               {/* Active Artworks Counter Pill */}
-              <div className="absolute bottom-4 right-4 bg-neutral-950/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-neutral-800 text-[11px] font-mono text-neutral-300">
+              <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-[#202020]/15 text-[11px] font-mono text-[#5E5850]">
                 {artworks.length} {artworks.length === 1 ? 'Design' : 'Designs'} Uploaded
               </div>
             </div>
 
             {/* Colour Swatch Palette Picker (Zero-tint natural representation) */}
-            <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-xl space-y-2">
+            <div className="p-4 bg-white border border-[#202020]/15 rounded-xl space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-white">Select Fabric Colour:</span>
-                <span className="font-mono text-neutral-400 text-[11px]">
+                <span className="font-semibold text-[#202020]">Select Fabric Colour:</span>
+                <span className="font-mono text-[#5E5850] text-[11px]">
                   {selectedColor.name}
                 </span>
               </div>
@@ -566,8 +566,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       title={color.name}
                       className={`relative flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs transition-all ${
                         isSelected
-                          ? 'bg-neutral-800 border-emerald-400 text-white shadow'
-                          : 'bg-neutral-950 border-neutral-800 text-neutral-400 hover:text-white'
+                          ? 'bg-[#FFF0D8] border-[#08B9E8] text-[#202020] shadow'
+                          : 'bg-white border-[#202020]/15 text-[#5E5850] hover:text-[#202020]'
                       }`}
                     >
                       <span
@@ -575,14 +575,14 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         style={{ backgroundColor: color.hex }}
                       />
                       <span>{color.name}</span>
-                      {isSelected && <Check className="w-3 h-3 text-emerald-400 ml-1" />}
+                      {isSelected && <Check className="w-3 h-3 text-[#087FA0] ml-1" />}
                     </button>
                   );
                 })}
               </div>
 
-              <p className="text-[11px] text-neutral-400 leading-relaxed pt-1">
-                Note: Photorealistic preview rendered dynamically with genuine fabric texture, weave, and lighting depth. Your apparel will be precision dyed and printed in <strong className="text-white">{selectedColor.name}</strong>.
+              <p className="text-[11px] text-[#5E5850] leading-relaxed pt-1">
+                Note: Photorealistic preview rendered dynamically with genuine fabric texture, weave, and lighting depth. Your apparel will be precision dyed and printed in <strong className="text-[#202020]">{selectedColor.name}</strong>.
               </p>
             </div>
           </div>
@@ -590,13 +590,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
           {/* RIGHT COLUMN: Artwork Controls, Sizing Matrix, and Pricing */}
           <div className="lg:col-span-5 flex flex-col space-y-6">
             {/* 1. ARTWORK MANAGEMENT MODULE */}
-            <div className="p-5 bg-neutral-900 border border-neutral-800 rounded-2xl space-y-5">
+            <div className="p-5 bg-white border border-[#202020]/15 rounded-2xl space-y-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-display font-bold text-white text-base">
+                  <h3 className="font-display font-bold text-[#202020] text-base">
                     Custom Artwork & Logos
                   </h3>
-                  <p className="text-xs text-neutral-400 mt-0.5">
+                  <p className="text-xs text-[#5E5850] mt-0.5">
                     Upload your high-res files or test with sample emblems
                   </p>
                 </div>
@@ -619,10 +619,10 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
               </div>
 
               {/* Official Brand Logos Picker */}
-              <div className="p-3 bg-neutral-950/70 border border-neutral-800/80 rounded-xl space-y-2">
-                <div className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider flex items-center justify-between">
+              <div className="p-3 bg-white/70 border border-[#202020]/15/80 rounded-xl space-y-2">
+                <div className="text-[11px] font-mono text-[#5E5850] uppercase tracking-wider flex items-center justify-between">
                   <span>Official Brand Assets (Tag Logo & Wordmark):</span>
-                  <span className="text-emerald-400 text-[10px]">Click to apply to garment</span>
+                  <span className="text-[#087FA0] text-[10px]">Click to apply to garment</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {[
@@ -654,16 +654,16 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                     <button
                       key={sample.id}
                       onClick={() => handleAddSampleLogo(sample)}
-                      className="flex items-center gap-2.5 p-2 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-emerald-500/60 text-left transition-colors group"
+                      className="flex items-center gap-2.5 p-2 rounded-xl bg-white border border-[#202020]/15 hover:border-emerald-500/60 text-left transition-colors group"
                     >
-                      <div className="w-8 h-8 bg-neutral-950 rounded-lg flex items-center justify-center p-1 shrink-0 border border-neutral-800">
+                      <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center p-1 shrink-0 border border-[#202020]/15">
                         <img src={sample.dataUrl} alt={sample.name} className="max-w-full max-h-full object-contain" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <span className="text-[9px] block font-mono text-emerald-400 uppercase font-semibold leading-none mb-1">
+                        <span className="text-[9px] block font-mono text-[#087FA0] uppercase font-semibold leading-none mb-1">
                           {sample.category}
                         </span>
-                        <span className="text-[11px] font-semibold text-neutral-200 truncate block group-hover:text-white">
+                        <span className="text-[11px] font-semibold text-[#4A4640] truncate block group-hover:text-[#202020]">
                           {sample.name}
                         </span>
                       </div>
@@ -674,18 +674,18 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
 
               {/* Uploaded Artworks List */}
               <div className="space-y-2">
-                <div className="text-xs font-semibold text-neutral-300 flex items-center justify-between">
+                <div className="text-xs font-semibold text-[#5E5850] flex items-center justify-between">
                   <span>Current Placed Artworks ({artworks.length}):</span>
                   {activeArtwork && (
-                    <span className="text-[11px] text-emerald-400 font-mono">
+                    <span className="text-[11px] text-[#087FA0] font-mono">
                       Editing: {activeArtwork.name}
                     </span>
                   )}
                 </div>
 
                 {artworks.length === 0 ? (
-                  <div className="p-6 text-center border border-dashed border-neutral-800 rounded-xl">
-                    <p className="text-xs text-neutral-400">
+                  <div className="p-6 text-center border border-dashed border-[#202020]/15 rounded-xl">
+                    <p className="text-xs text-[#5E5850]">
                       No artwork uploaded yet. Click "Upload File" or select a preset emblem.
                     </p>
                   </div>
@@ -704,17 +704,17 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                           }}
                           className={`flex items-center justify-between p-2 rounded-xl border text-xs cursor-pointer transition-all ${
                             isSelected
-                              ? 'bg-neutral-800 border-emerald-400 text-white shadow-sm'
-                              : 'bg-neutral-950 border-neutral-800 text-neutral-400 hover:text-white'
+                              ? 'bg-[#FFF0D8] border-[#08B9E8] text-[#202020] shadow-sm'
+                              : 'bg-white border-[#202020]/15 text-[#5E5850] hover:text-[#202020]'
                           }`}
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
-                            <div className="w-7 h-7 bg-neutral-900 rounded-md p-1 border border-neutral-700 shrink-0 flex items-center justify-center">
+                            <div className="w-7 h-7 bg-white rounded-md p-1 border border-[#202020]/20 shrink-0 flex items-center justify-center">
                               <img src={art.dataUrl} alt={art.name} className="max-w-full max-h-full object-contain" />
                             </div>
                             <div className="truncate">
-                              <div className="font-semibold text-white truncate text-[11px]">{art.name}</div>
-                              <div className="text-[10px] text-neutral-400 font-mono">
+                              <div className="font-semibold text-[#202020] truncate text-[11px]">{art.name}</div>
+                              <div className="text-[10px] text-[#5E5850] font-mono">
                                 {art.view.toUpperCase()} VIEW &bull; {art.placementPreset || `${art.width}% width`}
                               </div>
                             </div>
@@ -733,7 +733,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                                   setCurrentView(newView);
                                 }}
                                 title="Move to Front/Back view"
-                                className="px-2 py-0.5 text-[10px] font-mono bg-neutral-900 text-neutral-300 rounded hover:bg-neutral-700"
+                                className="px-2 py-0.5 text-[10px] font-mono bg-white text-[#5E5850] rounded hover:bg-[#FFF0D8]"
                               >
                                 {art.view === 'front' ? 'To Back' : 'To Front'}
                               </button>
@@ -746,7 +746,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                                 handleRemoveArtwork(art.id);
                               }}
                               title="Delete this artwork"
-                              className="p-1 text-neutral-400 hover:text-rose-400 transition-colors"
+                              className="p-1 text-[#5E5850] hover:text-[#F01875] transition-colors"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -760,14 +760,14 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
 
               {/* INDEPENDENT CONTROLS FOR ACTIVE ARTWORK */}
               {activeArtwork && (
-                <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-4">
-                  <div className="flex items-center justify-between pb-2 border-b border-neutral-800">
-                    <span className="text-xs font-bold text-white uppercase tracking-wider font-mono">
+                <div className="p-4 bg-white border border-[#202020]/15 rounded-xl space-y-4">
+                  <div className="flex items-center justify-between pb-2 border-b border-[#202020]/15">
+                    <span className="text-xs font-bold text-[#202020] uppercase tracking-wider font-mono">
                       Controls for: {activeArtwork.name}
                     </span>
                     <button
                       onClick={() => handleRemoveArtwork(activeArtwork.id)}
-                      className="text-xs text-rose-400 hover:underline flex items-center gap-1"
+                      className="text-xs text-[#F01875] hover:underline flex items-center gap-1"
                     >
                       <Trash2 className="w-3 h-3" />
                       <span>Remove</span>
@@ -776,13 +776,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
 
                   {/* Placement Presets */}
                   <div className="space-y-1.5">
-                    <div className="text-[11px] font-medium text-neutral-400">Quick Placement Presets:</div>
+                    <div className="text-[11px] font-medium text-[#5E5850]">Quick Placement Presets:</div>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedProduct.id === 'custom-cap' ? (
                         <>
                           <button
                             onClick={() => applyPresetPlacement('Cap Crown Center')}
-                            className="px-2 py-1 text-[11px] font-medium bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded-md border border-neutral-800"
+                            className="px-2 py-1 text-[11px] font-medium bg-white hover:bg-[#FFF0D8] text-[#5E5850] rounded-md border border-[#202020]/15"
                           >
                             Crown Center
                           </button>
@@ -791,19 +791,19 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         <>
                           <button
                             onClick={() => applyPresetPlacement('Left Chest (Pocket)')}
-                            className="px-2 py-1 text-[11px] font-medium bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded-md border border-neutral-800"
+                            className="px-2 py-1 text-[11px] font-medium bg-white hover:bg-[#FFF0D8] text-[#5E5850] rounded-md border border-[#202020]/15"
                           >
                             Left Chest
                           </button>
                           <button
                             onClick={() => applyPresetPlacement('Center Chest')}
-                            className="px-2 py-1 text-[11px] font-medium bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded-md border border-neutral-800"
+                            className="px-2 py-1 text-[11px] font-medium bg-white hover:bg-[#FFF0D8] text-[#5E5850] rounded-md border border-[#202020]/15"
                           >
                             Center Chest
                           </button>
                           <button
                             onClick={() => applyPresetPlacement('Full Front Graphic')}
-                            className="px-2 py-1 text-[11px] font-medium bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded-md border border-neutral-800"
+                            className="px-2 py-1 text-[11px] font-medium bg-white hover:bg-[#FFF0D8] text-[#5E5850] rounded-md border border-[#202020]/15"
                           >
                             Full Front
                           </button>
@@ -812,13 +812,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         <>
                           <button
                             onClick={() => applyPresetPlacement('Upper Back (Nape)')}
-                            className="px-2 py-1 text-[11px] font-medium bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded-md border border-neutral-800"
+                            className="px-2 py-1 text-[11px] font-medium bg-white hover:bg-[#FFF0D8] text-[#5E5850] rounded-md border border-[#202020]/15"
                           >
                             Upper Back
                           </button>
                           <button
                             onClick={() => applyPresetPlacement('Center Back Hero')}
-                            className="px-2 py-1 text-[11px] font-medium bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded-md border border-neutral-800"
+                            className="px-2 py-1 text-[11px] font-medium bg-white hover:bg-[#FFF0D8] text-[#5E5850] rounded-md border border-[#202020]/15"
                           >
                             Center Back
                           </button>
@@ -830,8 +830,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                   {/* Size / Width Slider */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-neutral-400">Artwork Size / Width:</span>
-                      <span className="font-mono text-emerald-400 font-semibold">{activeArtwork.width}%</span>
+                      <span className="text-[#5E5850]">Artwork Size / Width:</span>
+                      <span className="font-mono text-[#087FA0] font-semibold">{activeArtwork.width}%</span>
                     </div>
                     <input
                       type="range"
@@ -839,16 +839,16 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       max={95}
                       value={activeArtwork.width}
                       onChange={(e) => updateActiveArtwork({ width: Number(e.target.value) })}
-                      className="w-full accent-emerald-400 cursor-pointer"
+                      className="w-full accent-[#F01875] cursor-pointer"
                     />
                   </div>
 
                   {/* Fine Position X and Y Sliders */}
                   <div className="grid grid-cols-2 gap-3 pt-1">
                     <div className="space-y-1">
-                      <div className="flex items-center justify-between text-[11px] text-neutral-400">
+                      <div className="flex items-center justify-between text-[11px] text-[#5E5850]">
                         <span>Horizontal (X):</span>
-                        <span className="font-mono text-neutral-200">{activeArtwork.x}%</span>
+                        <span className="font-mono text-[#4A4640]">{activeArtwork.x}%</span>
                       </div>
                       <input
                         type="range"
@@ -856,14 +856,14 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         max={95}
                         value={activeArtwork.x}
                         onChange={(e) => updateActiveArtwork({ x: Number(e.target.value) })}
-                        className="w-full accent-emerald-400 cursor-pointer"
+                        className="w-full accent-[#F01875] cursor-pointer"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <div className="flex items-center justify-between text-[11px] text-neutral-400">
+                      <div className="flex items-center justify-between text-[11px] text-[#5E5850]">
                         <span>Vertical (Y):</span>
-                        <span className="font-mono text-neutral-200">{activeArtwork.y}%</span>
+                        <span className="font-mono text-[#4A4640]">{activeArtwork.y}%</span>
                       </div>
                       <input
                         type="range"
@@ -871,7 +871,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         max={95}
                         value={activeArtwork.y}
                         onChange={(e) => updateActiveArtwork({ y: Number(e.target.value) })}
-                        className="w-full accent-emerald-400 cursor-pointer"
+                        className="w-full accent-[#F01875] cursor-pointer"
                       />
                     </div>
                   </div>
@@ -879,9 +879,9 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                   {/* Rotation Slider & Aspect Ratio Lock */}
                   <div className="flex items-center justify-between gap-4 pt-1">
                     <div className="flex-1 space-y-1">
-                      <div className="flex items-center justify-between text-[11px] text-neutral-400">
+                      <div className="flex items-center justify-between text-[11px] text-[#5E5850]">
                         <span>Rotation:</span>
-                        <span className="font-mono text-neutral-200">{activeArtwork.rotation}&deg;</span>
+                        <span className="font-mono text-[#4A4640]">{activeArtwork.rotation}&deg;</span>
                       </div>
                       <input
                         type="range"
@@ -889,7 +889,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         max={180}
                         value={activeArtwork.rotation}
                         onChange={(e) => updateActiveArtwork({ rotation: Number(e.target.value) })}
-                        className="w-full accent-emerald-400 cursor-pointer"
+                        className="w-full accent-[#F01875] cursor-pointer"
                       />
                     </div>
 
@@ -900,13 +900,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       title={activeArtwork.lockAspectRatio ? 'Lock Aspect Ratio' : 'Unlocked'}
                       className={`p-2 rounded-lg border text-xs flex items-center gap-1.5 self-end ${
                         activeArtwork.lockAspectRatio
-                          ? 'bg-neutral-900 border-neutral-700 text-neutral-200'
-                          : 'bg-neutral-950 border-neutral-800 text-neutral-500'
+                          ? 'bg-white border-[#202020]/20 text-[#4A4640]'
+                          : 'bg-white border-[#202020]/15 text-[#6F675D]'
                       }`}
                     >
                       {activeArtwork.lockAspectRatio ? (
                         <>
-                          <Lock className="w-3.5 h-3.5 text-emerald-400" />
+                          <Lock className="w-3.5 h-3.5 text-[#087FA0]" />
                           <span className="text-[10px]">Locked</span>
                         </>
                       ) : (
@@ -922,20 +922,20 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
             </div>
 
             {/* 2. QUANTITY & SIZE MATRIX MODULE */}
-            <div className="p-5 bg-neutral-900 border border-neutral-800 rounded-2xl space-y-4">
+            <div className="p-5 bg-white border border-[#202020]/15 rounded-2xl space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-display font-bold text-white text-base">
+                  <h3 className="font-display font-bold text-[#202020] text-base">
                     Order Quantities & Sizing
                   </h3>
-                  <p className="text-xs text-neutral-400">
+                  <p className="text-xs text-[#5E5850]">
                     Minimum order: 1 piece &bull; Volume discounts apply automatically
                   </p>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-xs font-mono text-neutral-400">Total Quantity</div>
-                  <div className="text-xl font-display font-bold text-emerald-400 tabular-nums">
+                  <div className="text-xs font-mono text-[#5E5850]">Total Quantity</div>
+                  <div className="text-xl font-display font-bold text-[#087FA0] tabular-nums">
                     {totalQuantity} pcs
                   </div>
                 </div>
@@ -946,13 +946,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                 {Object.keys(sizeQuantities).map((size) => (
                   <div
                     key={size}
-                    className="p-2.5 rounded-xl bg-neutral-950 border border-neutral-800 flex flex-col items-center space-y-1.5"
+                    className="p-2.5 rounded-xl bg-white border border-[#202020]/15 flex flex-col items-center space-y-1.5"
                   >
-                    <span className="text-xs font-bold text-white font-mono">{size}</span>
+                    <span className="text-xs font-bold text-[#202020] font-mono">{size}</span>
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => handleQuantityChange(size, -1)}
-                        className="w-6 h-6 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 flex items-center justify-center transition-colors"
+                        className="w-6 h-6 rounded bg-[#FFF0D8] hover:bg-[#FFF0D8] text-[#5E5850] flex items-center justify-center transition-colors"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -961,11 +961,11 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         min="0"
                         value={sizeQuantities[size]}
                         onChange={(e) => handleDirectQuantitySet(size, parseInt(e.target.value) || 0)}
-                        className="w-10 text-center bg-transparent text-sm font-bold text-white font-mono focus:outline-none"
+                        className="w-10 text-center bg-transparent text-sm font-bold text-[#202020] font-mono focus:outline-none"
                       />
                       <button
                         onClick={() => handleQuantityChange(size, 1)}
-                        className="w-6 h-6 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 flex items-center justify-center transition-colors"
+                        className="w-6 h-6 rounded bg-[#FFF0D8] hover:bg-[#FFF0D8] text-[#5E5850] flex items-center justify-center transition-colors"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -976,13 +976,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
 
 
               {/* Subtotal Calculation */}
-              <div className="pt-3 border-t border-neutral-800 flex items-center justify-between">
+              <div className="pt-3 border-t border-[#202020]/15 flex items-center justify-between">
                 <div>
-                  <div className="text-xs text-neutral-400">Calculated Subtotal</div>
-                  <div className="text-2xl font-display font-extrabold text-white tabular-nums">
+                  <div className="text-xs text-[#5E5850]">Calculated Subtotal</div>
+                  <div className="text-2xl font-display font-extrabold text-[#202020] tabular-nums">
                     ₹{totalPrice.toLocaleString()}
                   </div>
-                  <div className="text-[10px] text-neutral-400 font-mono">
+                  <div className="text-[10px] text-[#5E5850] font-mono">
                     ({totalQuantity} pcs &times; ₹{unitPrice}/pc) &bull; Shipping extra as per location
                   </div>
                 </div>
@@ -1004,9 +1004,9 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       const item = buildCurrentCartItem();
                       onDirectWhatsApp(item);
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-3 text-xs font-bold text-white bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-xl transition-colors active:scale-98"
+                    className="inline-flex items-center gap-2 px-4 py-3 text-xs font-bold text-[#202020] bg-[#FFF0D8] hover:bg-[#FFF0D8] border border-[#202020]/20 rounded-xl transition-colors active:scale-98"
                   >
-                    <MessageCircle className="w-4 h-4 text-emerald-400" />
+                    <MessageCircle className="w-4 h-4 text-[#087FA0]" />
                     <span>Enquire</span>
                   </button>
                 </div>
