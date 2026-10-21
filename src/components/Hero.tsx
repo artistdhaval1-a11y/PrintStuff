@@ -1,7 +1,6 @@
 import React from 'react';
 import { Sparkles, ArrowRight, MessageCircle, ShieldCheck, Layers, Truck } from 'lucide-react';
 import { HERO_PODIUM_IMAGE, WHATSAPP_RAW_NUMBER, WHATSAPP_PHONE_NUMBER } from '../data/products';
-import { PrintStuffTagLogo, PrintStuffWordmark } from './BrandLogos';
 
 interface HeroProps { onStartCustomizing: () => void; onBrowseCatalog: () => void; }
 
@@ -34,9 +33,6 @@ export const Hero: React.FC<HeroProps> = ({ onStartCustomizing, onBrowseCatalog 
           <div className="relative rounded-2xl overflow-hidden border-4 border-[#202020] bg-white shadow-[10px_10px_0_#F01875]">
             <img src={HERO_PODIUM_IMAGE} alt="PrintStuff custom apparel collection featuring T-shirt, hoodie, polo, and cap" className="w-full h-auto object-cover transform hover:scale-102 transition-transform duration-700" referrerPolicy="no-referrer" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#202020]/70 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-2 rounded-xl border border-[#08B9E8]/50 flex items-center gap-2 shadow-lg">
-              <PrintStuffTagLogo className="w-8 h-8 shrink-0" /><div className="border-l border-[#202020]/20 pl-2 flex items-center"><PrintStuffWordmark color="#202020" className="h-6 sm:h-7 max-w-[140px]" /></div>
-            </div>
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 text-xs text-[#202020] bg-white/95 backdrop-blur-md px-4 py-3 rounded-xl border border-[#D7FF00]/40">
               <span className="font-black text-[#202020]">MADE TO STAND OUT</span><span className="font-mono text-[#D7FF00] text-[11px]">180–320 GSM</span>
             </div>
