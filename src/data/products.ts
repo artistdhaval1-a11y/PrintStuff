@@ -1,7 +1,8 @@
 import { Product } from '../types';
 
 // High-definition Commercial Studio Apparel Photography
-import heroPodiumImg from '../assets/images/hero_apparel_podium_1791815553767.jpg';
+// Uploaded PrintStuff streetwear campaign image from the repository root
+const heroPodiumImg = 'https://raw.githubusercontent.com/artistdhaval1-a11y/PrintStuff/ai-studio-version/PrintStuff%20Streetwear%20Crew.png';
 import tshirtFrontImg from '../assets/images/tshirt_studio_front_1791839874158.jpg';
 import tshirtBackImg from '../assets/images/tshirt_studio_back_1791839892785.jpg';
 import zipperHoodieFrontImg from '../assets/images/zipper_hoodie_front_1791839913907.jpg';
