@@ -309,6 +309,34 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
     });
   };
 
+  // Touch support for phones/tablets: drag artwork directly inside the printable area.
+  const handleTouchStartArtwork = (art: PlacedArtwork, e: React.TouchEvent<HTMLDivElement>) => {
+    if (!printZoneRef.current || !e.touches.length) return;
+    e.stopPropagation();
+    e.preventDefault();
+    setSelectedArtworkId(art.id);
+    setIsDragging(true);
+    const rect = printZoneRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    setDragOffset({
+      x: ((touch.clientX - rect.left) / rect.width) * 100 - art.x,
+      y: ((touch.clientY - rect.top) / rect.height) * 100 - art.y
+    });
+  };
+
+  const handleTouchMoveCanvas = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDragging || !activeArtwork || !printZoneRef.current || !e.touches.length) return;
+    e.preventDefault();
+    const rect = printZoneRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = ((touch.clientX - rect.left) / rect.width) * 100;
+    const y = ((touch.clientY - rect.top) / rect.height) * 100;
+    updateActiveArtwork({
+      x: Math.round(Math.min(95, Math.max(5, x - dragOffset.x))),
+      y: Math.round(Math.min(95, Math.max(5, y - dragOffset.y)))
+    });
+  };
+
   const handleMouseUpCanvas = () => {
     setIsDragging(false);
   };
@@ -445,6 +473,10 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
               className="relative w-full aspect-[3/4] bg-white rounded-2xl border border-[#202020]/15 overflow-hidden select-none flex items-center justify-center shadow-2xl"
               onMouseMove={handleMouseMoveCanvas}
               onMouseUp={handleMouseUpCanvas}
+              onMouseLeave={handleMouseUpCanvas}
+              onTouchMove={handleTouchMoveCanvas}
+              onTouchEnd={handleMouseUpCanvas}
+              onTouchCancel={handleMouseUpCanvas}
             >
               {/* Natural Photograph with precision garment recoloring preserving fabric texture and folds */}
               <RecoloredApparelImage
@@ -488,6 +520,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         setSelectedArtworkId(art.id);
                       }}
                       onMouseDown={(e) => handleMouseDownArtwork(art, e)}
+                      onTouchStart={(e) => handleTouchStartArtwork(art, e)}
                       className={`absolute cursor-move transition-shadow ${
                         isSelected
                           ? 'ring-2 ring-[#08B9E8] ring-offset-1 ring-offset-white'
@@ -498,7 +531,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         left: `${art.x}%`,
                         width: `${art.width}%`,
                         transform: `translate(-50%, -50%) rotate(${art.rotation}deg)`,
-                        pointerEvents: 'auto'
+                        pointerEvents: 'auto',
+                        touchAction: 'none'
                       }}
                     >
                       <img
