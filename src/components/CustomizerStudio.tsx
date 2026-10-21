@@ -987,7 +987,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       aria-label={`Quantity for size ${size}`}
                       value={sizeQuantities[size] || 0}
                       onChange={(e) => handleDirectQuantitySet(size, Number(e.target.value))}
-                      className="w-full min-w-0 h-11 rounded-lg border border-[#202020]/20 bg-[#FFF0D8] px-3 text-base font-bold text-[#202020] focus:outline-none focus:ring-2 focus:ring-[#08B9E8]"
+                      className="w-full min-w-0 h-10 rounded-lg border border-[#202020]/20 bg-[#FFF0D8] px-2 text-sm font-semibold text-[#202020] focus:outline-none focus:ring-2 focus:ring-[#08B9E8]"
                     >
                       {Array.from({ length: 101 }, (_, quantity) => (
                         <option key={quantity} value={quantity}>{quantity}</option>
