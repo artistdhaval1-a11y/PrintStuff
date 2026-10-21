@@ -7,7 +7,7 @@ interface HeaderProps { cartCount: number; onOpenCart: () => void; onNavigate: (
 export const Header: React.FC<HeaderProps> = ({ cartCount, onOpenCart, onNavigate }) => (
   <header className="sticky top-0 z-40 w-full bg-[#FFF9ED]/95 backdrop-blur-md border-b-2 border-[#202020]">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6">
-      <div className="w-2 shrink-0" aria-hidden="true" />
+      <button onClick={() => onNavigate('hero')} aria-label="PrintStuff home" className="flex items-center gap-2 shrink-0"><img src="/printstuff-tag-logo.png" alt="PrintStuff tag logo" className="h-12 w-12 object-contain" /><span className="font-black text-xl sm:text-2xl tracking-tight text-[#202020]">PrintStuff</span></button>
       <nav className="hidden lg:flex items-center gap-6 text-sm font-bold text-[#4A4640]">
         <button onClick={() => onNavigate('catalog')} className="hover:text-[#08B9E8] transition-colors whitespace-nowrap shrink-0">Shop</button>
         <button onClick={() => onNavigate('studio')} className="hover:text-[#F01875] transition-colors whitespace-nowrap shrink-0 text-[#F01875] font-black">Custom Studio ✦</button>
