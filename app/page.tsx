@@ -1,18 +1,10 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, CheckCircle2, ChevronDown, Compass, Package, Search, ShoppingBag, Truck, Upload, X, Minus, Plus, RotateCcw } from 'lucide-react';
+import { products as seedProducts, type Product } from '@/lib/catalogue';
 
-const products = [
-  { name:'Zipper Hoodie', fabric:'320 GSM', prices:[600,550,525,500], colors:['Black','Charcoal','Grey'], image:'/products/zipper-hoodie.webp', category:'HOODIES' },
-  { name:'Regular Hoodie', fabric:'320 GSM', prices:[550,525,500,475], colors:['Black','White','Green'], image:'/products/regular-hoodie.webp', category:'HOODIES' },
-  { name:'Normal Polo', fabric:'180 GSM', prices:[450,400,380,350], colors:['Black','Navy','Maroon','Yellow','White','Grey'], image:'/products/normal-polo.webp', category:'T-SHIRTS' },
-  { name:'Premium Polo', fabric:'220 GSM', prices:[475,450,410,380], colors:['Black','Navy','Red','White','Sky Blue'], image:'/products/premium-polo.webp', category:'T-SHIRTS' },
-  { name:'Crew Neck T-Shirt', fabric:'180 GSM', prices:[450,400,380,350], colors:['Black','Navy','Maroon','Yellow','White','Grey'], image:'/products/crew-neck.webp', category:'T-SHIRTS' },
-  { name:'Cap', fabric:'FREE SIZE', prices:[250,230,210,190], colors:['White','Black'], image:'/products/cap.webp', category:'ACCESSORIES' }
-] as const;
 const tiers=['UP TO 10','UP TO 20','UP TO 50','50+'];
-type Product = typeof products[number];
 const swatches:Record<string,string>={Black:'#151719',Charcoal:'#41464c',Grey:'#92979c',White:'#f7f7f4',Green:'#226d58',Navy:'#18265d',Maroon:'#8f243e',Yellow:'#e7d93c',Red:'#b52235','Sky Blue':'#7fb9d5'};
 
 function Photo({product,art}:{product:Product;art?:string}) {
@@ -23,6 +15,8 @@ function SceneGarment({product,art}:{product:Product;art?:string}) {
 }
 
 export default function Home(){
+  const [products,setProducts]=useState<Product[]>(seedProducts),[catalogueLoading,setCatalogueLoading]=useState(true),[catalogueSource,setCatalogueSource]=useState('local');
+  useEffect(()=>{let active=true;fetch('/api/products',{cache:'no-store'}).then(async response=>{if(!response.ok)throw new Error('Catalogue unavailable');return response.json()}).then(data=>{if(active&&Array.isArray(data.products)){setProducts(data.products);setCatalogueSource(data.source==='qikink'?'qikink':'local')}}).catch(()=>{if(active){setProducts(seedProducts);setCatalogueSource('local')}}).finally(()=>{if(active)setCatalogueLoading(false)});return()=>{active=false}},[]);
   const [q,setQ]=useState(''),[selected,setSelected]=useState<Product|null>(null),[qty,setQty]=useState(10),[cart,setCart]=useState<{product:Product;qty:number;color:string;size:string;art:string}[]>([]),[cartOpen,setCartOpen]=useState(false),[color,setColor]=useState('Black'),[size,setSize]=useState('M'),[art,setArt]=useState(''),[activeRoom,setActiveRoom]=useState('All'),[tracking,setTracking]=useState(''),[tracked,setTracked]=useState(false),[showStore,setShowStore]=useState(false),[roomTurn,setRoomTurn]=useState(0);
   const list=useMemo(()=>products.filter(p=>(p.name.toLowerCase().includes(q.toLowerCase()))&&(activeRoom==='All'||p.category===activeRoom)),[q,activeRoom]);
   const tier=qty<=10?0:qty<=20?1:qty<=50?2:3;
@@ -43,7 +37,7 @@ export default function Home(){
     </section>
     <div className="ticker"><span>BUILT FOR YOUR BRAND</span><i>✳</i><span>SMALL RUNS TO BULK ORDERS</span><i>✳</i><span>PRINT YOUR WAY</span><i>✳</i><span>BUILT FOR YOUR BRAND</span></div>
     <section id="catalog" className="catalogSection"><div className="sectionIntro"><div><div className="eyebrow">THE PRODUCT FLOOR</div><h2>Find your <em>blank canvas.</em></h2><p>Browse products, choose your options and customise with your artwork.</p></div><div className="searchBox"><Search size={17}/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search the collection"/></div></div>
-      <div className="filterBar"><div className="filterTabs">{['All','HOODIES','T-SHIRTS','ACCESSORIES'].map(x=><button className={activeRoom===x?'active':''} key={x} onClick={()=>setActiveRoom(x)}>{x}</button>)}</div><span>{list.length} PRODUCTS <ChevronDown size={14}/></span></div>
+      <div className="filterBar"><div className="filterTabs">{['All','HOODIES','T-SHIRTS','ACCESSORIES'].map(x=><button className={activeRoom===x?'active':''} key={x} onClick={()=>setActiveRoom(x)}>{x}</button>)}</div><span>{catalogueLoading?'LOADING PRODUCTS':`${list.length} PRODUCTS`} {catalogueSource==='qikink'?'· QIKINK SYNC':''} <ChevronDown size={14}/></span></div>
       <div className="productGrid">{list.map((p,i)=><article className="productCard" key={p.name}><div className="productImageWrap"><span className="productIndex">0{products.indexOf(p)+1} / 06</span><Photo product={p}/><button className="quickAdd" onClick={()=>customize(p)}>CUSTOMISE <ArrowRight size={15}/></button></div><div className="productMeta"><div><span className="fabric">{p.fabric} · {p.category}</span><h3>{p.name}</h3></div><strong>₹{p.prices[3]}<small> / piece</small></strong></div><div className="productBottom"><div className="swatchLine">{p.colors.slice(0,5).map(c=><i key={c} title={c} style={{background:swatches[c]}}/>)}<span>{p.colors.length} colours</span></div><button onClick={()=>customize(p)}>View product ↗</button></div></article>)}</div>
     </section>
     <section id="process" className="processSection"><div className="eyebrow">FROM IDEA TO DELIVERY</div><h2>Your design, <em>in motion.</em></h2><div className="processGrid"><div><span>01</span><Upload/><b>Upload your artwork</b><p>Bring your logo, illustration or print file.</p></div><div><span>02</span><Package/><b>Build your order</b><p>Choose colour, size and quantity.</p></div><div><span>03</span><CheckCircle2/><b>Production begins</b><p>Artwork review, printing and quality check.</p></div><div><span>04</span><Truck/><b>Delivered to you</b><p>Follow your order through each stage.</p></div></div></section>
