@@ -13,7 +13,9 @@
 - Sandbox base URL: `https://sandbox.qikink.com`
 - Token: `POST /api/token`, `application/x-www-form-urlencoded`, fields `ClientId` and `client_secret`
 - Order creation: `POST /api/order/create`, JSON body, headers `ClientId` and `Accesstoken`
-- Order status/read APIs and any product-catalogue endpoints must be checked against the current Qikink Open API reference before they are wired into the UI.
+- Order listing: `GET /api/order/list`, with `ClientId` and `Accesstoken` headers; the PDF documents filters such as `order_reference_no`, `status`, `id`, `ids`, `params`, and pagination.
+- Legacy order lookup: `GET /api/order` is also documented.
+- **Product sync limitation:** the supplied 21-page Qikink API PDF documents token generation, order creation, order listing, and order lookup. It does not document a product-catalogue/list endpoint, product-update webhook, or custom-store `Push to Store` endpoint. Therefore the requested automatic product sync cannot safely be implemented from this document alone. Do not invent an endpoint or treat the order API as a product API. Confirm with Qikink whether a separate product API/webhook or custom-store integration is available.
 
 ## Setup for a local sandbox test
 
@@ -25,10 +27,11 @@
 
 ## Remaining implementation
 
-1. Confirm exact Qikink SKU/product mapping for each size and colour; do not assume the storefront's display names are valid SKUs.
-2. Add protected admin-only diagnostics for Sandbox authentication.
-3. Add durable database models for carts/orders, customer details, payment state and Qikink IDs.
-4. Add a payment gateway and verify payment server-side before forwarding prepaid orders to Qikink.
-5. Store uploaded artwork in durable private/object storage and send Qikink a stable HTTPS design URL.
-6. Implement idempotent order submission and order-status synchronisation.
-7. Test in Sandbox, request Qikink Live API approval, configure Live credentials separately, then perform a reviewed release. No automatic production deployment is part of this branch.
+1. Ask Qikink support whether custom-built stores can receive product updates after clicking Push to Store, and request the product API/webhook specification if available.
+2. Confirm exact Qikink SKU/product mapping for each size and colour; do not assume the storefront's display names are valid SKUs.
+3. Add protected admin-only diagnostics for Sandbox authentication.
+4. Add durable database models for carts/orders, customer details, payment state and Qikink IDs.
+5. Add a payment gateway and verify payment server-side before forwarding prepaid orders to Qikink.
+6. Store uploaded artwork in durable private/object storage and send Qikink a stable HTTPS design URL.
+7. Implement idempotent order submission and order-status synchronisation.
+8. Test in Sandbox, request Qikink Live API approval, configure Live credentials separately, then perform a reviewed release. No automatic production deployment is part of this branch.
