@@ -35,3 +35,12 @@
 6. Store uploaded artwork in durable private/object storage and send Qikink a stable HTTPS design URL.
 7. Implement idempotent order submission and order-status synchronisation.
 8. Test in Sandbox, request Qikink Live API approval, configure Live credentials separately, then perform a reviewed release. No automatic production deployment is part of this branch.
+
+
+## Storefront catalogue preparation
+
+- Product display data now lives in `lib/catalogue.ts` rather than only inside the page component.
+- `GET /api/products` provides the storefront's catalogue response and currently returns the existing local fallback with `source: "local"` and `synced: false`.
+- The storefront fetches this endpoint on load, so the UI and future catalogue source have a defined boundary.
+- This is **not live Qikink sync yet**. Do not label local products as Qikink products. Once Qikink supplies a supported product API/webhook specification, implement a server-side adapter and map their real product IDs, SKUs, variant options, images and prices to the catalogue response.
+- Keep Qikink credentials server-side; never expose them from `/api/products` or a client component.
