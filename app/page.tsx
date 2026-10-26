@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, CheckCircle2, ChevronDown, Compass, Package, Search, ShoppingBag, Truck, Upload, X, Minus, Plus, RotateCcw } from 'lucide-react';
-import { products as seedProducts, type Product } from '@/lib/catalogue';
+import { products as seedProducts, type Product } from '../lib/catalogue';
 
 const tiers=['UP TO 10','UP TO 20','UP TO 50','50+'];
 const swatches:Record<string,string>={Black:'#151719',Charcoal:'#41464c',Grey:'#92979c',White:'#f7f7f4',Green:'#226d58',Navy:'#18265d',Maroon:'#8f243e',Yellow:'#e7d93c',Red:'#b52235','Sky Blue':'#7fb9d5'};
