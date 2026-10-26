@@ -18,7 +18,7 @@
     "@opennextjs/cloudflare": "1.17.2"
   },
   "devDependencies": {
-    "typescript": "latest",
+    "typescript": "5.9.3",
     "@types/node": "latest",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.0",
