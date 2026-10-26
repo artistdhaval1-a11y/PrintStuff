@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { products } from "@/lib/catalogue";
+import { products } from "../../../lib/catalogue";
 
 // This endpoint is the storefront's single catalogue source.
 // It intentionally serves the existing local catalogue until Qikink confirms
