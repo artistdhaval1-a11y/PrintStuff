@@ -12,11 +12,9 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({ onCustomize, onQ
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const categories = [
-    { id: 'all', label: 'All Garments' },
-    { id: 'T-Shirts', label: 'T-Shirts' },
-    { id: 'Hoodies', label: 'Hoodies' },
-    { id: 'Polos', label: 'Polos' },
-    { id: 'Headwear', label: 'Caps' },
+    { id: 'all', label: 'Both Styles' },
+    { id: 'Men', label: 'Men' },
+    { id: 'Women', label: 'Women' },
   ];
 
   const filteredProducts = selectedCategory === 'all'
@@ -30,13 +28,13 @@ export const CatalogSection: React.FC<CatalogSectionProps> = ({ onCustomize, onQ
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <div className="text-xs font-mono uppercase tracking-widest text-[#F01875] mb-2">
-              Curated Apparel Collection
+              Choose Your Fit
             </div>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-[#202020] tracking-tight">
-              Standard Apparel Catalog
+              Men's & Women's T-Shirts
             </h2>
             <p className="text-sm text-[#5E5850] mt-2 max-w-xl">
-              Authentic commercial photography. Each item is manufactured with heavy, durable fabrics and tested for long-lasting prints.
+              Choose a men's or women's 180 GSM round-neck T-shirt, then select your colour, size and custom prints.
             </p>
           </div>
 
