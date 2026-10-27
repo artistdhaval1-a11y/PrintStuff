@@ -262,8 +262,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
               <span>Artwork files are saved with your order</span>
             </div>
             <p className="leading-relaxed text-[11px] text-amber-200/90">
-              Because browser sandboxes cannot attach raw binary image files to an external WhatsApp URL link, 
-              <strong> please attach your high-resolution artwork files (PNG with transparent background, AI, PSD, or PDF)</strong> directly in the WhatsApp chat window after the text message is delivered.
+              Your uploaded artwork images will be stored in the PrintStuff Google Drive order folder. The folder link will be included in the WhatsApp message when available.
             </p>
           </div>
 
