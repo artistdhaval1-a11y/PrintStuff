@@ -998,7 +998,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
               </div>
 
               {/* Large tap targets for reliable size selection on mobile */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-5 gap-3">
                 {Object.keys(sizeQuantities).map((size) => (
                   <div
                     key={size}
@@ -1006,13 +1006,13 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                   >
                     <span className="text-base font-extrabold tracking-wide text-[#202020] font-mono">{size}</span>
                     <span className="text-xs text-[#5E5850]">Quantity</span>
-                    <div className="grid grid-cols-[44px_minmax(0,1fr)_44px] items-center gap-1">
+                    <div className="grid grid-cols-[32px_minmax(0,1fr)_32px] items-center gap-1 w-full">
                       <button
                         type="button"
                         aria-label={`Remove one size ${size} T-shirt`}
                         onClick={() => handleDirectQuantitySet(size, (sizeQuantities[size] || 0) - 1)}
                         disabled={(sizeQuantities[size] || 0) <= 0}
-                        className="h-11 rounded-lg border border-[#202020]/20 bg-white text-xl font-bold text-[#202020] disabled:opacity-35"
+                        className="h-9 w-8 min-w-0 rounded-lg border border-[#202020]/20 bg-white text-lg font-bold text-[#202020] disabled:opacity-35"
                       >−</button>
                       <output aria-live="polite" className="text-center text-lg font-bold tabular-nums text-[#087FA0]">
                         {sizeQuantities[size] || 0}
@@ -1021,7 +1021,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                         type="button"
                         aria-label={`Add one size ${size} T-shirt`}
                         onClick={() => handleDirectQuantitySet(size, (sizeQuantities[size] || 0) + 1)}
-                        className="h-11 rounded-lg border border-[#202020]/20 bg-[#D7FF00] text-xl font-bold text-[#202020]"
+                        className="h-9 w-8 min-w-0 rounded-lg border border-[#202020]/20 bg-[#D7FF00] text-lg font-bold text-[#202020]"
                       >+</button>
                     </div>
                   </div>
