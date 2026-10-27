@@ -11,7 +11,6 @@ export const Header: React.FC<HeaderProps> = ({ cartCount, onOpenCart, onNavigat
       <nav className="hidden lg:flex items-center gap-6 text-sm font-bold text-[#4A4640]">
         <button onClick={() => onNavigate('catalog')} className="hover:text-[#08B9E8] transition-colors whitespace-nowrap shrink-0">Shop</button>
         <button onClick={() => onNavigate('studio')} className="hover:text-[#F01875] transition-colors whitespace-nowrap shrink-0 text-[#F01875] font-black">Custom Studio ✦</button>
-        <button onClick={() => onNavigate('pricing')} className="hover:text-[#D7FF00] transition-colors whitespace-nowrap shrink-0">Bulk Deals</button>
         <button onClick={() => onNavigate('quality')} className="hover:text-white transition-colors whitespace-nowrap shrink-0">Fabric & Quality</button>
       </nav>
       <div className="flex items-center gap-3 shrink-0">
