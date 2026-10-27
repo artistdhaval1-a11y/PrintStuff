@@ -97,7 +97,17 @@ export const OrderTracking: React.FC = () => {
             }
           },
           failure: (reason: unknown) => {
-            const message = typeof reason === 'string' ? reason : 'OTP verification failed. Please try again.';
+            let message = 'OTP verification failed. Please try again.';
+            if (typeof reason === 'string' && reason.trim()) {
+              message = reason;
+            } else if (reason && typeof reason === 'object') {
+              const details = reason as Record<string, unknown>;
+              const candidate = details.message || details.error || details.description || details.type;
+              if (typeof candidate === 'string' && candidate.trim()) message = candidate;
+              else {
+                try { message = JSON.stringify(reason); } catch { /* retain generic message */ }
+              }
+            }
             setError(message);
             setLoading(false);
           }
