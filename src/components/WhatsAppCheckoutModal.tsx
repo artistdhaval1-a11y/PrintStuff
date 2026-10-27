@@ -100,7 +100,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
     }
 
     if (checkoutItems.some(item => item.artworks.length > 0)) {
-      msg += `\\n*NOTE ON FILES:* Uploaded artwork is saved in the Drive folder linked above when available.\\n`;
+      msg += `\n*NOTE ON FILES:* Uploaded artwork is saved in the Drive folder linked above when available.\n`;
     }
     return msg;
   };
