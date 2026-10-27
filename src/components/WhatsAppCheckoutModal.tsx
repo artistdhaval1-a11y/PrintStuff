@@ -22,10 +22,14 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
     phone: '',
     city: '',
     address: '',
+    pincode: '',
+    email: '',
     notes: ''
   });
 
   const [hasOpenedWhatsApp, setHasOpenedWhatsApp] = useState<boolean>(false);
+  const [isSavingOrder, setIsSavingOrder] = useState<boolean>(false);
+  const [orderError, setOrderError] = useState<string>('');
 
   if (!isOpen) return null;
 
@@ -35,7 +39,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   const totalPieces = checkoutItems.reduce((sum, item) => sum + item.totalQuantity, 0);
 
   // Generate formatted WhatsApp message
-  const buildWhatsAppMessage = (): string => {
+  const buildWhatsAppMessage = (order?: { orderNumber: string; trackingToken: string }): string => {
     let msg = `*PRINTSTUFF — CUSTOM APPAREL ORDER ENQUIRY*\n`;
     msg += `═══════════════════════════════\n\n`;
 
@@ -48,6 +52,8 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
       if (customer.address) msg += `• Shipping Address: ${customer.address}\n`;
       msg += `\n`;
     }
+
+    if (order) msg += `*ORDER NUMBER:* ${order.orderNumber}\\n*TRACKING TOKEN:* ${order.trackingToken}\\nKeep these details safe to track your order.\\n\\n`;
 
     msg += `*ORDER ITEMS (${checkoutItems.length} styles, ${totalPieces} total pieces):*\n`;
 
@@ -93,13 +99,32 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
     return msg;
   };
 
-  const handleLaunchWhatsApp = () => {
-    const rawMessage = buildWhatsAppMessage();
-    const encoded = encodeURIComponent(rawMessage);
-    const url = `https://wa.me/${WHATSAPP_RAW_NUMBER}?text=${encoded}`;
-
-    window.open(url, '_blank');
-    setHasOpenedWhatsApp(true);
+  const handleLaunchWhatsApp = async () => {
+    setOrderError('');
+    if (!customer.name.trim() || !customer.phone.trim() || !customer.city.trim() || customer.address.trim().length < 5 || !/^[A-Za-z0-9 -]{4,12}$/.test(customer.pincode.trim())) {
+      setOrderError('Please enter your name, phone, full address, city and valid PIN code.');
+      return;
+    }
+    setIsSavingOrder(true);
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customer, items: checkoutItems.map(item => ({
+          productId: item.productId, productName: item.productName, selectedColor: item.selectedColor,
+          sizeBreakdown: item.sizeBreakdown, totalQuantity: item.totalQuantity, unitPrice: item.unitPrice,
+          totalPrice: item.totalPrice, appliedTierLabel: item.appliedTierLabel, artworks: item.artworks
+        })) })
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Unable to save your order.');
+      window.open('https://wa.me/' + WHATSAPP_RAW_NUMBER + '?text=' + encodeURIComponent(buildWhatsAppMessage(result)), '_blank');
+      setHasOpenedWhatsApp(true);
+    } catch (error) {
+      setOrderError(error instanceof Error ? error.message : 'Unable to save your order. Please try again.');
+    } finally {
+      setIsSavingOrder(false);
+    }
   };
 
   return (
@@ -143,7 +168,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
           {/* Customer Information Form */}
           <div className="p-4 bg-neutral-950 rounded-2xl border border-neutral-800 space-y-3">
             <div className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-              Contact & Delivery Details (Optional, pre-fills your message):
+              Customer & Delivery Details (required to save and track your order):
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -151,7 +176,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
                 <label className="block text-[11px] text-neutral-400 mb-1">Your Name / Organization</label>
                 <input
                   type="text"
-                  placeholder="e.g. Rahul Sharma / Acme Tech"
+                  placeholder="e.g. Rahul Sharma / Acme Tech" required
                   value={customer.name}
                   onChange={(e) => setCustomer({ ...customer, name: e.target.value })}
                   className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-400"
@@ -162,7 +187,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
                 <label className="block text-[11px] text-neutral-400 mb-1">WhatsApp / Phone Number</label>
                 <input
                   type="text"
-                  placeholder="e.g. +91 98765 43210"
+                  placeholder="e.g. +91 98765 43210" required
                   value={customer.phone}
                   onChange={(e) => setCustomer({ ...customer, phone: e.target.value })}
                   className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-400"
@@ -175,13 +200,27 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
                 <label className="block text-[11px] text-neutral-400 mb-1">City / Region</label>
                 <input
                   type="text"
-                  placeholder="e.g. Mumbai, Maharashtra"
+                  placeholder="e.g. Ahmedabad, Gujarat" required
                   value={customer.city}
                   onChange={(e) => setCustomer({ ...customer, city: e.target.value })}
                   className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-400"
                 />
               </div>
 
+              <div>
+                <label className="block text-[11px] text-neutral-400 mb-1">PIN Code</label>
+                <input type="text" placeholder="e.g. 380015" value={customer.pincode} onChange={(e) => setCustomer({ ...customer, pincode: e.target.value })} required className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-[11px] text-neutral-400 mb-1">Full Delivery Address</label>
+              <input type="text" placeholder="House / street / area" value={customer.address} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} required className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[11px] text-neutral-400 mb-1">Email (optional)</label>
+                <input type="email" placeholder="you@example.com" value={customer.email} onChange={(e) => setCustomer({ ...customer, email: e.target.value })} className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white" />
+              </div>
               <div>
                 <label className="block text-[11px] text-neutral-400 mb-1">Special Notes / Deadline</label>
                 <input
@@ -224,6 +263,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
             </p>
           </div>
 
+          {orderError && <div role="alert" className="p-3 rounded-xl bg-red-950/60 border border-red-800 text-red-200 text-xs">{orderError}</div>}
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-neutral-800">
             <div className="text-xs text-neutral-400 text-center sm:text-left">
@@ -241,10 +281,11 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
 
               <button
                 onClick={handleLaunchWhatsApp}
+                disabled={isSavingOrder}
                 className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 text-xs font-bold text-neutral-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-98"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>Launch WhatsApp Now</span>
+                <span>{isSavingOrder ? 'Saving Order…' : 'Save Order & Open WhatsApp'}</span>
                 <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
               </button>
             </div>
