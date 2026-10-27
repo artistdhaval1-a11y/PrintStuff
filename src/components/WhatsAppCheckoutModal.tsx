@@ -53,7 +53,11 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
       msg += `\n`;
     }
 
-    if (order) {\n      msg += `*ORDER NUMBER:* ${order.orderNumber}\\n*TRACKING TOKEN:* ${order.trackingToken}\\nKeep these details safe to track your order.\\n`;\n      if (order.artworkFolderUrl) msg += `*UPLOADED ARTWORK FILES:* ${order.artworkFolderUrl}\\n`;\n      msg += `\\n`;\n    }
+    if (order) {
+      msg += `*ORDER NUMBER:* ${order.orderNumber}\\n*TRACKING TOKEN:* ${order.trackingToken}\\nKeep these details safe to track your order.\\n`;
+      if (order.artworkFolderUrl) msg += `*UPLOADED ARTWORK FILES:* ${order.artworkFolderUrl}\\n`;
+      msg += `\\n`;
+    }
 
     msg += `*ORDER ITEMS (${checkoutItems.length} styles, ${totalPieces} total pieces):*\n`;
 
