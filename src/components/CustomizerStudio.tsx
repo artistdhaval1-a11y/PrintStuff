@@ -958,26 +958,34 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                 </div>
               </div>
 
-              {/* Size selector with a simple 0–100 quantity dropdown for each size */}
+              {/* Large tap targets for reliable size selection on mobile */}
               <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
                 {Object.keys(sizeQuantities).map((size) => (
-                  <label
+                  <div
                     key={size}
                     className="min-w-0 rounded-xl border border-[#202020]/15 bg-[#FFFEFB] p-3 flex flex-col gap-2"
                   >
-                    <span className="text-sm font-extrabold tracking-wide text-[#202020] font-mono">{size}</span>
+                    <span className="text-base font-extrabold tracking-wide text-[#202020] font-mono">{size}</span>
                     <span className="text-xs text-[#5E5850]">Quantity</span>
-                    <select
-                      aria-label={`Quantity for size ${size}`}
-                      value={sizeQuantities[size] || 0}
-                      onChange={(e) => handleDirectQuantitySet(size, Number(e.target.value))}
-                      className="w-full min-w-0 h-10 rounded-lg border border-[#202020]/20 bg-[#FFF0D8] px-2 text-sm font-semibold text-[#202020] focus:outline-none focus:ring-2 focus:ring-[#08B9E8]"
-                    >
-                      {Array.from({ length: 101 }, (_, quantity) => (
-                        <option key={quantity} value={quantity}>{quantity}</option>
-                      ))}
-                    </select>
-                  </label>
+                    <div className="grid grid-cols-[44px_minmax(0,1fr)_44px] items-center gap-1">
+                      <button
+                        type="button"
+                        aria-label={`Remove one size ${size} T-shirt`}
+                        onClick={() => handleDirectQuantitySet(size, (sizeQuantities[size] || 0) - 1)}
+                        disabled={(sizeQuantities[size] || 0) <= 0}
+                        className="h-11 rounded-lg border border-[#202020]/20 bg-white text-xl font-bold text-[#202020] disabled:opacity-35"
+                      >−</button>
+                      <output aria-live="polite" className="text-center text-lg font-bold tabular-nums text-[#087FA0]">
+                        {sizeQuantities[size] || 0}
+                      </output>
+                      <button
+                        type="button"
+                        aria-label={`Add one size ${size} T-shirt`}
+                        onClick={() => handleDirectQuantitySet(size, (sizeQuantities[size] || 0) + 1)}
+                        className="h-11 rounded-lg border border-[#202020]/20 bg-[#D7FF00] text-xl font-bold text-[#202020]"
+                      >+</button>
+                    </div>
+                  </div>
                 ))}
               </div>
 
