@@ -188,7 +188,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const trackingToken = randomBytes(24).toString('base64url');
     const trackingTokenHash = createHash('sha256').update(trackingToken).digest('hex');
 
-    const { folderUrl: artworkFolderUrl, links: artworkLinks } = await uploadArtworkToDrive(await googleDriveToken(req), orderNumber, items);
+    const hasArtworkData = items.some((item: any) => Array.isArray(item.artworks) && item.artworks.some((art: any) => typeof art.dataUrl === 'string' && art.dataUrl.startsWith('data:image/')));\n    const driveResult = hasArtworkData\n      ? await uploadArtworkToDrive(await googleDriveToken(req), orderNumber, items)\n      : { folderUrl: '', links: new Map<string, string>() };\n    const artworkFolderUrl = driveResult.folderUrl;\n    const artworkLinks = driveResult.links;
     safeItems.forEach((item: any, itemIndex: number) => {
       item.artworks.forEach((art: any, artworkIndex: number) => {
         const link = artworkLinks.get(`${itemIndex}:${artworkIndex}`);
