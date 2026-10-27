@@ -102,8 +102,14 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
     Object.values(sizeQuantities).reduce((sum, qty) => sum + (Number(qty) || 0), 0)
   );
 
-  // Calculate pricing based on brochure pricing bands
-  const { unitPrice, tierLabel } = getPriceForQuantity(selectedProduct, totalQuantity);
+  // Calculate garment plus each selected print option per T-shirt.
+  const { unitPrice: garmentUnitPrice, tierLabel } = getPriceForQuantity(selectedProduct, totalQuantity);
+  const printUnitPrice = artworks.reduce((sum, art) => {
+    if (art.printSize === 'Logo') return sum + 50;
+    if (art.printSize === 'A3') return sum + 250;
+    return sum + 150; // A4 is the default for uploaded artwork
+  }, 0);
+  const unitPrice = garmentUnitPrice + printUnitPrice;
   const totalPrice = unitPrice * totalQuantity;
 
   // Selected artwork object
@@ -1017,7 +1023,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                     ₹{totalPrice.toLocaleString('en-IN')}
                   </div>
                   <div className="mt-1 text-[11px] leading-relaxed text-[#5E5850] font-mono">
-                    ({totalQuantity} pcs × ₹{unitPrice}/pc) <span aria-hidden="true">•</span> Shipping extra as per location
+                    ({totalQuantity} pcs × ₹{garmentUnitPrice} garment + ₹{printUnitPrice} prints per pc) <span aria-hidden="true">•</span> Shipping extra as per location
                   </div>
                 </div>
 
