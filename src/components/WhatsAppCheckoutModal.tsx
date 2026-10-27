@@ -31,6 +31,34 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   const [isSavingOrder, setIsSavingOrder] = useState<boolean>(false);
   const [orderError, setOrderError] = useState<string>('');
 
+  // Keep the checkout request below Vercel's payload limit by resizing artwork previews.
+  // WebP preserves transparency and is only used for the order-upload copy; the editor keeps the original.
+  const prepareArtworkForUpload = async (dataUrl: string): Promise<string> => {
+    if (!dataUrl.startsWith('data:image/')) return '';
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = () => {
+        const maxSide = 1400;
+        const scale = Math.min(1, maxSide / Math.max(image.naturalWidth || image.width, image.naturalHeight || image.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round((image.naturalWidth || image.width) * scale));
+        canvas.height = Math.max(1, Math.round((image.naturalHeight || image.height) * scale));
+        const context = canvas.getContext('2d');
+        if (!context) return resolve('');
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob((blob) => {
+          if (!blob) return resolve('');
+          const reader = new FileReader();
+          reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : '');
+          reader.onerror = () => resolve('');
+          reader.readAsDataURL(blob);
+        }, 'image/webp', 0.82);
+      };
+      image.onerror = () => resolve('');
+      image.src = dataUrl;
+    });
+  };
+
   if (!isOpen) return null;
 
   // Active items list (either single item direct enquiry or entire cart)
@@ -113,16 +141,27 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
     }
     setIsSavingOrder(true);
     try {
+      const orderItems = await Promise.all(checkoutItems.map(async (item) => ({
+        productId: item.productId, productName: item.productName, selectedColor: item.selectedColor,
+        sizeBreakdown: item.sizeBreakdown, totalQuantity: item.totalQuantity, unitPrice: item.unitPrice,
+        totalPrice: item.totalPrice, appliedTierLabel: item.appliedTierLabel,
+        artworks: await Promise.all(item.artworks.map(async (art) => ({
+          name: art.name, view: art.view, placementPreset: art.placementPreset, printSize: art.printSize,
+          x: art.x, y: art.y, width: art.width,
+          dataUrl: await prepareArtworkForUpload(art.dataUrl)
+        })))
+      })));
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customer, items: checkoutItems.map(item => ({
-          productId: item.productId, productName: item.productName, selectedColor: item.selectedColor,
-          sizeBreakdown: item.sizeBreakdown, totalQuantity: item.totalQuantity, unitPrice: item.unitPrice,
-          totalPrice: item.totalPrice, appliedTierLabel: item.appliedTierLabel, artworks: item.artworks.map(art => ({ ...art, dataUrl: art.dataUrl }))
-        })) })
+        body: JSON.stringify({ customer, items: orderItems })
       });
-      const result = await response.json();
+      const responseText = await response.text();
+      let result: any;
+      try { result = responseText ? JSON.parse(responseText) : {}; }
+      catch { throw new Error(response.status === 413 || /request entity too large/i.test(responseText)
+        ? 'Your artwork upload is too large. Please try fewer or smaller images.'
+        : 'The order service returned an unexpected response. Please try again.'); }
       if (!response.ok) throw new Error(result.error || 'Unable to save your order.');
       window.open('https://wa.me/' + WHATSAPP_RAW_NUMBER + '?text=' + encodeURIComponent(buildWhatsAppMessage(result)), '_blank');
       setHasOpenedWhatsApp(true);
