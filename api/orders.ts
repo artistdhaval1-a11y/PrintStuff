@@ -79,19 +79,33 @@ async function uploadArtworkToDrive(
     throw new Error('Your artwork files are too large to send in one order. Please use images under 3 MB total or contact us on WhatsApp.');
   }
 
-  // Verify the configured parent folder is visible to the impersonated service account before creating anything.
-  const parentCheck = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(driveFolderId)}?supportsAllDrives=true&fields=id,name,mimeType,driveId,webViewLink`, {
+  // Verify the configured parent folder. If its ID is stale, try locating the shared folder by its exact name.
+  let parentFolderId = driveFolderId;
+  let parentCheck = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(parentFolderId)}?supportsAllDrives=true&fields=id,name,mimeType,driveId,webViewLink`, {
     headers: { Authorization: `Bearer ${token}` }
   });
-  const parentInfo = await parentCheck.json() as { id?: string; name?: string; mimeType?: string; driveId?: string; error?: { message?: string; errors?: Array<{ reason?: string; message?: string }> } };
+  let parentInfo = await parentCheck.json() as { id?: string; name?: string; mimeType?: string; driveId?: string; webViewLink?: string; error?: { message?: string; errors?: Array<{ reason?: string; message?: string }> } };
   if (!parentCheck.ok || !parentInfo.id) {
-    console.error('Google Drive parent folder lookup failed', JSON.stringify({
-      status: parentCheck.status,
-      folderId: driveFolderId,
-      message: parentInfo.error?.message || 'No folder metadata returned',
-      reasons: parentInfo.error?.errors?.map(error => error.reason) || []
-    }));
-    throw new Error('Google Drive cannot find or authorize access to the configured PrintStuff Orders folder. The folder ID and the Google Cloud service account access must both match.');
+    const listUrl = 'https://www.googleapis.com/drive/v3/files?supportsAllDrives=true&includeItemsFromAllDrives=true&corpora=user&pageSize=100&q=' +
+      encodeURIComponent("name = 'PrintStuff Orders' and mimeType = 'application/vnd.google-apps.folder' and trashed = false") +
+      '&fields=files(id,name,mimeType,driveId,webViewLink,owners(emailAddress))';
+    const listResponse = await fetch(listUrl, { headers: { Authorization: `Bearer ${token}` } });
+    const listing = await listResponse.json() as { files?: Array<{ id: string; name: string; mimeType?: string; driveId?: string; webViewLink?: string }>; error?: { message?: string } };
+    const candidate = listing.files?.find(file => file.name === 'PrintStuff Orders' && file.mimeType === 'application/vnd.google-apps.folder');
+    if (listResponse.ok && candidate?.id) {
+      parentFolderId = candidate.id;
+      console.info('Resolved PrintStuff Orders folder by name; configured ID was not accessible.', JSON.stringify({ configuredFolderId: driveFolderId, resolvedFolderId: candidate.id }));
+    } else {
+      console.error('Google Drive parent folder lookup failed', JSON.stringify({
+        configuredFolderId: driveFolderId,
+        directStatus: parentCheck.status,
+        directMessage: parentInfo.error?.message || 'No folder metadata returned',
+        listStatus: listResponse.status,
+        listMessage: listing.error?.message || '',
+        matchingFolderCount: listing.files?.filter(file => file.name === 'PrintStuff Orders').length || 0
+      }));
+      throw new Error('The Google Drive service account cannot see the PrintStuff Orders folder. The folder is shared in your account, but Google is not exposing it to the identity used by this app. We need to correct the Google Cloud service-account access; retrying the order will not fix it.');
+    }
   }
 
   const folderResponse = await fetch('https://www.googleapis.com/drive/v3/files?supportsAllDrives=true&fields=id,name,webViewLink', {
@@ -100,7 +114,7 @@ async function uploadArtworkToDrive(
     body: JSON.stringify({
       name: orderNumber,
       mimeType: 'application/vnd.google-apps.folder',
-      parents: [driveFolderId]
+      parents: [parentFolderId]
     })
   });
   const folder = await folderResponse.json() as { id?: string; webViewLink?: string; error?: { message?: string } };
