@@ -54,31 +54,15 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
   const [showPrintZoneGuide, setShowPrintZoneGuide] = useState<boolean>(true);
 
   // Artworks collection
-  const [artworks, setArtworks] = useState<PlacedArtwork[]>([
-    {
-      id: 'default-printstuff-crest',
-      name: 'PrintStuff Tag Logo',
-      dataUrl: SAMPLE_LOGOS[0].dataUrl,
-      view: 'front',
-      x: 50, // center in print zone
-      y: 40,
-      width: 32,
-      rotation: 0,
-      lockAspectRatio: true,
-      aspectRatio: 1,
-      placementPreset: 'Center Chest'
-    }
-  ]);
+  const [artworks, setArtworks] = useState<PlacedArtwork[]>([]);
 
-  const [selectedArtworkId, setSelectedArtworkId] = useState<string | null>(
-    'default-printstuff-crest'
-  );
+  const [selectedArtworkId, setSelectedArtworkId] = useState<string | null>(null);
 
   // Size breakdown quantities (Enforce minimum 1)
   const [sizeQuantities, setSizeQuantities] = useState<SizeBreakdown>({
     S: 0,
-    M: 2,
-    L: 3,
+    M: 0,
+    L: 0,
     XL: 0,
     XXL: 0
   });
@@ -104,8 +88,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
     } else {
       setSizeQuantities({
         S: 0,
-        M: 2,
-        L: 3,
+        M: 0,
+        L: 0,
         XL: 0,
         XXL: 0
       });
