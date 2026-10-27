@@ -26,7 +26,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const customer = body?.customer ?? {};
     const items = Array.isArray(body?.items) ? body.items : [];
     const name = clean(customer.name, 120);
-    const phone = clean(customer.phone, 30);
+    const phone = clean(customer.phone, 30).replace(/\\D/g, '').slice(0, 15);
     const address = clean(customer.address, 500);
     const city = clean(customer.city, 100);
     const pincode = clean(customer.pincode, 12);
