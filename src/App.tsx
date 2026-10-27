@@ -5,7 +5,6 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { CatalogSection } from './components/CatalogSection';
 import { CustomizerStudio } from './components/CustomizerStudio';
-import { PricingSpecsSection } from './components/PricingSpecsSection';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { WhatsAppCheckoutModal } from './components/WhatsAppCheckoutModal';
@@ -148,9 +147,6 @@ export default function App() {
             onDirectWhatsApp={handleDirectWhatsApp}
           />
 
-          <PricingSpecsSection
-            onSelectProductForStudio={(p) => handleSelectProductForStudio(p)}
-          />
         </main>
 
         {/* Footer */}
