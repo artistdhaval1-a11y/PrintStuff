@@ -79,7 +79,7 @@ async function uploadArtworkToDrive(
     throw new Error('Your artwork files are too large to send in one order. Please use images under 3 MB total or contact us on WhatsApp.');
   }
 
-  const folderResponse = await fetch('https://www.googleapis.com/drive/v3/files?fields=id,name,webViewLink', {
+  const folderResponse = await fetch('https://www.googleapis.com/drive/v3/files?supportsAllDrives=true&fields=id,name,webViewLink', {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -91,7 +91,7 @@ async function uploadArtworkToDrive(
   const folder = await folderResponse.json() as { id?: string; webViewLink?: string; error?: { message?: string } };
   if (!folderResponse.ok || !folder.id) {
     console.error('Google Drive order folder creation failed', folderResponse.status, folder.error?.message || '');
-    throw new Error('Could not create the artwork folder in Google Drive. Please try again or contact PrintStuff.');
+    throw new Error('Google Drive cannot access the PrintStuff Orders folder. Please share that folder with the configured PrintStuff Drive uploader service account as Editor, then try again.');
   }
 
   const links = new Map<string, string>();
@@ -109,7 +109,7 @@ async function uploadArtworkToDrive(
     });
     const preamble = Buffer.from(`--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${metadata}\r\n--${boundary}\r\nContent-Type: ${mimeType}\r\n\r\n`);
     const ending = Buffer.from(`\r\n--${boundary}--`);
-    const uploadResponse = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink', {
+    const uploadResponse = await fetch('https://www.googleapis.com/upload/drive/v3/files?supportsAllDrives=true&uploadType=multipart&fields=id,name,webViewLink', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
