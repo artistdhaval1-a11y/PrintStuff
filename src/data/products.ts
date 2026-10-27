@@ -17,7 +17,7 @@ export const HERO_PODIUM_IMAGE = heroPodiumImg;
 export const WHATSAPP_PHONE_NUMBER = '+91-74056-52991';
 export const WHATSAPP_RAW_NUMBER = '917405652991';
 
-export const PRODUCTS: Product[] = [
+const ALL_PRODUCTS: Product[] = [
   {
     id: 'crew-neck-tshirt',
     name: 'Crew Neck T-Shirt - 180GSM',
@@ -257,6 +257,24 @@ export const PRODUCTS: Product[] = [
     },
     defaultPlacement: 'front'
   }
+];
+
+
+export const PRODUCTS: Product[] = [
+  {
+    ...ALL_PRODUCTS[0],
+    id: 'mens-round-neck-180gsm',
+    name: "Men's Round Neck T-Shirt - 180 GSM",
+    category: 'Men',
+    description: 'Men’s 180 GSM round-neck T-shirt. Choose a colour and size, upload one or more designs, and preview prints on the front or back.',
+  },
+  {
+    ...ALL_PRODUCTS[0],
+    id: 'womens-round-neck-180gsm',
+    name: "Women's Round Neck T-Shirt - 180 GSM",
+    category: 'Women',
+    description: 'Women’s 180 GSM round-neck T-shirt. Choose a colour and size, upload one or more designs, and preview prints on the front or back.',
+  },
 ];
 
 export function getPriceForQuantity(product: Product, quantity: number): { unitPrice: number; tierLabel: string } {
