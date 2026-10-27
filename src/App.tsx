@@ -9,6 +9,7 @@ import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { WhatsAppCheckoutModal } from './components/WhatsAppCheckoutModal';
 import { ProductQuickViewModal } from './components/ProductQuickViewModal';
+import { OrderTracking } from './components/OrderTracking';
 import { BrandProvider } from './context/BrandContext';
 import { Check } from 'lucide-react';
 
@@ -147,6 +148,7 @@ export default function App() {
             onDirectWhatsApp={handleDirectWhatsApp}
           />
 
+          <OrderTracking />
         </main>
 
         {/* Footer */}
