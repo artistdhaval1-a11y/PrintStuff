@@ -79,6 +79,21 @@ async function uploadArtworkToDrive(
     throw new Error('Your artwork files are too large to send in one order. Please use images under 3 MB total or contact us on WhatsApp.');
   }
 
+  // Verify the configured parent folder is visible to the impersonated service account before creating anything.
+  const parentCheck = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(driveFolderId)}?supportsAllDrives=true&fields=id,name,mimeType,driveId,webViewLink`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  const parentInfo = await parentCheck.json() as { id?: string; name?: string; mimeType?: string; driveId?: string; error?: { message?: string; errors?: Array<{ reason?: string; message?: string }> } };
+  if (!parentCheck.ok || !parentInfo.id) {
+    console.error('Google Drive parent folder lookup failed', JSON.stringify({
+      status: parentCheck.status,
+      folderId: driveFolderId,
+      message: parentInfo.error?.message || 'No folder metadata returned',
+      reasons: parentInfo.error?.errors?.map(error => error.reason) || []
+    }));
+    throw new Error('Google Drive cannot find or authorize access to the configured PrintStuff Orders folder. The folder ID and the Google Cloud service account access must both match.');
+  }
+
   const folderResponse = await fetch('https://www.googleapis.com/drive/v3/files?supportsAllDrives=true&fields=id,name,webViewLink', {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
