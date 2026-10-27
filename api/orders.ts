@@ -211,9 +211,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const trackingTokenHash = createHash('sha256').update(trackingToken).digest('hex');
 
     const hasArtworkData = items.some((item: any) => Array.isArray(item.artworks) && item.artworks.some((art: any) => typeof art.dataUrl === 'string' && art.dataUrl.startsWith('data:image/')));
-    const driveResult = hasArtworkData
-      ? await uploadArtworkToDrive(await googleDriveToken(), orderNumber, items)
-      : { folderUrl: '', links: new Map<string, string>() };
+    // Google Drive integration is intentionally optional until custom-domain OAuth setup is complete.
+    // Orders must still be saved even when Drive is not connected.
+    let driveResult: { folderUrl: string; links: Map<string, string> } = {
+      folderUrl: '',
+      links: new Map<string, string>()
+    };
+    if (hasArtworkData) {
+      try {
+        driveResult = await uploadArtworkToDrive(await googleDriveToken(), orderNumber, items);
+      } catch (driveError) {
+        console.warn('Artwork was not uploaded to Google Drive; continuing order submission.', driveError instanceof Error ? driveError.message : 'Unknown Drive error');
+      }
+    }
     const artworkFolderUrl = driveResult.folderUrl;
     const artworkLinks = driveResult.links;
     safeItems.forEach((item: any, itemIndex: number) => {
