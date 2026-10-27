@@ -68,6 +68,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const frontFileInputRef = useRef<HTMLInputElement>(null);
+  const backFileInputRef = useRef<HTMLInputElement>(null);
   const printZoneRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -130,7 +132,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
       : selectedProduct.images.front;
 
   // Handle file uploads (PNG, JPG, WEBP, SVG)
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, targetView: 'front' | 'back' = currentView) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
@@ -152,7 +154,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
             file,
             name: file.name,
             dataUrl,
-            view: currentView,
+            view: targetView,
             x: 50,
             y: 45,
             width: 45,
@@ -171,9 +173,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
       reader.readAsDataURL(file);
     });
 
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+    if (e.target) e.target.value = '';
   };
 
   // Add sample logo
@@ -627,21 +627,17 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                   </p>
                 </div>
 
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#202020] bg-[#D7FF00] hover:bg-[#e5ff59] rounded-lg transition-colors"
-                >
-                  <Upload className="w-3.5 h-3.5" />
-                  <span>Upload File</span>
-                </button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml"
-                  multiple
-                  onChange={handleFileUpload}
-                  className="hidden"
-                />
+                <div className="flex flex-wrap gap-2">
+                  <button type="button" onClick={() => frontFileInputRef.current?.click()} className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#202020] bg-[#D7FF00] hover:bg-[#e5ff59] rounded-lg transition-colors">
+                    <Upload className="w-3.5 h-3.5" /><span>Upload Front Design</span>
+                  </button>
+                  <button type="button" onClick={() => backFileInputRef.current?.click()} className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#202020] bg-[#FFF0D8] border border-[#202020]/20 hover:bg-[#FFE2B5] rounded-lg transition-colors">
+                    <Upload className="w-3.5 h-3.5" /><span>Upload Back Design</span>
+                  </button>
+                </div>
+                <input ref={frontFileInputRef} type="file" accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml" multiple onChange={(e) => handleFileUpload(e, 'front')} className="hidden" />
+                <input ref={backFileInputRef} type="file" accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml" multiple onChange={(e) => handleFileUpload(e, 'back')} className="hidden" />
+                <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml" multiple onChange={handleFileUpload} className="hidden" />
               </div>
 
               {/* Official Brand Logos Picker */}
