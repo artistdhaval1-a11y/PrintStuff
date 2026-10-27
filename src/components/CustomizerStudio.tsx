@@ -800,6 +800,23 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                     </button>
                   </div>
 
+                  {/* Choose which side this uploaded design prints on */}
+                  <div className="space-y-2">
+                    <label htmlFor="artwork-print-side" className="block text-xs font-semibold text-[#202020]">
+                      Print Side
+                    </label>
+                    <select
+                      id="artwork-print-side"
+                      value={activeArtwork.view}
+                      onChange={(e) => updateActiveArtwork({ view: e.target.value as 'front' | 'back' })}
+                      className="w-full min-h-12 rounded-xl border border-[#202020]/20 bg-[#FFF0D8] px-3 text-sm font-bold text-[#202020] focus:outline-none focus:ring-2 focus:ring-[#08B9E8]"
+                    >
+                      <option value="front">Front</option>
+                      <option value="back">Back</option>
+                    </select>
+                    <p className="text-[11px] text-[#5E5850]">Upload multiple designs and assign each to the front or back.</p>
+                  </div>
+
                   {/* Print size selection for the selected uploaded design */}
                   <div className="space-y-2">
                     <label htmlFor="artwork-print-size" className="block text-xs font-semibold text-[#202020]">
