@@ -99,7 +99,9 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
       msg += `\n*CUSTOMER NOTES & SPECIAL REQUESTS:*\n"${customer.notes.trim()}"\n`;
     }
 
-    msg += `\n*NOTE ON FILES:* I am following up in this chat with my original high-resolution graphic/vector files for digital proofing.\n`;
+    if (checkoutItems.some(item => item.artworks.length > 0)) {
+      msg += `\\n*NOTE ON FILES:* Uploaded artwork is saved in the Drive folder linked above when available.\\n`;
+    }
     return msg;
   };
 
