@@ -39,7 +39,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   const totalPieces = checkoutItems.reduce((sum, item) => sum + item.totalQuantity, 0);
 
   // Generate formatted WhatsApp message
-  const buildWhatsAppMessage = (order?: { orderNumber: string; trackingToken: string }): string => {
+  const buildWhatsAppMessage = (order?: { orderNumber: string; trackingToken: string; artworkFolderUrl?: string }): string => {
     let msg = `*PRINTSTUFF — CUSTOM APPAREL ORDER ENQUIRY*\n`;
     msg += `═══════════════════════════════\n\n`;
 
@@ -53,7 +53,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
       msg += `\n`;
     }
 
-    if (order) msg += `*ORDER NUMBER:* ${order.orderNumber}\\n*TRACKING TOKEN:* ${order.trackingToken}\\nKeep these details safe to track your order.\\n\\n`;
+    if (order) {\n      msg += `*ORDER NUMBER:* ${order.orderNumber}\\n*TRACKING TOKEN:* ${order.trackingToken}\\nKeep these details safe to track your order.\\n`;\n      if (order.artworkFolderUrl) msg += `*UPLOADED ARTWORK FILES:* ${order.artworkFolderUrl}\\n`;\n      msg += `\\n`;\n    }
 
     msg += `*ORDER ITEMS (${checkoutItems.length} styles, ${totalPieces} total pieces):*\n`;
 
@@ -113,7 +113,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
         body: JSON.stringify({ customer, items: checkoutItems.map(item => ({
           productId: item.productId, productName: item.productName, selectedColor: item.selectedColor,
           sizeBreakdown: item.sizeBreakdown, totalQuantity: item.totalQuantity, unitPrice: item.unitPrice,
-          totalPrice: item.totalPrice, appliedTierLabel: item.appliedTierLabel, artworks: item.artworks
+          totalPrice: item.totalPrice, appliedTierLabel: item.appliedTierLabel, artworks: item.artworks.map(art => ({ ...art, dataUrl: art.dataUrl }))
         })) })
       });
       const result = await response.json();
@@ -255,7 +255,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
           <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-800/80 text-amber-200 text-xs space-y-1.5">
             <div className="flex items-center gap-2 font-bold text-amber-300">
               <AlertCircle className="w-4 h-4 shrink-0" />
-              <span>Important: Attach Your Original Files in WhatsApp Chat</span>
+              <span>Artwork files are saved with your order</span>
             </div>
             <p className="leading-relaxed text-[11px] text-amber-200/90">
               Because browser sandboxes cannot attach raw binary image files to an external WhatsApp URL link, 
@@ -295,7 +295,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
             <div className="p-3 bg-emerald-950/60 border border-emerald-800/80 rounded-xl flex items-center gap-2 text-xs text-emerald-300">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>
-                WhatsApp has launched in a new window. Remember to attach your high-resolution design files to the PrintStuff sales team!
+                WhatsApp has launched in a new window. Your order details are ready. If artwork was uploaded, its Google Drive folder link is included in the WhatsApp message.
               </span>
             </div>
           )}
