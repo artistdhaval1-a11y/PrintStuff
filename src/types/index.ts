@@ -82,5 +82,7 @@ export interface CustomerDetails {
   phone: string;
   city: string;
   address: string;
+  pincode: string;
+  email: string;
   notes: string;
 }
