@@ -17,43 +17,36 @@ function clean(value: unknown, max = 500): string {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
-async function googleDriveToken(req: VercelRequest): Promise<string> {
-  const raw = req.headers['x-vercel-oidc-token'];
-  const oidcToken = Array.isArray(raw) ? raw[0] : raw;
-  if (!oidcToken) throw new Error('Google Drive connection is not available in this Preview deployment.');
-
-  const exchange = await fetch('https://sts.googleapis.com/v1/token', {
+async function googleDriveToken(): Promise<string> {
+  if (!supabaseUrl || !serviceKey) throw new Error('Order service is not configured yet.');
+  const tokenResponse = await fetch(`${supabaseUrl.replace(/\/$/, '')}/rest/v1/google_oauth_tokens?provider=eq.google_drive&select=refresh_token&limit=1`, {
+    headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` }
+  });
+  const rows = await tokenResponse.json() as Array<{ refresh_token?: string }> | { message?: string };
+  const refreshToken = Array.isArray(rows) ? rows[0]?.refresh_token : undefined;
+  if (!tokenResponse.ok || !refreshToken) {
+    console.error('Google OAuth refresh token is not configured', tokenResponse.status);
+    throw new Error('PrintStuff Google Drive is not connected yet. The owner must connect Google Drive once before artwork can be uploaded.');
+  }
+  const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_OAUTH_CLIENT_SECRET;
+  if (!clientId || !clientSecret) throw new Error('Google OAuth client credentials are not configured in Preview.');
+  const refreshed = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
-      audience: wifAudience,
-      grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
-      requested_token_type: 'urn:ietf:params:oauth:token-type:access_token',
-      scope: 'https://www.googleapis.com/auth/cloud-platform',
-      subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-      subject_token: oidcToken
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: refreshToken,
+      grant_type: 'refresh_token'
     })
   });
-  const exchanged = await exchange.json() as { access_token?: string; error?: string; error_description?: string };
-  if (!exchange.ok || !exchanged.access_token) {
-    console.error('Google STS exchange failed', exchange.status, exchanged.error || '');
-    throw new Error('Google Drive authentication failed. Please check the Preview identity configuration.');
+  const token = await refreshed.json() as { access_token?: string; error?: string; error_description?: string };
+  if (!refreshed.ok || !token.access_token) {
+    console.error('Google OAuth token refresh failed', refreshed.status, token.error || '');
+    throw new Error('PrintStuff could not refresh Google Drive access. Please reconnect Google Drive.');
   }
-
-  const impersonated = await fetch(
-    `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${encodeURIComponent(serviceAccount)}:generateAccessToken`,
-    {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${exchanged.access_token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ scope: ['https://www.googleapis.com/auth/drive'], lifetime: '3600s' })
-    }
-  );
-  const credentials = await impersonated.json() as { accessToken?: string; error?: { message?: string } };
-  if (!impersonated.ok || !credentials.accessToken) {
-    console.error('Google service-account impersonation failed', impersonated.status, credentials.error?.message || '');
-    throw new Error('Google Drive service account access is not configured for Preview.');
-  }
-  return credentials.accessToken;
+  return token.access_token;
 }
 
 async function uploadArtworkToDrive(
@@ -219,7 +212,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const hasArtworkData = items.some((item: any) => Array.isArray(item.artworks) && item.artworks.some((art: any) => typeof art.dataUrl === 'string' && art.dataUrl.startsWith('data:image/')));
     const driveResult = hasArtworkData
-      ? await uploadArtworkToDrive(await googleDriveToken(req), orderNumber, items)
+      ? await uploadArtworkToDrive(await googleDriveToken(), orderNumber, items)
       : { folderUrl: '', links: new Map<string, string>() };
     const artworkFolderUrl = driveResult.folderUrl;
     const artworkLinks = driveResult.links;
