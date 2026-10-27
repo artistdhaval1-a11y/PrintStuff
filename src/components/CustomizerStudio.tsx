@@ -153,7 +153,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
             rotation: 0,
             lockAspectRatio: true,
             aspectRatio: aspect,
-            placementPreset: 'Center Chest'
+            placementPreset: 'Center Chest',
+            printSize: 'A4'
           };
 
           setArtworks((prev) => [...prev, newArtwork]);
@@ -183,7 +184,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
       rotation: 0,
       lockAspectRatio: true,
       aspectRatio: logo.aspectRatio || 1,
-      placementPreset: 'Center Chest'
+      placementPreset: 'Center Chest',
+      printSize: 'A4'
     };
     setArtworks((prev) => [...prev, newArtwork]);
     setSelectedArtworkId(newArtwork.id);
@@ -790,6 +792,23 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                       <Trash2 className="w-3 h-3" />
                       <span>Remove</span>
                     </button>
+                  </div>
+
+                  {/* Print size selection for the selected uploaded design */}
+                  <div className="space-y-2">
+                    <label htmlFor="artwork-print-size" className="block text-xs font-semibold text-[#202020]">
+                      Print Size
+                    </label>
+                    <select
+                      id="artwork-print-size"
+                      value={activeArtwork.printSize || 'A4'}
+                      onChange={(e) => updateActiveArtwork({ printSize: e.target.value as 'A4' | 'A3' })}
+                      className="w-full min-h-12 rounded-xl border border-[#202020]/20 bg-[#FFF0D8] px-3 text-sm font-bold text-[#202020] focus:outline-none focus:ring-2 focus:ring-[#08B9E8]"
+                    >
+                      <option value="A4">A4 Print — ₹150</option>
+                      <option value="A3">A3 Print — ₹250</option>
+                    </select>
+                    <p className="text-[11px] text-[#5E5850]">Choose the print size for this uploaded design.</p>
                   </div>
 
                   {/* Placement Presets */}
