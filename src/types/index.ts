@@ -55,6 +55,7 @@ export interface PlacedArtwork {
   lockAspectRatio: boolean;
   aspectRatio: number; // width / height
   placementPreset?: string;
+  printSize?: 'A4' | 'A3';
 }
 
 export interface SizeBreakdown {
