@@ -266,6 +266,7 @@ export const PRODUCTS: Product[] = [
     id: 'mens-round-neck-180gsm',
     name: "Men's Round Neck T-Shirt - 180 GSM",
     category: 'Men',
+    priceTiers: [{ label: 'Base price', maxQty: Infinity, price: 199 }],
     description: 'Men’s 180 GSM round-neck T-shirt. Choose a colour and size, upload one or more designs, and preview prints on the front or back.',
   },
   {
@@ -273,6 +274,7 @@ export const PRODUCTS: Product[] = [
     id: 'womens-round-neck-180gsm',
     name: "Women's Round Neck T-Shirt - 180 GSM",
     category: 'Women',
+    priceTiers: [{ label: 'Base price', maxQty: Infinity, price: 199 }],
     description: 'Women’s 180 GSM round-neck T-shirt. Choose a colour and size, upload one or more designs, and preview prints on the front or back.',
   },
 ];
