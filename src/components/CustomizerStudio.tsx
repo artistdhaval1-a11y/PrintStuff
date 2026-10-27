@@ -802,9 +802,10 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                     <select
                       id="artwork-print-size"
                       value={activeArtwork.printSize || 'A4'}
-                      onChange={(e) => updateActiveArtwork({ printSize: e.target.value as 'A4' | 'A3' })}
+                      onChange={(e) => updateActiveArtwork({ printSize: e.target.value as 'Logo' | 'A4' | 'A3' })}
                       className="w-full min-h-12 rounded-xl border border-[#202020]/20 bg-[#FFF0D8] px-3 text-sm font-bold text-[#202020] focus:outline-none focus:ring-2 focus:ring-[#08B9E8]"
                     >
+                      <option value="Logo">Logo — ₹50</option>
                       <option value="A4">A4 Print — ₹150</option>
                       <option value="A3">A3 Print — ₹250</option>
                     </select>
