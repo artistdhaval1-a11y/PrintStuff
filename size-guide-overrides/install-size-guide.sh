@@ -2,6 +2,7 @@
 set -euo pipefail
 mkdir -p public/size-guide
 cp size-guide-overrides/size-guide.html public/size-guide/index.html
+cp printstuff-wordmark-black.png public/size-guide/printstuff-wordmark-black.png
 python3 - <<'PY'
 from pathlib import Path
 import re
