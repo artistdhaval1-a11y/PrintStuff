@@ -1,0 +1,26 @@
+/* PRINTSTUFF NEON STREET CULTURE REFRESH */
+:root{--ps-cream:#fff9ed;--ps-ink:#171717;--ps-pink:#f01875;--ps-blue:#08b9e8;--ps-lime:#d7ff00}
+html{scroll-behavior:smooth}
+body{background:var(--ps-cream)!important;color:var(--ps-ink)!important}
+::selection{background:var(--ps-pink)!important;color:#fff!important}
+/* Collection cards: light editorial cards with playful hard shadows */
+#catalog .group{background:#fff!important;border:2px solid var(--ps-ink)!important;border-radius:22px!important;box-shadow:7px 7px 0 var(--ps-ink)!important;transition:transform .22s ease,box-shadow .22s ease!important}
+#catalog .group:hover{transform:translate(-2px,-3px)!important;box-shadow:10px 10px 0 var(--ps-pink)!important}
+#catalog .group>div:first-child{background:linear-gradient(145deg,#e8faff 0%,#fff1f7 52%,#f5ffd1 100%)!important}
+#catalog .group .text-white{color:var(--ps-ink)!important}
+#catalog .group .text-neutral-400,#catalog .group .text-neutral-300{color:#625d5b!important}
+#catalog .group .bg-neutral-900,#catalog .group .bg-neutral-950{background:rgba(255,255,255,.9)!important;color:var(--ps-ink)!important;border-color:#dedbd6!important}
+#catalog .group .border-neutral-800,#catalog .group .border-neutral-700{border-color:#dedbd6!important}
+#catalog .group .bg-emerald-400{background:var(--ps-lime)!important;color:var(--ps-ink)!important;border:2px solid var(--ps-ink)!important;box-shadow:3px 3px 0 var(--ps-pink)!important}
+#catalog .group .bg-emerald-400:hover{background:var(--ps-blue)!important}
+#catalog .group .text-emerald-400{color:#078bb0!important}
+#catalog .group .bg-emerald-950\/60{background:#e8faff!important;color:#07566b!important;border-color:#9de7f7!important}
+/* Punchier section rhythm */
+#catalog{background:#fff4e5!important}
+#catalog h2{letter-spacing:-.045em!important}
+#catalog .font-mono{letter-spacing:.08em}
+#catalog .rounded-xl{border-radius:14px}
+#catalog button:focus-visible,a:focus-visible{outline:3px solid var(--ps-pink)!important;outline-offset:3px!important}
+/* Keep the design responsive and avoid horizontal page overflow */
+body{overflow-x:hidden}
+@media(max-width:640px){#catalog .group{box-shadow:5px 5px 0 var(--ps-ink)!important}#catalog .group:hover{box-shadow:7px 7px 0 var(--ps-pink)!important}}
