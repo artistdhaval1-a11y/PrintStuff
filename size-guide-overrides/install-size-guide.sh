@@ -3,6 +3,20 @@ set -euo pipefail
 mkdir -p public/size-guide
 cp size-guide-overrides/size-guide.html public/size-guide/index.html
 cp printstuff-wordmark-black.png public/size-guide/printstuff-wordmark-black.png
+cat size-guide-overrides/printstuff-redesign.css >> src/index.css
+python3 - <<'PY'
+from pathlib import Path
+p=Path("src/components/Hero.tsx")
+s=p.read_text()
+s=s.replace('className="text-sm font-black text-white">PRINT THAT LASTS','className="text-sm font-black text-[#202020]">PRINT THAT LASTS')
+s=s.replace('className="text-xs text-neutral-400 mt-1">Colour that stays bold','className="text-xs text-[#5E5850] mt-1">Colour that stays bold')
+s=s.replace('className="text-sm font-black text-white">FROM 1 PIECE','className="text-sm font-black text-[#202020]">FROM 1 PIECE')
+s=s.replace('className="text-xs text-neutral-400 mt-1">Try one or create a whole drop','className="text-xs text-[#5E5850] mt-1">Try one or create a whole drop')
+s=s.replace('className="p-4 rounded-xl bg-neutral-900/70 border border-[#08B9E8]/40"','className="p-4 rounded-xl bg-[#E8FAFF] border-2 border-[#202020] shadow-[5px_5px_0_#08B9E8]"')
+s=s.replace('className="text-sm font-black text-white">DELIVERED TO YOU','className="text-sm font-black text-[#202020]">DELIVERED TO YOU')
+s=s.replace('className="text-xs text-neutral-400 mt-1">Easy WhatsApp ordering','className="text-xs text-[#5E5850] mt-1">Easy WhatsApp ordering')
+p.write_text(s)
+PY
 python3 - <<'PY'
 from pathlib import Path
 import re
