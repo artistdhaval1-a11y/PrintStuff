@@ -24,3 +24,90 @@ body{background:var(--ps-cream)!important;color:var(--ps-ink)!important}
 /* Keep the design responsive and avoid horizontal page overflow */
 body{overflow-x:hidden}
 @media(max-width:640px){#catalog .group{box-shadow:5px 5px 0 var(--ps-ink)!important}#catalog .group:hover{box-shadow:7px 7px 0 var(--ps-pink)!important}}
+
+
+/* PRINTSTUFF OVERSIZED TYPE + POP-UP STICKER SYSTEM */
+#hero h1, section#hero h1, #catalog h2, main h2 {
+  font-weight: 1000 !important;
+  letter-spacing: -.075em !important;
+  line-height: .88 !important;
+  text-transform: uppercase !important;
+  text-wrap: balance;
+}
+#hero h1, section#hero h1 { font-size: clamp(3.35rem, 8.2vw, 7.8rem) !important; }
+#catalog h2 { font-size: clamp(2.5rem, 5.5vw, 5rem) !important; }
+#catalog .max-w-7xl > div:first-child { position:relative; }
+#catalog .max-w-7xl > div:first-child:after {
+  content:"PICK YOUR\A NEXT FAVOURITE";
+  white-space:pre;
+  display:inline-block;
+  position:absolute;
+  right:2px;
+  top:-12px;
+  transform:rotate(7deg);
+  background:var(--ps-lime);
+  color:var(--ps-ink);
+  border:2px solid var(--ps-ink);
+  border-radius:7px;
+  padding:9px 12px;
+  font:900 10px/1.15 ui-monospace,monospace;
+  letter-spacing:.04em;
+  box-shadow:4px 4px 0 var(--ps-pink);
+  z-index:2;
+}
+#catalog .group { position:relative!important; }
+#catalog .group:before {
+  content:"FRESH DROP";
+  position:absolute;
+  z-index:3;
+  top:14px;
+  left:-7px;
+  transform:rotate(-8deg);
+  padding:7px 10px;
+  color:var(--ps-ink);
+  background:var(--ps-pink);
+  border:2px solid var(--ps-ink);
+  border-radius:5px;
+  box-shadow:3px 3px 0 var(--ps-ink);
+  font:900 9px/1 ui-monospace,monospace;
+  letter-spacing:.08em;
+}
+#catalog .group:nth-child(2n):before { content:"MAKE IT YOURS"; background:var(--ps-blue); transform:rotate(7deg); }
+#catalog .group:nth-child(3n):before { content:"CUSTOM FAV"; background:var(--ps-lime); transform:rotate(-5deg); }
+#catalog .group h3 { font-size:clamp(1.2rem,2vw,1.65rem)!important; letter-spacing:-.055em!important; text-transform:uppercase; }
+#catalog .group button { font-weight:900!important; text-transform:uppercase; letter-spacing:.025em; }
+#catalog .group .bg-emerald-400 { border-radius:8px!important; box-shadow:4px 4px 0 var(--ps-pink)!important; }
+#catalog .group .bg-emerald-400:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ps-pink)!important; }
+#hero { isolation:isolate; }
+#hero:after, section#hero:after {
+  content:"GOOD VIBES\A ONLY";
+  white-space:pre;
+  position:absolute;
+  right:4.5%;
+  top:12%;
+  z-index:4;
+  display:grid;
+  place-items:center;
+  width:88px;
+  height:88px;
+  border-radius:50%;
+  background:var(--ps-lime);
+  color:var(--ps-ink);
+  border:2px solid var(--ps-ink);
+  box-shadow:5px 5px 0 var(--ps-pink);
+  text-align:center;
+  font:1000 11px/1.05 ui-monospace,monospace;
+  transform:rotate(12deg);
+  pointer-events:none;
+}
+#hero button, section#hero button { border-radius:8px!important; text-transform:uppercase; letter-spacing:.04em; font-weight:1000!important; }
+#hero button:first-child, section#hero button:first-child { box-shadow:5px 5px 0 var(--ps-pink)!important; }
+#hero button:first-child:hover, section#hero button:first-child:hover { transform:translate(-2px,-2px) rotate(-1deg); box-shadow:7px 7px 0 var(--ps-pink)!important; }
+#hero .grid > div { transition:transform .2s ease; }
+#hero .grid > div:hover { transform:translateY(-4px) rotate(-.5deg); }
+@media(max-width:640px) {
+  #hero h1, section#hero h1 { font-size:clamp(3.05rem,14vw,5rem)!important; }
+  #hero:after, section#hero:after { width:66px;height:66px;right:3%;top:8%;font-size:9px; }
+  #catalog .max-w-7xl > div:first-child:after { position:relative;right:auto;top:auto;margin-top:12px;transform:rotate(4deg); }
+  #catalog .group:before { top:10px;left:-5px;font-size:8px;padding:6px 8px; }
+}
