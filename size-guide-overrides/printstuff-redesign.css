@@ -231,3 +231,103 @@ body{overflow-x:hidden}
  #top > div:first-child:after{width:62px;height:62px;right:24%;bottom:8%}
  #catalog .group:before{font-size:8px!important;padding:6px 8px!important}
 }
+
+
+/* SITE-WIDE STICKER WALL — retain the approved headline, rebuild the page atmosphere */
+body {
+  background-color:#fff4dc!important;
+  background-image:
+    radial-gradient(circle at 12px 12px,rgba(23,23,23,.10) 1.5px,transparent 1.8px),
+    radial-gradient(circle at 6px 6px,rgba(240,24,117,.08) 1px,transparent 1.5px),
+    linear-gradient(135deg,rgba(255,255,255,.38),transparent 45%,rgba(8,185,232,.045))!important;
+  background-size:24px 24px,36px 36px,100% 100%!important;
+  background-attachment:fixed!important;
+}
+#root,main { background:transparent!important; }
+main { position:relative; isolation:isolate; }
+main > section, main > div { position:relative; }
+#catalog { background:rgba(255,239,213,.88)!important; }
+#catalog:after {
+  content:"✦  PRINT YOUR VIBE  ✦";
+  position:absolute;z-index:2;top:32px;right:5%;
+  padding:10px 16px;
+  color:#fff;background:var(--ps-blue);
+  border:2px solid var(--ps-ink);
+  box-shadow:5px 5px 0 var(--ps-ink);
+  font:900 11px/1 'JetBrains Mono',monospace;
+  letter-spacing:.08em;transform:rotate(5deg);
+  pointer-events:none;
+}
+#top > div:first-child:before {
+  content:"✳  CUSTOM MADE  ✳";
+  clip-path:none!important;
+  width:auto!important;height:auto!important;
+  min-height:0!important;
+  top:7%!important;right:6%!important;
+  padding:13px 17px!important;
+  border-radius:4px 18px 4px 18px!important;
+  background:var(--ps-lime)!important;
+  box-shadow:5px 5px 0 var(--ps-pink)!important;
+  font:900 11px/1 'JetBrains Mono',monospace!important;
+  transform:rotate(8deg)!important;
+}
+#top > div:first-child:after {
+  content:"★ NO BASIC TEES ★"!important;
+  display:grid!important;place-content:center!important;
+  width:auto!important;height:auto!important;
+  min-height:0!important;
+  right:23%!important;bottom:8%!important;
+  padding:12px 15px!important;
+  border-radius:999px!important;
+  clip-path:none!important;
+  background:var(--ps-pink)!important;color:#fff!important;
+  border:2px solid var(--ps-ink)!important;
+  box-shadow:4px 4px 0 var(--ps-lime)!important;
+  font:900 10px/1 'JetBrains Mono',monospace!important;
+  transform:rotate(-9deg)!important;
+}
+/* Decorative sticker accents repeat through the page, not just the hero */
+main > section:nth-of-type(2):before,
+main > section:nth-of-type(4):before,
+main > section:nth-of-type(6):before {
+  content:"✦";
+  position:absolute;z-index:3;top:52px;left:4%;
+  display:grid;place-items:center;width:54px;height:54px;
+  color:var(--ps-ink);background:var(--ps-lime);
+  border:2px solid var(--ps-ink);border-radius:50%;
+  box-shadow:4px 4px 0 var(--ps-pink);
+  font:900 30px/1 'Outfit',sans-serif;
+  transform:rotate(-14deg);pointer-events:none;
+}
+main > section:nth-of-type(3):after,
+main > section:nth-of-type(5):after,
+main > section:nth-of-type(7):after {
+  content:"STAY WEIRD  ✳";
+  position:absolute;z-index:3;right:4%;top:48px;
+  padding:10px 14px;color:var(--ps-ink);
+  background:var(--ps-pink);border:2px solid var(--ps-ink);
+  box-shadow:4px 4px 0 var(--ps-blue);
+  border-radius:3px 14px 3px 14px;
+  font:900 10px/1 'JetBrains Mono',monospace;
+  transform:rotate(7deg);pointer-events:none;
+}
+/* Small floating decal details in the margins of product cards */
+#catalog .group:after {
+  content:"✳";
+  position:absolute;z-index:4;right:12px;bottom:12px;
+  color:var(--ps-pink);font:900 24px/1 'Outfit',sans-serif;
+  text-shadow:2px 2px 0 var(--ps-lime);
+  transform:rotate(12deg);pointer-events:none;
+}
+#catalog .group:nth-child(2n):after {content:"★";color:var(--ps-blue)}
+#catalog .group:nth-child(3n):after {content:"♥";color:var(--ps-pink)}
+/* Keep sticker art out of the way on small screens */
+@media(max-width:640px){
+ body{background-size:20px 20px,32px 32px,100% 100%!important}
+ #catalog:after{top:14px;right:4%;font-size:8px;padding:8px 10px}
+ #top > div:first-child:before{top:4%!important;right:3%!important;font-size:8px!important;padding:9px 11px!important}
+ #top > div:first-child:after{right:5%!important;bottom:7%!important;font-size:8px!important;padding:9px 11px!important}
+ main > section:nth-of-type(2):before,main > section:nth-of-type(4):before,main > section:nth-of-type(6):before{width:36px;height:36px;font-size:20px;top:20px;left:2%}
+ main > section:nth-of-type(3):after,main > section:nth-of-type(5):after,main > section:nth-of-type(7):after{top:20px;right:2%;font-size:8px;padding:7px 9px}
+ #catalog .group:after{font-size:18px}
+}
