@@ -8,6 +8,7 @@ python3 - <<'PY'
 from pathlib import Path
 p=Path("src/components/Hero.tsx")
 s=p.read_text()
+s=s.replace('<section className="relative overflow-hidden bg-[#FFF9ED]', '<section id="hero" className="relative overflow-hidden bg-[#FFF9ED]')
 s=s.replace('className="text-sm font-black text-white">PRINT THAT LASTS','className="text-sm font-black text-[#202020]">PRINT THAT LASTS')
 s=s.replace('className="text-xs text-neutral-400 mt-1">Colour that stays bold','className="text-xs text-[#5E5850] mt-1">Colour that stays bold')
 s=s.replace('className="text-sm font-black text-white">FROM 1 PIECE','className="text-sm font-black text-[#202020]">FROM 1 PIECE')
