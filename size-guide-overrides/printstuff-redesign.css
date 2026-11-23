@@ -331,3 +331,20 @@ main > section:nth-of-type(7):after {
  main > section:nth-of-type(3):after,main > section:nth-of-type(5):after,main > section:nth-of-type(7):after{top:20px;right:2%;font-size:8px;padding:7px 9px}
  #catalog .group:after{font-size:18px}
 }
+
+
+/* Remove decorative sticker overlays; preserve the approved headline and textured background */
+#top > div:first-child:before,
+#top > div:first-child:after,
+#catalog:after,
+#catalog .group:before,
+#catalog .group:after,
+main > section:nth-of-type(2):before,
+main > section:nth-of-type(3):after,
+main > section:nth-of-type(4):before,
+main > section:nth-of-type(5):after,
+main > section:nth-of-type(6):before,
+main > section:nth-of-type(7):after {
+  content:none!important;
+  display:none!important;
+}
