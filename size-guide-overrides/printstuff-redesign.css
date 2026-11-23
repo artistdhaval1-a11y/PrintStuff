@@ -111,3 +111,41 @@ body{overflow-x:hidden}
   #catalog .max-w-7xl > div:first-child:after { position:relative;right:auto;top:auto;margin-top:12px;transform:rotate(4deg); }
   #catalog .group:before { top:10px;left:-5px;font-size:8px;padding:6px 8px; }
 }
+
+
+/* FINAL HERO TARGETING: actual homepage structure is #top > first child */
+#top > div:first-child { position:relative!important; isolation:isolate; }
+#top > div:first-child h1 {
+  font-size:clamp(4rem,9vw,8rem)!important;
+  line-height:.86!important;
+  letter-spacing:-.085em!important;
+  font-weight:1000!important;
+  text-transform:uppercase!important;
+  max-width:10ch;
+}
+#top > div:first-child:after {
+  content:"GOOD VIBES\\A ONLY";
+  white-space:pre;
+  position:absolute;
+  z-index:20;
+  display:grid;
+  place-items:center;
+  width:104px;
+  height:104px;
+  top:12%;
+  right:7%;
+  border-radius:50%;
+  background:var(--ps-lime);
+  color:var(--ps-ink);
+  border:3px solid var(--ps-ink);
+  box-shadow:7px 7px 0 var(--ps-pink);
+  text-align:center;
+  font:1000 13px/1.05 ui-monospace,monospace;
+  transform:rotate(12deg);
+  pointer-events:none;
+}
+#catalog h2 {font-size:clamp(2.8rem,6vw,5.2rem)!important;line-height:.9!important;font-weight:1000!important;text-transform:uppercase!important}
+@media(max-width:640px){
+ #top > div:first-child h1{font-size:clamp(3.3rem,14vw,5.2rem)!important}
+ #top > div:first-child:after{width:72px;height:72px;top:5%;right:4%;font-size:9px;box-shadow:5px 5px 0 var(--ps-pink)}
+}
