@@ -348,3 +348,17 @@ main > section:nth-of-type(7):after {
   content:none!important;
   display:none!important;
 }
+
+
+/* Original low-contrast streetwear doodle wallpaper */
+body {
+  background-color:#fff4dc!important;
+  background-image:url('/brand/sticker-wall.svg')!important;
+  background-repeat:repeat!important;
+  background-size:760px 560px!important;
+  background-attachment:fixed!important;
+}
+#root,main { background:transparent!important; }
+@media(max-width:640px){
+  body{background-size:540px 397px!important;background-attachment:scroll!important}
+}
