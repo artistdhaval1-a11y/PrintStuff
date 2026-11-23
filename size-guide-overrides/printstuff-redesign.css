@@ -362,3 +362,19 @@ body {
 @media(max-width:640px){
   body{background-size:540px 397px!important;background-attachment:scroll!important}
 }
+
+
+/* Let the wallpaper show through the page canvas; retain solid hero and product surfaces */
+html,body { min-height:100%; background-color:#fff4dc!important; }
+#root,main { background:transparent!important; }
+main > section { background-color:transparent!important; }
+#catalog { background-color:rgba(255,244,220,.58)!important; }
+body {
+ background-image:url('/brand/sticker-wall.svg')!important;
+ background-repeat:repeat!important;
+ background-size:540px 398px!important;
+ background-attachment:fixed!important;
+}
+@media(max-width:640px){
+ body{background-size:390px 288px!important;background-attachment:scroll!important}
+}
