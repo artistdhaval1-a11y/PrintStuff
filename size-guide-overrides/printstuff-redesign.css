@@ -402,3 +402,125 @@ body:before {
 @media(max-width:640px) {
  body:before { background-size:470px 366px; }
 }
+
+
+/* DECORATIVE STICKERS ON TOP OF THE SITE — deliberately placed in open corners, never behind copy */
+#top > div:first-child {
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+}
+#top > div:first-child:before {
+  content:"✳"!important;
+  display:grid!important;
+  place-items:center!important;
+  position:absolute!important;
+  z-index:30!important;
+  top:9%!important;
+  right:9%!important;
+  left:auto!important;
+  width:clamp(76px,9vw,132px)!important;
+  height:clamp(76px,9vw,132px)!important;
+  padding:0!important;
+  color:#171717!important;
+  background:#d7ff00!important;
+  border:3px solid #171717!important;
+  border-radius:28% 72% 35% 65% / 60% 35% 65% 40%!important;
+  box-shadow:7px 7px 0 #f01875!important;
+  font:900 clamp(44px,6vw,76px)/1 'Outfit',sans-serif!important;
+  transform:rotate(16deg)!important;
+  pointer-events:none!important;
+}
+#top > div:first-child:after {
+  content:"★"!important;
+  display:grid!important;
+  place-items:center!important;
+  position:absolute!important;
+  z-index:30!important;
+  right:23%!important;
+  left:auto!important;
+  top:auto!important;
+  bottom:9%!important;
+  width:clamp(54px,6vw,88px)!important;
+  height:clamp(54px,6vw,88px)!important;
+  padding:0!important;
+  color:#fff!important;
+  background:#f01875!important;
+  border:3px solid #171717!important;
+  border-radius:18px 5px 18px 5px!important;
+  box-shadow:5px 5px 0 #08b9e8!important;
+  font:900 clamp(30px,4vw,52px)/1 'Outfit',sans-serif!important;
+  transform:rotate(-13deg)!important;
+  pointer-events:none!important;
+}
+#catalog { position:relative!important; overflow:hidden!important; }
+#catalog:before {
+  content:"♥"!important;
+  display:grid!important;
+  place-items:center!important;
+  position:absolute!important;
+  z-index:5!important;
+  top:34px!important;
+  right:5%!important;
+  width:72px!important;
+  height:72px!important;
+  color:#171717!important;
+  background:#08b9e8!important;
+  border:3px solid #171717!important;
+  border-radius:50%!important;
+  box-shadow:5px 5px 0 #f01875!important;
+  font:900 42px/1 'Outfit',sans-serif!important;
+  transform:rotate(12deg)!important;
+  pointer-events:none!important;
+}
+#catalog:after {
+  content:"✦"!important;
+  display:grid!important;
+  place-items:center!important;
+  position:absolute!important;
+  z-index:5!important;
+  left:3%!important;
+  bottom:7%!important;
+  width:58px!important;
+  height:58px!important;
+  color:#171717!important;
+  background:#f01875!important;
+  border:3px solid #171717!important;
+  clip-path:polygon(50% 0%,61% 31%,94% 18%,76% 50%,100% 76%,65% 72%,50% 100%,35% 72%,0 76%,24% 50%,6% 18%,39% 31%)!important;
+  filter:drop-shadow(4px 4px 0 #d7ff00)!important;
+  font:900 36px/1 'Outfit',sans-serif!important;
+  transform:rotate(-12deg)!important;
+  pointer-events:none!important;
+}
+#catalog .group { position:relative!important; }
+#catalog .group:after {
+  content:"✳"!important;
+  display:grid!important;
+  place-items:center!important;
+  position:absolute!important;
+  z-index:6!important;
+  right:12px!important;
+  bottom:12px!important;
+  width:42px!important;
+  height:42px!important;
+  color:#171717!important;
+  background:#d7ff00!important;
+  border:2px solid #171717!important;
+  border-radius:50% 20% 50% 20%!important;
+  box-shadow:3px 3px 0 #f01875!important;
+  font:900 27px/1 'Outfit',sans-serif!important;
+  pointer-events:none!important;
+}
+#catalog .group:nth-child(2n):after {
+  content:"★"!important;background:#08b9e8!important;border-radius:8px 50% 8px 50%!important;transform:rotate(12deg)!important;
+}
+#catalog .group:nth-child(3n):after {
+  content:"♥"!important;background:#f01875!important;color:#fff!important;border-radius:50%!important;transform:rotate(-12deg)!important;
+}
+@media(max-width:640px) {
+  #top > div:first-child:before {top:5%!important;right:3%!important;width:54px!important;height:54px!important;font-size:34px!important}
+  #top > div:first-child:after {right:5%!important;bottom:5%!important;width:42px!important;height:42px!important;font-size:25px!important}
+  #catalog:before {top:16px!important;right:3%!important;width:42px!important;height:42px!important;font-size:25px!important}
+  #catalog:after {left:2%!important;bottom:3%!important;width:38px!important;height:38px!important;font-size:24px!important}
+  #catalog .group:after {width:30px!important;height:30px!important;font-size:19px!important;right:8px!important;bottom:8px!important}
+}
