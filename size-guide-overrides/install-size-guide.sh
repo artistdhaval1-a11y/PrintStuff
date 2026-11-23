@@ -47,3 +47,30 @@ if 'href="/size-guide/"' not in s:
             onClick={onOpenBag}''',1)
     p.write_text(s)
 PY
+
+# Remove the obsolete free-shipping announcement without changing destination-based rates.
+python3 - <<'PY'
+from pathlib import Path
+import re
+phrase = "Free Pan-India Shipping Over ₹1,999"
+for p in Path("src").rglob("*"):
+    if p.suffix not in {".tsx", ".ts", ".jsx", ".js", ".html"}:
+        continue
+    try:
+        s = p.read_text()
+    except (UnicodeDecodeError, OSError):
+        continue
+    if phrase not in s:
+        continue
+    updated = re.sub(
+        r'<([A-Za-z][\\w.]*)\\b[^>]*>\\s*' + re.escape(phrase) + r'\\s*</\\1>',
+        '',
+        s,
+        flags=re.DOTALL,
+    )
+    if updated == s:
+        # Fallback for a standalone announcement line.
+        updated = "\\n".join(line for line in s.split("\\n") if phrase not in line)
+    p.write_text(updated)
+    print(f"Removed obsolete shipping announcement from {p}")
+PY
