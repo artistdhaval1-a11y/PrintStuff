@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { CartItem, CustomerDetails } from '../types';
 import { WHATSAPP_RAW_NUMBER, WHATSAPP_PHONE_NUMBER } from '../data/products';
 import { X, MessageCircle, Send, CheckCircle2, AlertCircle, FileText, ArrowUpRight } from 'lucide-react';
@@ -30,6 +30,37 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   const [hasOpenedWhatsApp, setHasOpenedWhatsApp] = useState<boolean>(false);
   const [isSavingOrder, setIsSavingOrder] = useState<boolean>(false);
   const [orderError, setOrderError] = useState<string>('');
+  const [deliveryState, setDeliveryState] = useState<string>('');
+  const [shippingCharge, setShippingCharge] = useState<number | null>(null);
+  const [pincodeStatus, setPincodeStatus] = useState<string>('');
+  const pincodeRequestRef = useRef(0);
+
+  const handlePincodeChange = async (rawValue: string) => {
+    const pincode = rawValue.replace(/\\D/g, '').slice(0, 6);
+    setCustomer(prev => ({ ...prev, pincode }));
+    const requestId = ++pincodeRequestRef.current;
+    setDeliveryState('');
+    setShippingCharge(null);
+    setPincodeStatus('');
+    if (pincode.length !== 6) return;
+    setPincodeStatus('Checking PIN code…');
+    try {
+      const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+      const data = await response.json();
+      const office = data?.[0]?.Status === 'Success' ? data[0]?.PostOffice?.[0] : null;
+      if (requestId !== pincodeRequestRef.current) return;
+      if (!office?.State) {
+        setPincodeStatus('PIN code not found. Please check and enter again.');
+        return;
+      }
+      const state = String(office.State);
+      setDeliveryState(state);
+      setShippingCharge(state.trim().toLowerCase() === 'gujarat' ? 99 : 149);
+      setPincodeStatus(`${office.District ? office.District + ', ' : ''}${state}`);
+    } catch {
+      if (requestId === pincodeRequestRef.current) setPincodeStatus('Could not verify PIN code. Please try again.');
+    }
+  };
 
   // Keep the checkout request below Vercel's payload limit by resizing artwork previews.
   // WebP preserves transparency and is only used for the order-upload copy; the editor keeps the original.
@@ -65,6 +96,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   const checkoutItems = singleItem ? [singleItem] : items;
   const grandTotal = checkoutItems.reduce((sum, item) => sum + item.totalPrice, 0);
   const totalPieces = checkoutItems.reduce((sum, item) => sum + item.totalQuantity, 0);
+  const estimatedTotal = grandTotal + (shippingCharge ?? 0);
 
   // Generate formatted WhatsApp message
   const buildWhatsAppMessage = (order?: { orderNumber: string; trackingToken: string; artworkFolderUrl?: string }): string => {
@@ -136,7 +168,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   const handleLaunchWhatsApp = async () => {
     setOrderError('');
     if (!customer.name.trim() || !customer.phone.trim() || !customer.city.trim() || customer.address.trim().length < 5 || !/^[A-Za-z0-9 -]{4,12}$/.test(customer.pincode.trim())) {
-      setOrderError('Please enter your name, phone, full address, city and valid PIN code.');
+      setOrderError('Please enter your name, phone, full address, city and a valid 6-digit PIN code so we can calculate shipping.');
       return;
     }
     setIsSavingOrder(true);
@@ -254,7 +286,9 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
 
               <div>
                 <label className="block text-[11px] text-neutral-400 mb-1">PIN Code</label>
-                <input type="text" placeholder="e.g. 380015" value={customer.pincode} onChange={(e) => setCustomer({ ...customer, pincode: e.target.value })} required className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white" />
+                <input type="text" inputMode="numeric" maxLength={6} placeholder="Enter 6-digit PIN code" value={customer.pincode} onChange={(e) => handlePincodeChange(e.target.value)} required className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white" />
+                {pincodeStatus && <p className={`mt-1 text-[11px] ${shippingCharge !== null ? 'text-emerald-400' : 'text-amber-300'}`}>{shippingCharge !== null ? `✓ ${pincodeStatus} — Shipping ₹${shippingCharge}` : pincodeStatus}</p>}
+                {!pincodeStatus && <p className="mt-1 text-[10px] text-neutral-500">Shipping is calculated automatically after you enter your PIN code.</p>}
               </div>
             </div>
             <div>
@@ -287,7 +321,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
                 Message Summary to Send:
               </span>
               <span className="font-mono text-[11px]">
-                {totalPieces} pcs &bull; ₹{grandTotal.toLocaleString()}
+                {totalPieces} pcs &bull; ₹{estimatedTotal.toLocaleString()}
               </span>
             </div>
 
@@ -325,7 +359,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
 
               <button
                 onClick={handleLaunchWhatsApp}
-                disabled={isSavingOrder}
+                disabled={isSavingOrder || shippingCharge === null || customer.pincode.length !== 6}
                 className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 text-xs font-bold text-neutral-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-98"
               >
                 <Send className="w-3.5 h-3.5" />
