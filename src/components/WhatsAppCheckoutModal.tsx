@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { CartItem, CustomerDetails } from '../types';
-import { X, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, FileText } from 'lucide-react';
 import { Logo } from './Logo';
 
 interface WhatsAppCheckoutModalProps {
@@ -257,7 +257,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
             </div>
 
             <pre className="p-3.5 bg-neutral-950 rounded-xl border border-neutral-800 text-[11px] font-mono text-neutral-300 whitespace-pre-wrap max-h-48 overflow-y-auto leading-relaxed">
-              {checkoutItems.map(item => `${item.productName} — ${item.totalQuantity} pcs — ₹${item.totalPrice.toLocaleString()}`).join('\n')}\n\nSubtotal: ₹${grandTotal.toLocaleString()}\nShipping: ₹${shippingCharge ?? 0}\nEstimated total: ₹${estimatedTotal.toLocaleString()}
+              {`${checkoutItems.map(item => `${item.productName} — ${item.totalQuantity} pcs — ₹${item.totalPrice.toLocaleString()}`).join('\n')}\n\nSubtotal: ₹${grandTotal.toLocaleString()}\nShipping: ₹${shippingCharge ?? 0}\nEstimated total: ₹${estimatedTotal.toLocaleString()}`}
             </pre>
           </div>
 
