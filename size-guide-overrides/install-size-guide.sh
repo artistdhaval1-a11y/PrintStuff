@@ -63,3 +63,37 @@ for p in Path("src").rglob("*"):
         p.write_text(s.replace(phrase, ""))
         print(f"Removed obsolete shipping announcement text from {p}")
 PY
+
+# Remove all free-shipping thresholds from cart, checkout, and server order totals.
+python3 - <<'PY'
+from pathlib import Path
+
+p = Path("src/components/CheckoutModal.tsx")
+s = p.read_text()
+s = s.replace(
+    "const shipping = subtotal >= 1999 || subtotal === 0 ? 0 : 99;",
+    "const shipping = subtotal > 0 ? 99 : 0;"
+)
+s = s.replace("{shipping === 0 ? 'Free Shipping' : '₹99 Shipping'}", "{shipping > 0 ? '₹99 Shipping' : '—'}")
+p.write_text(s)
+
+p = Path("src/components/BagDrawer.tsx")
+s = p.read_text()
+s = s.replace("const FREE_SHIPPING_THRESHOLD = 1999;\n", "")
+s = s.replace("  const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);\n", "")
+s = s.replace("  const progressPct = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100));\n", "")
+start = s.find("        {/* Free Shipping Bar */}")
+end = s.find("        {/* Bag Items */}", start)
+if start != -1 and end != -1:
+    s = s[:start] + s[end:]
+s = s.replace("{remainingForFreeShipping === 0 ? 'FREE' : '₹99'}", "₹99")
+s = s.replace("{formatINR(subtotal + (remainingForFreeShipping === 0 ? 0 : 99))}", "{formatINR(subtotal + 99)}")
+p.write_text(s)
+
+p = Path("server.ts")
+s = p.read_text()
+s = s.replace("const FREE_SHIPPING_THRESHOLD = 1999;\n", "")
+s = s.replace("const shippingInr = subtotalInr >= FREE_SHIPPING_THRESHOLD ? 0 : FLAT_SHIPPING_INR;", "const shippingInr = subtotalInr > 0 ? FLAT_SHIPPING_INR : 0;")
+p.write_text(s)
+print("Removed ₹1,999 free-shipping threshold from checkout, bag drawer, and server order calculation.")
+PY
