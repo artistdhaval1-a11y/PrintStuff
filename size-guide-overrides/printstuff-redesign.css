@@ -27,14 +27,14 @@ body{overflow-x:hidden}
 
 
 /* PRINTSTUFF OVERSIZED TYPE + POP-UP STICKER SYSTEM */
-#hero h1, section#hero h1, #catalog h2, main h2 {
+#top h1, section#top h1, #catalog h2, main h2 {
   font-weight: 1000 !important;
   letter-spacing: -.075em !important;
   line-height: .88 !important;
   text-transform: uppercase !important;
   text-wrap: balance;
 }
-#hero h1, section#hero h1 { font-size: clamp(3.35rem, 8.2vw, 7.8rem) !important; }
+#top h1, section#top h1 { font-size: clamp(3.35rem, 8.2vw, 7.8rem) !important; }
 #catalog h2 { font-size: clamp(2.5rem, 5.5vw, 5rem) !important; }
 #catalog .max-w-7xl > div:first-child { position:relative; }
 #catalog .max-w-7xl > div:first-child:after {
@@ -78,8 +78,8 @@ body{overflow-x:hidden}
 #catalog .group button { font-weight:900!important; text-transform:uppercase; letter-spacing:.025em; }
 #catalog .group .bg-emerald-400 { border-radius:8px!important; box-shadow:4px 4px 0 var(--ps-pink)!important; }
 #catalog .group .bg-emerald-400:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ps-pink)!important; }
-#hero { isolation:isolate; }
-#hero:after, section#hero:after {
+#top { isolation:isolate; }
+#top:after, section#top:after {
   content:"GOOD VIBES\A ONLY";
   white-space:pre;
   position:absolute;
@@ -100,14 +100,14 @@ body{overflow-x:hidden}
   transform:rotate(12deg);
   pointer-events:none;
 }
-#hero button, section#hero button { border-radius:8px!important; text-transform:uppercase; letter-spacing:.04em; font-weight:1000!important; }
-#hero button:first-child, section#hero button:first-child { box-shadow:5px 5px 0 var(--ps-pink)!important; }
-#hero button:first-child:hover, section#hero button:first-child:hover { transform:translate(-2px,-2px) rotate(-1deg); box-shadow:7px 7px 0 var(--ps-pink)!important; }
-#hero .grid > div { transition:transform .2s ease; }
-#hero .grid > div:hover { transform:translateY(-4px) rotate(-.5deg); }
+#top button, section#top button { border-radius:8px!important; text-transform:uppercase; letter-spacing:.04em; font-weight:1000!important; }
+#top button:first-child, section#top button:first-child { box-shadow:5px 5px 0 var(--ps-pink)!important; }
+#top button:first-child:hover, section#top button:first-child:hover { transform:translate(-2px,-2px) rotate(-1deg); box-shadow:7px 7px 0 var(--ps-pink)!important; }
+#top .grid > div { transition:transform .2s ease; }
+#top .grid > div:hover { transform:translateY(-4px) rotate(-.5deg); }
 @media(max-width:640px) {
-  #hero h1, section#hero h1 { font-size:clamp(3.05rem,14vw,5rem)!important; }
-  #hero:after, section#hero:after { width:66px;height:66px;right:3%;top:8%;font-size:9px; }
+  #top h1, section#top h1 { font-size:clamp(3.05rem,14vw,5rem)!important; }
+  #top:after, section#top:after { width:66px;height:66px;right:3%;top:8%;font-size:9px; }
   #catalog .max-w-7xl > div:first-child:after { position:relative;right:auto;top:auto;margin-top:12px;transform:rotate(4deg); }
   #catalog .group:before { top:10px;left:-5px;font-size:8px;padding:6px 8px; }
 }
