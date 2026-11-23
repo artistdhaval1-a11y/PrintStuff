@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="560" viewBox="0 0 760 560">
-<g opacity=".52" fill="none" stroke="#171717" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700">
+<g opacity="1" fill="none" stroke="#171717" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
 <path fill="#08b9e8" d="M66 95q24-34 55-12l31 24 43 10q20 5 22 24l-7 24H75q-25-7-9-31z"/><path fill="#fff9ed" d="M63 154q55 10 88-7l55-7q13 0 11 18l-5 13H77q-24-2-14-17z"/><path stroke="#f01875" d="M100 103l23 24m-3-40 24 26m-2-41 24 24"/>
 <path fill="#f01875" d="M315 72q-27-41-54-11-26 31 54 82 79-52 53-82-26-29-53 11z"/>
 <path fill="#ffcc21" d="M502 42l-29 63h36l-19 65 66-85h-39l24-43z"/>
@@ -15,5 +15,13 @@
 <path fill="#fff9ed" d="M390 185h78v48h-78z"/><path fill="#171717" d="M390 185l39 24 39-24m-78 24 39 24 39-24m-78-24 39 24 39-24"/>
 <path stroke="#f01875" d="M38 245l25-20m-17 40 24-20m600-170 28-25m-20 44 24-21"/>
 <path stroke="#171717" d="M165 250l10-19 10 19 19 10-19 10-10 19-10-19-19-10zM465 315l9-17 9 17 17 9-17 9-9 17-9-17-17-9zM710 250l8-17 8 17 17 8-17 8-8 17-8-17-17-8z"/>
-</g>
+
+<g stroke="#171717" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+<path fill="#d7ff00" d="M90 520l18-42 18 42 43 18-43 18-18 43-18-43-42-18z"/>
+<path fill="#f01875" d="M370 480q-45-55-82-12-35 43 82 120 118-77 82-120-38-43-82 12z"/>
+<path fill="#08b9e8" d="M700 480q-10-45 30-54 40-8 49 31 36-23 58 10 22 34-14 60 8 43-33 53-40 10-55-27-43 14-61-22-18-37 26-51z"/>
+<path fill="#ffcc21" d="M180 70l-38 88h48l-22 78 91-109h-55l30-57z"/>
+<path fill="#f6a6c9" d="M510 90q-28-40-57-7-29 34 57 90 86-56 57-90-29-33-57 7z"/>
+<path fill="#fff9ed" d="M780 190l20-37 20 37 37 20-37 20-20 37-20-37-37-20z"/>
+</g></g>
 </svg>
