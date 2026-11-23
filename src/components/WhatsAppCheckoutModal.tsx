@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { CartItem, CustomerDetails } from '../types';
-import { WHATSAPP_RAW_NUMBER, WHATSAPP_PHONE_NUMBER } from '../data/products';
-import { X, MessageCircle, Send, CheckCircle2, AlertCircle, FileText, ArrowUpRight } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Logo } from './Logo';
 
 interface WhatsAppCheckoutModalProps {
@@ -27,7 +26,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
     notes: ''
   });
 
-  const [hasOpenedWhatsApp, setHasOpenedWhatsApp] = useState<boolean>(false);
+  const [savedOrder, setSavedOrder] = useState<{ orderNumber: string; trackingToken: string } | null>(null);
   const [isSavingOrder, setIsSavingOrder] = useState<boolean>(false);
   const [orderError, setOrderError] = useState<string>('');
   const [deliveryState, setDeliveryState] = useState<string>('');
@@ -98,77 +97,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   const totalPieces = checkoutItems.reduce((sum, item) => sum + item.totalQuantity, 0);
   const estimatedTotal = grandTotal + (shippingCharge ?? 0);
 
-  // Generate formatted WhatsApp message
-  const buildWhatsAppMessage = (order?: { orderNumber: string; trackingToken: string; artworkFolderUrl?: string }): string => {
-    let msg = `*PRINTSTUFF — CUSTOM APPAREL ORDER ENQUIRY*\n`;
-    msg += `═══════════════════════════════\n\n`;
-
-    // Customer section
-    if (customer.name || customer.phone || customer.city) {
-      msg += `*CUSTOMER DETAILS:*\n`;
-      if (customer.name) msg += `• Name / Company: ${customer.name}\n`;
-      if (customer.phone) msg += `• Contact Number: ${customer.phone}\n`;
-      if (customer.city) msg += `• Delivery City: ${customer.city}\n`;
-      if (customer.address) msg += `• Shipping Address: ${customer.address}\n`;
-      if (customer.pincode) msg += `• PIN Code: ${customer.pincode}\n`;
-      if (deliveryState) msg += `• State: ${deliveryState}\n`;
-      msg += `\n`;
-    }
-
-    if (order) {
-      msg += `*ORDER NUMBER:* ${order.orderNumber}\\n*TRACKING TOKEN:* ${order.trackingToken}\\nKeep these details safe to track your order.\\n`;
-      if (order.artworkFolderUrl) msg += `*UPLOADED ARTWORK FILES:* ${order.artworkFolderUrl}\\n`;
-      msg += `\\n`;
-    }
-
-    msg += `*ORDER ITEMS (${checkoutItems.length} styles, ${totalPieces} total pieces):*\n`;
-
-    checkoutItems.forEach((item, idx) => {
-      msg += `\n*${idx + 1}. ${item.productName}*\n`;
-      msg += `  • Colour: ${item.selectedColor.name}\n`;
-      
-      // Sizes breakdown
-      const sizeEntries = Object.entries(item.sizeBreakdown)
-        .filter(([_, qty]) => qty > 0)
-        .map(([size, qty]) => `${size}: ${qty} pcs`)
-        .join(', ');
-      msg += `  • Sizing: ${sizeEntries || `${item.totalQuantity} pcs`}\n`;
-      msg += `  • Total Quantity: ${item.totalQuantity} pcs\n`;
-      msg += `  • Pricing Tier: ${item.appliedTierLabel} @ ₹${item.unitPrice}/pc\n`;
-      msg += `  • Subtotal: ₹${item.totalPrice.toLocaleString()}\n`;
-
-      // Artworks
-      if (item.artworks.length > 0) {
-        msg += `  • Custom Artworks Placed (${item.artworks.length}):\n`;
-        item.artworks.forEach((art, aIdx) => {
-          msg += `    [${aIdx + 1}] "${art.name}"\n`;
-          msg += `        - View: ${art.view.toUpperCase()} view\n`;
-          msg += `        - Placement: ${art.placementPreset || 'Custom'}\n`;
-          msg += `        - Scale: ${art.width}% width, Pos: X ${art.x}%, Y ${art.y}%\n`;
-        });
-      } else {
-        msg += `  • Custom Artwork: Blank / No custom print specified\n`;
-      }
-    });
-
-    msg += `\n═══════════════════════════════\n`;
-    msg += `*ORDER ESTIMATE SUMMARY:*\n`;
-    msg += `• Total Apparel Quantity: ${totalPieces} pieces\n`;
-    msg += `• Order Subtotal: ₹${grandTotal.toLocaleString()}/-\n`;
-    msg += `• Shipping (${deliveryState}): ₹${shippingCharge ?? 0}/-\n`;
-    msg += `*• Estimated Grand Total: ₹${estimatedTotal.toLocaleString()}/-*\n`;
-
-    if (customer.notes.trim()) {
-      msg += `\n*CUSTOMER NOTES & SPECIAL REQUESTS:*\n"${customer.notes.trim()}"\n`;
-    }
-
-    if (checkoutItems.some(item => item.artworks.length > 0)) {
-      msg += `\n*NOTE ON FILES:* Uploaded artwork is saved in the Drive folder linked above when available.\n`;
-    }
-    return msg;
-  };
-
-  const handleLaunchWhatsApp = async () => {
+  const handlePlaceOrder = async () => {
     setOrderError('');
     if (!customer.name.trim() || !customer.phone.trim() || !customer.city.trim() || customer.address.trim().length < 5 || !/^\d{6}$/.test(customer.pincode.trim()) || shippingCharge === null || !deliveryState) {
       setOrderError('Please enter your name, phone, full address, city and a valid 6-digit PIN code so we can calculate shipping.');
@@ -198,8 +127,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
         ? 'Your artwork upload is too large. Please try fewer or smaller images.'
         : 'The order service returned an unexpected response. Please try again.'); }
       if (!response.ok) throw new Error(result.error || 'Unable to save your order.');
-      window.open('https://wa.me/' + WHATSAPP_RAW_NUMBER + '?text=' + encodeURIComponent(buildWhatsAppMessage(result)), '_blank');
-      setHasOpenedWhatsApp(true);
+      setSavedOrder({ orderNumber: result.orderNumber, trackingToken: result.trackingToken });
     } catch (error) {
       setOrderError(error instanceof Error ? error.message : 'Unable to save your order. Please try again.');
     } finally {
@@ -226,10 +154,10 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
               </div>
               <div>
                 <h3 className="font-display font-bold text-xl text-white">
-                  WhatsApp Order Enquiry
+                  Order Details
                 </h3>
                 <p className="text-xs text-neutral-400">
-                  Direct connection with PrintStuff team ({WHATSAPP_PHONE_NUMBER})
+                  Place your order securely on the website
                 </p>
               </div>
             </div>
@@ -264,7 +192,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-[11px] text-neutral-400 mb-1">WhatsApp / Phone Number</label>
+                <label className="block text-[11px] text-neutral-400 mb-1">Phone Number</label>
                 <input
                   type="text"
                   placeholder="e.g. +91 98765 43210" required
@@ -321,7 +249,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
             <div className="flex items-center justify-between text-xs text-neutral-400">
               <span className="flex items-center gap-1.5 font-semibold text-neutral-300">
                 <FileText className="w-3.5 h-3.5 text-emerald-400" />
-                Message Summary to Send:
+                Order Summary:
               </span>
               <span className="font-mono text-[11px]">
                 {totalPieces} pcs &bull; ₹{estimatedTotal.toLocaleString()}
@@ -329,7 +257,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
             </div>
 
             <pre className="p-3.5 bg-neutral-950 rounded-xl border border-neutral-800 text-[11px] font-mono text-neutral-300 whitespace-pre-wrap max-h-48 overflow-y-auto leading-relaxed">
-              {buildWhatsAppMessage()}
+              {checkoutItems.map(item => `${item.productName} — ${item.totalQuantity} pcs — ₹${item.totalPrice.toLocaleString()}`).join('\n')}\n\nSubtotal: ₹${grandTotal.toLocaleString()}\nShipping: ₹${shippingCharge ?? 0}\nEstimated total: ₹${estimatedTotal.toLocaleString()}
             </pre>
           </div>
 
@@ -340,7 +268,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
               <span>Artwork files are saved with your order</span>
             </div>
             <p className="leading-relaxed text-[11px] text-amber-200/90">
-              Your uploaded artwork images will be stored in the PrintStuff Google Drive order folder. The folder link will be included in the WhatsApp message when available.
+              Your uploaded artwork images will be stored in the PrintStuff Google Drive order folder. Your artwork files are saved with your order for processing.
             </p>
           </div>
 
@@ -348,8 +276,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-neutral-800">
             <div className="text-xs text-neutral-400 text-center sm:text-left">
-              <span>Recipient: </span>
-              <strong className="text-white font-mono">{WHATSAPP_PHONE_NUMBER}</strong>
+              <span>Order is saved securely on the PrintStuff website.</span>
             </div>
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -361,22 +288,20 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
               </button>
 
               <button
-                onClick={handleLaunchWhatsApp}
-                disabled={isSavingOrder || shippingCharge === null || customer.pincode.length !== 6}
+                onClick={handlePlaceOrder}
+                disabled={isSavingOrder || !!savedOrder || shippingCharge === null || customer.pincode.length !== 6}
                 className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 text-xs font-bold text-neutral-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-98"
               >
-                <Send className="w-3.5 h-3.5" />
-                <span>{isSavingOrder ? 'Saving Order…' : 'Save Order & Open WhatsApp'}</span>
-                <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
+                <span>{isSavingOrder ? 'Saving Order…' : savedOrder ? 'Order Placed' : 'Place Order'}</span>
               </button>
             </div>
           </div>
 
-          {hasOpenedWhatsApp && (
+          {savedOrder && (
             <div className="p-3 bg-emerald-950/60 border border-emerald-800/80 rounded-xl flex items-center gap-2 text-xs text-emerald-300">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>
-                WhatsApp has launched in a new window. Your order details are ready. If artwork was uploaded, its Google Drive folder link is included in the WhatsApp message.
+                Your order has been placed successfully. Order number: {savedOrder.orderNumber}. Tracking token: {savedOrder.trackingToken}. Save these details to track your order.
               </span>
             </div>
           )}
