@@ -378,3 +378,27 @@ body {
 @media(max-width:640px){
  body{background-size:390px 288px!important;background-attachment:scroll!important}
 }
+
+
+/* VISIBLE SCATTERED STICKER WALL: separate large and small decals across the page */
+html,body { min-height:100%; background:#fff4dc!important; }
+body { position:relative!important; background-image:none!important; }
+body:before {
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:0;
+ pointer-events:none;
+ background-image:url('/brand/sticker-wall.svg');
+ background-repeat:repeat;
+ background-size:680px 529px;
+ opacity:1;
+}
+#root { position:relative; z-index:1; background:transparent!important; }
+#root main { background:transparent!important; }
+#root main > section { background-color:transparent!important; }
+#top > div:first-child { background-color:#111114!important; }
+#catalog { background-color:rgba(255,244,220,.38)!important; }
+@media(max-width:640px) {
+ body:before { background-size:470px 366px; }
+}
