@@ -205,12 +205,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-4 bg-emerald-400 hover:bg-emerald-300 text-neutral-950 font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-98"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Checkout via WhatsApp</span>
+                <span>Place Order</span>
                 <ArrowRight className="w-4 h-4 ml-1" />
               </button>
 
               <p className="text-[10px] text-neutral-400 text-center leading-normal">
-                Transfers order specifications to official PrintStuff WhatsApp (+91-74056-52991) for order confirmation and high-res file submission.
+                Saves your order on the PrintStuff website and displays your order and tracking details.
               </p>
             </div>
           )}
