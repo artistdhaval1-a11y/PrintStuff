@@ -36,7 +36,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   const pincodeRequestRef = useRef(0);
 
   const handlePincodeChange = async (rawValue: string) => {
-    const pincode = rawValue.replace(/\\D/g, '').slice(0, 6);
+    const pincode = rawValue.replace(/\D/g, '').slice(0, 6);
     setCustomer(prev => ({ ...prev, pincode }));
     const requestId = ++pincodeRequestRef.current;
     setDeliveryState('');
@@ -110,6 +110,8 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
       if (customer.phone) msg += `• Contact Number: ${customer.phone}\n`;
       if (customer.city) msg += `• Delivery City: ${customer.city}\n`;
       if (customer.address) msg += `• Shipping Address: ${customer.address}\n`;
+      if (customer.pincode) msg += `• PIN Code: ${customer.pincode}\n`;
+      if (deliveryState) msg += `• State: ${deliveryState}\n`;
       msg += `\n`;
     }
 
@@ -152,8 +154,9 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
     msg += `\n═══════════════════════════════\n`;
     msg += `*ORDER ESTIMATE SUMMARY:*\n`;
     msg += `• Total Apparel Quantity: ${totalPieces} pieces\n`;
-    msg += `• Estimated Total: ₹${grandTotal.toLocaleString()}/-\n`;
-    msg += `• Shipping: Extra as applicable on delivery destination\n`;
+    msg += `• Order Subtotal: ₹${grandTotal.toLocaleString()}/-\n`;
+    msg += `• Shipping (${deliveryState}): ₹${shippingCharge ?? 0}/-\n`;
+    msg += `*• Estimated Grand Total: ₹${estimatedTotal.toLocaleString()}/-*\n`;
 
     if (customer.notes.trim()) {
       msg += `\n*CUSTOMER NOTES & SPECIAL REQUESTS:*\n"${customer.notes.trim()}"\n`;
@@ -167,7 +170,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
 
   const handleLaunchWhatsApp = async () => {
     setOrderError('');
-    if (!customer.name.trim() || !customer.phone.trim() || !customer.city.trim() || customer.address.trim().length < 5 || !/^[A-Za-z0-9 -]{4,12}$/.test(customer.pincode.trim())) {
+    if (!customer.name.trim() || !customer.phone.trim() || !customer.city.trim() || customer.address.trim().length < 5 || !/^\d{6}$/.test(customer.pincode.trim()) || shippingCharge === null || !deliveryState) {
       setOrderError('Please enter your name, phone, full address, city and a valid 6-digit PIN code so we can calculate shipping.');
       return;
     }
