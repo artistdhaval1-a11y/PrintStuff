@@ -39,7 +39,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
   initialProduct,
   initialColor,
   onAddToCart,
-  onDirectWhatsApp
+  onDirectCheckout
 }) => {
   const { tagLogoUrl, wordmarkUrl, wordmarkDarkUrl } = useBrand();
 
@@ -1056,7 +1056,7 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                     type="button"
                     onClick={() => {
                       const item = buildCurrentCartItem();
-                      onDirectWhatsApp(item);
+                      onDirectCheckout(item);
                     }}
                     className="min-h-12 inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-3 text-sm font-bold text-[#202020] bg-[#FFF0D8] hover:bg-[#FFE2B5] border border-[#202020]/20 rounded-xl transition-colors active:scale-[0.98]"
                   >
