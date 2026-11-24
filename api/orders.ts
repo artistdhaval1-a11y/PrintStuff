@@ -69,7 +69,7 @@ async function uploadArtworkToDrive(
     totalBytes += Buffer.from(match[2].replace(/\s/g, ''), 'base64').byteLength;
   }
   if (totalBytes > 3_000_000) {
-    throw new Error('Your artwork files are too large to send in one order. Please use images under 3 MB total or contact us on WhatsApp.');
+    throw new Error('Your artwork files are too large to send in one order. Please use images under 3 MB total and try again.');
   }
 
   // Verify the configured parent folder. If its ID is stale, try locating the shared folder by its exact name.
