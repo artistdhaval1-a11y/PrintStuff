@@ -76,14 +76,25 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
               <span className="text-[9px] font-black uppercase tracking-widest">OUT ✳</span>
             </div>
             <div className="relative aspect-[4/4.25] sm:aspect-[5/4] overflow-hidden border-[5px] border-[#171717] rounded-[42%_42%_18px_18px] bg-[#254BFF] shadow-[10px_10px_0_#171717]">
-              <ProductImage src={heroProduct?.images[0]} alt="PrintStuff custom streetwear T-shirt" loading="eager" className="absolute inset-0 w-full h-full object-cover object-center" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#171717]/55 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white">
-                <div>
-                  <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[#DFFF00]">PrintStuff / 001</div>
-                  <div className="mt-1 text-2xl sm:text-3xl font-black uppercase tracking-tight">The street edit</div>
+              <div className="ps-campaign-poster absolute inset-0 overflow-hidden bg-[#254BFF] text-[#F7F5EF]">
+                <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#F7F5EF 1px, transparent 1px)', backgroundSize: '13px 13px' }} />
+                <div className="absolute -right-12 top-10 w-56 h-56 rounded-full bg-[#DFFF00] border-[12px] border-[#171717] shadow-[8px_8px_0_#171717] rotate-12" />
+                <div className="absolute -left-10 bottom-24 w-44 h-44 rounded-full border-[22px] border-[#FF5A1F] rotate-12" />
+                <div className="absolute top-5 left-5 right-5 flex items-center justify-between text-[9px] sm:text-[10px] font-black uppercase tracking-[0.22em]">
+                  <span className="bg-[#171717] text-[#DFFF00] px-3 py-2">PrintStuff®</span><span className="text-[#171717]">Independent uniform / 001</span>
                 </div>
-                <div className="w-11 h-11 rounded-full bg-[#DFFF00] text-[#171717] flex items-center justify-center"><ArrowDownRight className="w-6 h-6" /></div>
+                <div className="absolute top-[23%] left-[7%] z-10">
+                  <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.35em] text-[#DFFF00]">Not made to fit in</div>
+                  <div className="mt-2 font-display text-[clamp(3.4rem,8vw,6.8rem)] font-black uppercase leading-[.76] tracking-[-.09em] text-[#F7F5EF] drop-shadow-[5px_5px_0_#171717]">BREAK<br/><span className="text-[#DFFF00]">THE</span><br/>RULES<span className="text-[#FF5A1F]">.</span></div>
+                </div>
+                <div className="absolute right-[7%] bottom-[22%] z-10 rotate-[-8deg] bg-[#FF5A1F] border-[3px] border-[#171717] px-4 py-3 text-[#171717] shadow-[5px_5px_0_#171717]">
+                  <div className="text-[9px] font-black uppercase tracking-[0.2em]">Streetwear drop</div><div className="text-2xl font-black uppercase leading-none">Own it.</div>
+                </div>
+                <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between border-t-2 border-[#F7F5EF]/70 pt-3">
+                  <div><div className="text-[9px] font-black uppercase tracking-[0.25em] text-[#DFFF00]">Graphic tees • Custom prints</div><div className="mt-1 text-xl sm:text-2xl font-black uppercase">Wear your own rules.</div></div>
+                  <div className="w-10 h-10 rounded-full bg-[#DFFF00] text-[#171717] flex items-center justify-center border-2 border-[#171717]"><ArrowDownRight className="w-6 h-6" /></div>
+                </div>
+                <div className="absolute left-[7%] bottom-[27%] rotate-[-10deg] rounded-full bg-[#DFFF00] text-[#171717] border-2 border-[#171717] px-3 py-2 text-[9px] font-black uppercase tracking-widest">No uniform ✳</div>
               </div>
             </div>
             <div className="ps-hero__price-sticker absolute -bottom-5 -right-2 sm:-right-5 z-20 bg-[#254BFF] text-white px-4 py-3 rotate-3 border-2 border-[#171717] shadow-[4px_4px_0_#DFFF00]">
