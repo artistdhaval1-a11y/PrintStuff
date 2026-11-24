@@ -25,8 +25,6 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
   onOpenCustomPage,
   onBrowseAll,
 }) => {
-  const heroProduct = products.find((p) => p.isCustomTee) || products.find((p) => p.collections.includes('t-shirts'));
-
   const moods: MoodCard[] = [
     { key: 'custom-printing', title: 'Custom Print', subtitle: 'Make it yours', accentHex: '#DFFF00', product: products.find((p) => p.isCustomTee) },
     { key: 't-shirts', title: 'Graphic Tees', subtitle: 'Wear your mood', accentHex: '#FF5A1F', product: products.find((p) => p.collections.includes('t-shirts') && !p.isCustomTee) },
