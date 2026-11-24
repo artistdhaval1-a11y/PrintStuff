@@ -20,7 +20,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   items,
   onUpdateQuantity,
   onRemoveItem,
-  onCheckoutWhatsApp
+  onCheckout
 }) => {
   if (!isOpen) return null;
 
@@ -201,7 +201,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </div>
 
               <button
-                onClick={onCheckoutWhatsApp}
+                onClick={onCheckout}
                 className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-4 bg-emerald-400 hover:bg-emerald-300 text-neutral-950 font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-98"
               >
                 <ShoppingBag className="w-4 h-4" />
