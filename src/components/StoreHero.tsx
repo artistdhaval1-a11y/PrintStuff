@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Palette } from 'lucide-react';
+import { ArrowDownRight, ArrowRight, Palette, Zap } from 'lucide-react';
 import heroShowroomImg from '../assets/images/hero_printstuff_showroom_1795357534119.jpg';
 import { CollectionKey, StoreProduct } from '../data/shopifyCatalog';
 import { formatINR } from '../utils/format';
@@ -27,178 +27,104 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
   onBrowseAll,
 }) => {
   const moods: MoodCard[] = [
-    {
-      key: 'custom-printing',
-      title: 'Custom Print',
-      subtitle: 'From ₹199',
-      accentHex: '#00A8E8',
-      product: products.find((p) => p.isCustomTee),
-    },
-    {
-      key: 't-shirts',
-      title: 'Graphic Tees',
-      subtitle: 'F1 & Racing Drops',
-      accentHex: '#E6007E',
-      product: products.find((p) => p.collections.includes('t-shirts') && !p.isCustomTee),
-    },
-    {
-      key: 'hoodies',
-      title: 'Puff Hoodies',
-      subtitle: '380–400 GSM',
-      accentHex: '#FFCA05',
-      product: products.find((p) => p.handle.includes('tribal-shadow-depth-hoodie-white')),
-    },
-    {
-      key: 'jackets',
-      title: 'Racing Jackets',
-      subtitle: '37 Drops',
-      accentHex: '#00A8E8',
-      product: products.find((p) => p.handle.includes('marlboro-racing')),
-    },
-    {
-      key: 'sweatshirts',
-      title: 'Sweatshirts',
-      subtitle: 'Cotton Fleece',
-      accentHex: '#E6007E',
-      product: products.find((p) => p.collections.includes('sweatshirts')),
-    },
-    {
-      key: 'cargos',
-      title: 'Cargos & Pants',
-      subtitle: 'Wide-Leg Fit',
-      accentHex: '#FFCA05',
-      product: products.find((p) => p.collections.includes('cargos')),
-    },
+    { key: 'custom-printing', title: 'Custom Print', subtitle: 'Make it yours', accentHex: '#DFFF00', product: products.find((p) => p.isCustomTee) },
+    { key: 't-shirts', title: 'Graphic Tees', subtitle: 'Wear your mood', accentHex: '#FF5A1F', product: products.find((p) => p.collections.includes('t-shirts') && !p.isCustomTee) },
+    { key: 'hoodies', title: 'Hoodies', subtitle: 'Heavyweight energy', accentHex: '#254BFF', product: products.find((p) => p.collections.includes('hoodies')) },
+    { key: 'jackets', title: 'Racing Jackets', subtitle: 'Fast lane fits', accentHex: '#FF5A1F', product: products.find((p) => p.handle.includes('marlboro-racing')) },
+    { key: 'sweatshirts', title: 'Sweatshirts', subtitle: 'Off-duty uniform', accentHex: '#DFFF00', product: products.find((p) => p.collections.includes('sweatshirts')) },
+    { key: 'cargos', title: 'Cargos & Pants', subtitle: 'Room to move', accentHex: '#254BFF', product: products.find((p) => p.collections.includes('cargos')) },
   ];
 
   return (
-    <section id="top" className="bg-[#F5F5F3]">
-      {/* Full-Width Showroom Hero Banner */}
-      <div className="relative w-full min-h-[470px] sm:min-h-[540px] flex items-center overflow-hidden bg-[#111114]">
-        <img
-          src={heroShowroomImg}
-          alt="PrintStuff Streetwear Studio Showroom"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        {/* Measured Contrast Scrim */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-[#111114]/92 via-[#111114]/70 to-[#111114]/25"
-        />
-
-        {/* CMYK Top Accent Hairline */}
-        <div aria-hidden="true" className="absolute top-0 inset-x-0 h-1 grid grid-cols-3">
-          <div className="bg-[#00A8E8]" />
-          <div className="bg-[#E6007E]" />
-          <div className="bg-[#FFCA05]" />
-        </div>
-
-        <div className="relative z-10 max-w-[1380px] mx-auto w-full px-4 sm:px-8 py-16">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#FFCA05]">
-              <span>Streetwear Meets Custom Ink</span>
+    <section id="top" className="bg-[#F7F5EF] overflow-hidden">
+      <div className="relative bg-[#DFFF00]">
+        <div aria-hidden="true" className="absolute -right-24 -top-28 w-[420px] h-[420px] rounded-full border-[55px] border-[#FF5A1F]/20" />
+        <div aria-hidden="true" className="absolute left-[43%] bottom-[-80px] w-52 h-52 rounded-full bg-[#254BFF] hidden lg:block" />
+        <div className="relative max-w-[1440px] mx-auto px-4 sm:px-8 py-10 sm:py-14 lg:py-16 grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-12 items-center min-h-[540px]">
+          <div className="relative z-10 max-w-[660px]">
+            <div className="inline-flex items-center gap-2 bg-[#171717] text-[#DFFF00] px-3 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] -rotate-2 shadow-[4px_4px_0_#FF5A1F]">
+              <Zap className="w-3.5 h-3.5 fill-current" /> Independent streetwear energy
             </div>
-
-            <h1 className="mt-3 font-display text-4xl sm:text-5xl lg:text-[58px] font-bold text-white leading-[1.06] tracking-tight">
-              More Than Streetwear
+            <h1 className="mt-7 font-display text-[58px] sm:text-7xl lg:text-[clamp(4.5rem,7.8vw,8.2rem)] font-black uppercase leading-[0.82] tracking-[-0.075em] text-[#171717]">
+              Wear<br />
+              <span className="text-[#254BFF]">Your</span><br />
+              <span className="inline-block bg-[#FF5A1F] px-3 py-1 -rotate-2 text-[#171717]">Own</span> Rules<span className="text-[#FF5A1F]">.</span>
             </h1>
-
-            <p className="mt-4 text-sm sm:text-base text-white/80 leading-relaxed max-w-md">
-              76 curated hoodies, racing jackets, cargos, and trackpants — plus our interactive Custom Printed T-Shirt Studio starting at ₹199.
+            <p className="mt-7 max-w-md text-sm sm:text-base font-semibold leading-relaxed text-[#171717]/75">
+              Streetwear for the ones who never blend in. Graphic tees, heavyweight layers, racing-inspired pieces and custom prints made your way.
             </p>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3.5">
-              <button
-                type="button"
-                onClick={onBrowseAll}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFCA05] text-[#111114] hover:bg-[#FFD633] text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-lg"
-              >
-                <span>Shop All {products.length} Pieces</span>
-                <ArrowRight className="w-4 h-4" />
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <button type="button" onClick={onBrowseAll} className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#171717] text-white hover:bg-[#254BFF] text-xs font-black uppercase tracking-wider transition-all shadow-[5px_5px_0_#FF5A1F] hover:translate-x-1 hover:translate-y-1 hover:shadow-none cursor-pointer">
+                Shop the drops <ArrowRight className="w-4 h-4" />
               </button>
-
-              <button
-                type="button"
-                onClick={onOpenCustomPage}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-[#00A8E8] text-white hover:bg-[#00A8E8] hover:text-[#111114] text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
-              >
-                <Palette className="w-4 h-4" />
-                <span>Open Custom Print Studio</span>
+              <button type="button" onClick={onOpenCustomPage} className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#F7F5EF] border-2 border-[#171717] text-[#171717] hover:bg-white text-xs font-black uppercase tracking-wider transition-colors cursor-pointer">
+                <Palette className="w-4 h-4" /> Custom Lab · ₹199
               </button>
+            </div>
+            <div className="mt-8 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.18em] text-[#171717]/65">
+              <span className="w-8 h-[2px] bg-[#171717]" /> No uniform. No rules. Just your style.
+            </div>
+          </div>
+
+          <div className="relative z-10 mx-auto w-full max-w-[650px] lg:ml-auto">
+            <div className="absolute -top-5 -left-4 sm:-left-8 z-20 bg-[#FF5A1F] text-[#171717] w-[88px] h-[88px] sm:w-[112px] sm:h-[112px] rounded-full flex flex-col items-center justify-center text-center rotate-[-12deg] border-[3px] border-[#171717] shadow-[5px_5px_0_#171717]">
+              <span className="text-[9px] font-black uppercase tracking-widest">Made to</span>
+              <span className="text-xl sm:text-2xl font-black leading-none">STAND</span>
+              <span className="text-[9px] font-black uppercase tracking-widest">OUT ✳</span>
+            </div>
+            <div className="relative aspect-[4/4.25] sm:aspect-[5/4] overflow-hidden border-[5px] border-[#171717] rounded-[42%_42%_18px_18px] bg-[#254BFF] shadow-[10px_10px_0_#171717]">
+              <img src={heroShowroomImg} alt="PrintStuff streetwear collection" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171717]/55 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white">
+                <div>
+                  <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[#DFFF00]">PrintStuff / 001</div>
+                  <div className="mt-1 text-2xl sm:text-3xl font-black uppercase tracking-tight">The street edit</div>
+                </div>
+                <div className="w-11 h-11 rounded-full bg-[#DFFF00] text-[#171717] flex items-center justify-center"><ArrowDownRight className="w-6 h-6" /></div>
+              </div>
+            </div>
+            <div className="absolute -bottom-5 -right-2 sm:-right-5 z-20 bg-[#254BFF] text-white px-4 py-3 rotate-3 border-2 border-[#171717] shadow-[4px_4px_0_#DFFF00]">
+              <div className="text-[9px] font-black uppercase tracking-[0.2em]">Fresh fits only</div>
+              <div className="text-lg font-black uppercase leading-none">Drop your vibe.</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Six Moods / Signature Collections Fanned Arched Strip (Video Ref Style) */}
-      <div className="max-w-[1380px] mx-auto px-4 sm:px-8 py-12 sm:py-16">
+      <div className="bg-[#171717] text-[#F7F5EF] overflow-hidden py-3">
+        <div className="flex w-max items-center gap-7 animate-[ps-marquee_26s_linear_infinite] whitespace-nowrap text-[11px] sm:text-xs font-black uppercase tracking-[0.2em]">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i} className="flex items-center gap-7"><span>Street is a mindset</span><span className="text-[#DFFF00]">✳</span><span>Graphic tees</span><span className="text-[#FF5A1F]">✳</span><span>Heavyweight layers</span><span className="text-[#254BFF]">✳</span><span>Custom made loud</span><span className="text-[#DFFF00]">✳</span></span>
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 py-12 sm:py-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-widest text-[#E6007E]">
-              Six Collections
-            </div>
-            <h2 className="mt-1 font-display text-2xl sm:text-3xl font-bold text-[#111114] tracking-tight">
-              Printed to be <span className="text-[#00A8E8]">Remembered</span>
+            <div className="text-[10px] font-black uppercase tracking-[0.22em] text-[#FF5A1F]">Pick your lane ✳</div>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl font-black uppercase tracking-[-0.05em] text-[#171717]">
+              Find your <span className="text-[#254BFF]">uniform.</span>
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-[#52525B] max-w-sm">
-            Jump straight into any PrintStuff drop or launch your custom tee build on its own studio canvas.
-          </p>
+          <p className="text-xs sm:text-sm font-medium text-[#52525B] max-w-sm">Six ways to show up. Pick a drop and make it yours.</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
-          {moods.map((mood, idx) => {
-            const tiltClass =
-              idx % 2 === 0
-                ? 'lg:-rotate-1 hover:rotate-0'
-                : 'lg:rotate-1 hover:rotate-0';
-
-            return (
-              <button
-                key={mood.key}
-                type="button"
-                onClick={() => {
-                  if (mood.key === 'custom-printing') {
-                    onOpenCustomPage();
-                  } else {
-                    onSelectCollection(mood.key);
-                  }
-                }}
-                className={`group text-left transition-all duration-200 hover:-translate-y-1.5 cursor-pointer ${tiltClass}`}
-              >
-                <div
-                  style={{ borderBottomColor: mood.accentHex }}
-                  className="relative aspect-[3/4] rounded-t-[80px] rounded-b-xl overflow-hidden bg-white border border-black/10 border-b-4 shadow-sm group-hover:shadow-lg transition-shadow"
-                >
-                  <ProductImage
-                    src={mood.product?.images[0]}
-                    alt={mood.title}
-                    loading="eager"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
-                  <div className="absolute bottom-2.5 inset-x-3 text-white">
-                    <div className="text-[11px] font-medium text-white/80">
-                      {mood.subtitle}
-                    </div>
-                    <div className="font-display text-sm font-bold leading-tight">
-                      {mood.title}
-                    </div>
-                  </div>
+          {moods.map((mood, idx) => (
+            <button key={mood.key} type="button" onClick={() => mood.key === 'custom-printing' ? onOpenCustomPage() : onSelectCollection(mood.key)} className={`group text-left transition-all duration-200 hover:-translate-y-2 cursor-pointer ${idx % 2 === 0 ? 'lg:rotate-[-1deg]' : 'lg:rotate-[1deg]'} hover:rotate-0`}>
+              <div style={{ borderBottomColor: mood.accentHex }} className="relative aspect-[3/4] overflow-hidden bg-white border-[3px] border-[#171717] border-b-[7px] shadow-[4px_4px_0_#171717] group-hover:shadow-[7px_7px_0_#254BFF] transition-all">
+                <ProductImage src={mood.product?.images[0]} alt={mood.title} loading="eager" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+                <div className="absolute bottom-3 inset-x-3 text-white">
+                  <div className="text-[10px] font-bold text-white/80 uppercase tracking-wider">{mood.subtitle}</div>
+                  <div className="font-display text-base font-black uppercase leading-tight">{mood.title}</div>
                 </div>
-                {mood.product && (
-                  <div className="mt-2 flex items-center justify-between px-1 text-[11px] text-[#52525B]">
-                    <span>
-                      {mood.key === 'custom-printing' ? 'Configure' : 'Explore Drop'}
-                    </span>
-                    <span className="font-mono font-semibold text-[#111114] tabular-nums">
-                      {formatINR(mood.product.minPrice)}
-                    </span>
-                  </div>
-                )}
-              </button>
-            );
-          })}
+                <div className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center bg-[#DFFF00] text-[#171717] border border-[#171717]"><ArrowDownRight className="w-4 h-4" /></div>
+              </div>
+              {mood.product && <div className="mt-2 flex items-center justify-between px-1 text-[10px] font-bold uppercase tracking-wide text-[#52525B]"><span>{mood.key === 'custom-printing' ? 'Build yours' : 'Explore drop'}</span><span className="font-mono font-black text-[#171717] tabular-nums">{formatINR(mood.product.minPrice)}</span></div>}
+            </button>
+          ))}
         </div>
       </div>
     </section>
