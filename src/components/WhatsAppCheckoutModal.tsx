@@ -26,7 +26,8 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
     notes: ''
   });
 
-  const [savedOrder, setSavedOrder] = useState<{ orderNumber: string; trackingToken: string } | null>(null);\n  const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'cod'>('razorpay');
+  const [savedOrder, setSavedOrder] = useState<{ orderNumber: string; trackingToken: string } | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'cod'>('razorpay');
   const [isSavingOrder, setIsSavingOrder] = useState<boolean>(false);
   const [orderError, setOrderError] = useState<string>('');
   const [deliveryState, setDeliveryState] = useState<string>('');
