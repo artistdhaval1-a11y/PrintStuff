@@ -1,184 +1,192 @@
 import React, { useState } from 'react';
-import { Product, ProductColor, CartItem } from './types';
-import { PRODUCTS } from './data/products';
-import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { CatalogSection } from './components/CatalogSection';
-import { CustomizerStudio } from './components/CustomizerStudio';
-import { Footer } from './components/Footer';
-import { CartDrawer } from './components/CartDrawer';
-import { CheckoutModal } from './components/WhatsAppCheckoutModal';
-import { ProductQuickViewModal } from './components/ProductQuickViewModal';
-import { OrderTracking } from './components/OrderTracking';
-import { BrandProvider } from './context/BrandContext';
 import { Check } from 'lucide-react';
+import { CollectionKey, SHOPIFY_PRODUCTS, StoreProduct } from './data/shopifyCatalog';
+import { BagItem } from './types';
+import { Header, StorePage } from './components/Header';
+import { StoreHero } from './components/StoreHero';
+import { ChangeLookShowcase } from './components/ChangeLookShowcase';
+import { StoreCatalogueSection } from './components/StoreCatalogueSection';
+import { TrendsAndFooter } from './components/TrendsAndFooter';
+import { CustomTeeSection } from './components/CustomTeeSection';
+import { ProductDetailModal } from './components/ProductDetailModal';
+import { BagDrawer } from './components/BagDrawer';
+import { CheckoutModal } from './components/CheckoutModal';
 
 export default function App() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
-  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState<boolean>(false);
-  const [singleCheckoutItem, setSingleCheckoutItem] = useState<CartItem | null>(null);
-  const [customizerProduct, setCustomizerProduct] = useState<Product>(PRODUCTS[0]);
-  const [customizerColor, setCustomizerColor] = useState<ProductColor>(PRODUCTS[0].colors[0]);
-  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
-  const [notification, setNotification] = useState<string | null>(null);
+  const [activePage, setActivePage] = useState<StorePage>('store');
+  const [activeCollection, setActiveCollection] = useState<CollectionKey>('all');
+  const [bagItems, setBagItems] = useState<BagItem[]>([]);
+  const [isBagOpen, setIsBagOpen] = useState<boolean>(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
+  const [inspectedProduct, setInspectedProduct] = useState<StoreProduct | null>(null);
+  const [inspectedList, setInspectedList] = useState<StoreProduct[]>(SHOPIFY_PRODUCTS);
+  const [toastMsg, setToastMsg] = useState<string | null>(null);
 
-  // Show transient toast notification
   const showToast = (msg: string) => {
-    setNotification(msg);
-    setTimeout(() => {
-      setNotification(null);
-    }, 3500);
+    setToastMsg(msg);
+    window.setTimeout(() => {
+      setToastMsg((prev) => (prev === msg ? null : prev));
+    }, 3200);
   };
 
-  // Smooth scroll handler
-  const handleNavigate = (sectionId: string) => {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    } else if (sectionId === 'hero') {
+  const handleChangePage = (page: StorePage, sectionId?: string) => {
+    setActivePage(page);
+    if (page === 'custom') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
     }
+    window.setTimeout(() => {
+      if (!sectionId) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 40);
   };
 
-  // Add customized item to cart
-  const handleAddToCart = (item: CartItem) => {
-    setCartItems((prev) => [...prev, item]);
-    showToast(`Added ${item.totalQuantity} pcs of ${item.productName} to your bag!`);
-    setIsCartOpen(true);
+  const handleSelectCollectionFromHero = (col: CollectionKey) => {
+    setActiveCollection(col);
+    handleChangePage('store', 'catalogue');
   };
 
-  // Direct checkout enquiry from Customizer
-  const handleDirectCheckout = (item: CartItem) => {
-    setSingleCheckoutItem(item);
-    setIsCheckoutModalOpen(true);
+  const handleInspectProduct = (product: StoreProduct, list: StoreProduct[]) => {
+    setInspectedProduct(product);
+    setInspectedList(list);
   };
 
-  // Open checkout for entire bag
-  const handleCheckoutFromCart = () => {
-    setSingleCheckoutItem(null);
-    setIsCartOpen(false);
-    setIsCheckoutModalOpen(true);
+  const handleAddToBag = (item: BagItem) => {
+    setBagItems((prev) => {
+      const matchIdx = prev.findIndex(
+        (existing) =>
+          existing.productId === item.productId &&
+          existing.size === item.size &&
+          existing.color === item.color &&
+          existing.printSummary === item.printSummary &&
+          existing.customArtworkName === item.customArtworkName
+      );
+      if (matchIdx > -1) {
+        const next = [...prev];
+        next[matchIdx] = {
+          ...next[matchIdx],
+          quantity: next[matchIdx].quantity + item.quantity,
+        };
+        return next;
+      }
+      return [...prev, item];
+    });
+    showToast(`Added ${item.title} (Size ${item.size}) to your bag`);
+    setIsBagOpen(true);
   };
 
-  // Update item quantity in bag
-  const handleUpdateCartQuantity = (itemId: string, newTotalQty: number) => {
-    setCartItems((prev) =>
-      prev.map((item) => {
-        if (item.id === itemId) {
-          const qty = Math.max(1, newTotalQty);
-          const product = PRODUCTS.find((p) => p.id === item.productId);
-          if (product) {
-            const lastTier = product.priceTiers[product.priceTiers.length - 1];
-            let price = lastTier.price;
-            let label = lastTier.label;
-            for (const tier of product.priceTiers) {
-              if (qty <= tier.maxQty) {
-                price = tier.price;
-                label = tier.label;
-                break;
-              }
-            }
-            return {
-              ...item,
-              totalQuantity: qty,
-              unitPrice: price,
-              totalPrice: price * qty,
-              appliedTierLabel: label
-            };
-          }
-        }
-        return item;
-      })
+  const handleUpdateQuantity = (id: string, qty: number) => {
+    if (qty <= 0) {
+      setBagItems((prev) => prev.filter((item) => item.id !== id));
+      return;
+    }
+    setBagItems((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, quantity: qty } : item))
     );
   };
 
-  // Remove item from bag
-  const handleRemoveFromCart = (itemId: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== itemId));
-    showToast('Item removed from your bag.');
+  const handleRemoveItem = (id: string) => {
+    setBagItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // Launch customizer with selected product & color
-  const handleSelectProductForStudio = (product: Product, color?: ProductColor) => {
-    setCustomizerProduct(product);
-    setCustomizerColor(color || product.colors[0]);
-    const studioEl = document.getElementById('studio');
-    if (studioEl) {
-      studioEl.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleCheckoutFromBag = () => {
+    setIsBagOpen(false);
+    setIsCheckoutOpen(true);
   };
 
-  const totalCartCount = cartItems.reduce((sum, item) => sum + item.totalQuantity, 0);
+  const handleOrderConfirmed = () => {
+    setBagItems([]);
+  };
+
+  const bagCount = bagItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <BrandProvider>
-      <div className="min-h-screen bg-[#FFF9ED] text-[#202020] flex flex-col selection:bg-[#D7FF00] selection:text-[#202020]">
-        {/* Toast Notification */}
-        {notification && (
-          <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-emerald-500 text-neutral-950 rounded-xl font-bold text-xs shadow-2xl animate-fade-in">
-            <Check className="w-4 h-4 stroke-[3]" />
-            <span>{notification}</span>
-          </div>
-        )}
+    <div className="min-h-screen bg-[#F5F5F3] text-[#111114] flex flex-col">
+      {toastMsg && (
+        <div
+          role="status"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-[#111114] text-[#F5F5F3] rounded-full text-xs font-semibold shadow-xl border border-white/10"
+        >
+          <Check className="w-4 h-4 text-[#FFCA05] shrink-0" />
+          <span>{toastMsg}</span>
+        </div>
+      )}
 
-        {/* Top Navigation */}
-        <Header
-          cartCount={cartItems.length}
-          onOpenCart={() => setIsCartOpen(true)}
-          onNavigate={handleNavigate}
-        />
+      <Header
+        activePage={activePage}
+        bagCount={bagCount}
+        onChangePage={handleChangePage}
+        onOpenBag={() => setIsBagOpen(true)}
+      />
 
-        {/* Main Content Area */}
+      {activePage === 'custom' ? (
         <main className="flex-1">
-          <Hero
-            onStartCustomizing={() => handleNavigate('studio')}
-            onBrowseCatalog={() => handleNavigate('catalog')}
+          <CustomTeeSection
+            onAddToBag={handleAddToBag}
+            onBackToStore={() => handleChangePage('store')}
           />
-
-          <CatalogSection
-            onCustomize={handleSelectProductForStudio}
-            onQuickView={(p) => setQuickViewProduct(p)}
-          />
-
-          <CustomizerStudio
-            initialProduct={customizerProduct}
-            initialColor={customizerColor}
-            onAddToCart={handleAddToCart}
-            onDirectCheckout={handleDirectCheckout}
-          />
-
-          <OrderTracking />
         </main>
+      ) : (
+        <main className="flex-1">
+          <StoreHero
+            products={SHOPIFY_PRODUCTS}
+            onSelectCollection={handleSelectCollectionFromHero}
+            onOpenCustomPage={() => handleChangePage('custom')}
+            onBrowseAll={() => handleChangePage('store', 'catalogue')}
+          />
 
-        {/* Footer */}
-        <Footer onNavigate={handleNavigate} />
+          <ChangeLookShowcase
+            products={SHOPIFY_PRODUCTS}
+            onAddToBag={handleAddToBag}
+            onInspectProduct={handleInspectProduct}
+          />
 
-        {/* Cart Drawer */}
-        <CartDrawer
-          isOpen={isCartOpen}
-          onClose={() => setIsCartOpen(false)}
-          items={cartItems}
-          onUpdateQuantity={handleUpdateCartQuantity}
-          onRemoveItem={handleRemoveFromCart}
-          onCheckout={handleCheckoutFromCart}
-        />
+          <StoreCatalogueSection
+            products={SHOPIFY_PRODUCTS}
+            activeCollection={activeCollection}
+            onChangeCollection={setActiveCollection}
+            onInspectProduct={handleInspectProduct}
+            onAddToBag={handleAddToBag}
+            onOpenCustomPage={() => handleChangePage('custom')}
+          />
 
-        {/* Website checkout with Razorpay */}
-        <CheckoutModal
-          isOpen={isCheckoutModalOpen}
-          onClose={() => setIsCheckoutModalOpen(false)}
-          items={cartItems}
-          singleItem={singleCheckoutItem}
-        />
+          <TrendsAndFooter
+            products={SHOPIFY_PRODUCTS}
+            onInspectProduct={handleInspectProduct}
+            onOpenCustomPage={() => handleChangePage('custom')}
+            onNavigateCatalogue={() => handleChangePage('store', 'catalogue')}
+          />
+        </main>
+      )}
 
-        {/* Product Quick View Modal */}
-        <ProductQuickViewModal
-          product={quickViewProduct}
-          onClose={() => setQuickViewProduct(null)}
-          onCustomize={handleSelectProductForStudio}
-        />
-      </div>
-    </BrandProvider>
+      <ProductDetailModal
+        product={inspectedProduct}
+        list={inspectedList}
+        onClose={() => setInspectedProduct(null)}
+        onChangeProduct={(p) => setInspectedProduct(p)}
+        onAddToBag={handleAddToBag}
+        onOpenCustomPage={() => handleChangePage('custom')}
+      />
+
+      <BagDrawer
+        isOpen={isBagOpen}
+        items={bagItems}
+        onClose={() => setIsBagOpen(false)}
+        onUpdateQuantity={handleUpdateQuantity}
+        onRemoveItem={handleRemoveItem}
+        onCheckout={handleCheckoutFromBag}
+      />
+
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        items={bagItems}
+        onClose={() => setIsCheckoutOpen(false)}
+        onOrderConfirmed={handleOrderConfirmed}
+      />
+    </div>
   );
 }
