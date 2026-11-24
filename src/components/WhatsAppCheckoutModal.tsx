@@ -3,7 +3,7 @@ import { CartItem, CustomerDetails } from '../types';
 import { X, CheckCircle2, AlertCircle, FileText } from 'lucide-react';
 import { Logo } from './Logo';
 
-interface WhatsAppCheckoutModalProps {
+interface WebsiteCheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   items: CartItem[];
@@ -149,9 +149,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
           {/* Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-center text-emerald-400 shrink-0">
-                <MessageCircle className="w-5 h-5" />
-              </div>
+              
               <div>
                 <h3 className="font-display font-bold text-xl text-white">
                   Order Details
@@ -301,7 +299,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
             <div className="p-3 bg-emerald-950/60 border border-emerald-800/80 rounded-xl flex items-center gap-2 text-xs text-emerald-300">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>
-                Your order has been placed successfully. Order number: {savedOrder.orderNumber}. Tracking token: {savedOrder.trackingToken}. Save these details to track your order.
+                Your order has been placed successfully on the website. Order number: {savedOrder.orderNumber}. Tracking token: {savedOrder.trackingToken}. Save these details to track your order.
               </span>
             </div>
           )}
