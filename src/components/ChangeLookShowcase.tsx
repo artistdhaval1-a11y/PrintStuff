@@ -98,7 +98,7 @@ export const ChangeLookShowcase: React.FC<ChangeLookShowcaseProps> = ({
   };
 
   return (
-    <section id="lookbook" className="bg-white border-y border-black/[0.08] py-14 sm:py-16 px-4 sm:px-8">
+    <section id="lookbook" className="ps-lookbook bg-white border-y border-black/[0.08] py-14 sm:py-16 px-4 sm:px-8">
       <div className="max-w-[1380px] mx-auto">
         {/* Top 3 Arched Editorial Drop Selector Cards (Video Ref Frame 26) */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-12">
@@ -136,7 +136,7 @@ export const ChangeLookShowcase: React.FC<ChangeLookShowcaseProps> = ({
         </div>
 
         {/* Main 3-Column Interactive Change-Look Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#F5F5F3] rounded-3xl p-5 sm:p-8 border border-black/[0.08]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center ps-lookbook__stage bg-[#F5F5F3] rounded-3xl p-5 sm:p-8 border border-black/[0.08]">
           {/* Left: Change Look Thumbnail Rail */}
           <div className="lg:col-span-3 flex flex-col items-start">
             <div className="font-display text-lg font-semibold text-[#111114] mb-1">
