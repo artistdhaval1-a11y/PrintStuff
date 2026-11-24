@@ -72,13 +72,12 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-[650px] lg:ml-auto">
-            <div className="absolute -top-5 -left-4 sm:-left-8 z-20 bg-[#FF5A1F] text-[#171717] w-[88px] h-[88px] sm:w-[112px] sm:h-[112px] rounded-full flex flex-col items-center justify-center text-center rotate-[-12deg] border-[3px] border-[#171717] shadow-[5px_5px_0_#171717]">
-              <span className="text-[9px] font-black uppercase tracking-widest">Made to</span>
-              <span className="text-xl sm:text-2xl font-black leading-none">STAND</span>
-              <span className="text-[9px] font-black uppercase tracking-widest">OUT ✳</span>
-            </div>
             <div className="relative aspect-[4/4.25] sm:aspect-[5/4] overflow-hidden border-[5px] border-[#171717] rounded-[28px] bg-[#254BFF] shadow-[10px_10px_0_#171717]">
               <div className="ps-campaign-poster absolute inset-0 overflow-hidden bg-[#254BFF] text-[#F7F5EF]">
+              <div className="absolute top-3 right-3 z-30 rotate-[3deg] border-2 border-[#171717] bg-[#FF5A1F] px-3 py-2 text-[#171717] shadow-[4px_4px_0_#171717]">
+                <div className="text-[8px] font-black uppercase tracking-[0.2em]">Made to</div>
+                <div className="text-lg font-black uppercase leading-none">Stand out ✳</div>
+              </div>
                 <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#F7F5EF 1px, transparent 1px)', backgroundSize: '13px 13px' }} />
                 <div className="absolute -right-12 top-10 w-56 h-56 rounded-full bg-[#DFFF00] border-[12px] border-[#171717] shadow-[8px_8px_0_#171717] rotate-12" />
                 <div className="absolute -left-10 bottom-24 w-44 h-44 rounded-full border-[22px] border-[#FF5A1F] rotate-12" />
