@@ -11,7 +11,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
-  if (!keyId || !keySecret) return respond(res, 503, { error: 'Online payment is not configured yet. Please choose Cash on Delivery or contact PrintStuff.' });
+  if (!keyId || !keySecret) return respond(res, 503, { error: 'Online payment is temporarily unavailable. Please contact PrintStuff.' });
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
