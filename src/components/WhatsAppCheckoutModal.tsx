@@ -116,7 +116,7 @@ export const CheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
           dataUrl: await prepareArtworkForUpload(art.dataUrl)
         })))
       })));
-      let paymentDetails: Record<string, string> = { paymentMethod: 'cod' };
+      let paymentDetails: Record<string, string> = {};
       if (paymentMethod === 'razorpay') {
         const paymentOrderResponse = await fetch('/api/create-payment', {
           method: 'POST',
@@ -286,11 +286,10 @@ export const CheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
 
           <div className="p-4 bg-neutral-950 rounded-2xl border border-neutral-800 space-y-3">
             <div className="text-xs font-mono uppercase tracking-wider text-neutral-400">Payment method</div>
-            <label className="flex items-center gap-3 p-3 rounded-xl border border-neutral-700 cursor-pointer">
-              <input type="radio" name="paymentMethod" value="razorpay" checked={paymentMethod === 'razorpay'} onChange={() => setPaymentMethod('razorpay')} />
-              <span className="text-sm text-white font-semibold">Pay Online with Razorpay</span>
+            <div className="flex items-center gap-3 p-3 rounded-xl border border-emerald-700 bg-emerald-950/30">
+              <span className="text-sm text-white font-semibold">Pay securely with Razorpay</span>
               <span className="ml-auto text-[10px] text-emerald-300">UPI • Cards • Netbanking</span>
-            </label>
+            </div>
           </div>
 
           {/* Formatted Message Preview Box */}
