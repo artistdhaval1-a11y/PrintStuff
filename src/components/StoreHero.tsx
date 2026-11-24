@@ -25,6 +25,10 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
   onOpenCustomPage,
   onBrowseAll,
 }) => {
+  const jacketProduct = products.find((p) => p.collections.includes('jackets'));
+  const hoodieProduct = products.find((p) => p.collections.includes('hoodies'));
+  const teeProduct = products.find((p) => p.collections.includes('t-shirts') && !p.isCustomTee);
+
   const moods: MoodCard[] = [
     { key: 'custom-printing', title: 'Custom Print', subtitle: 'Make it yours', accentHex: '#DFFF00', product: products.find((p) => p.isCustomTee) },
     { key: 't-shirts', title: 'Graphic Tees', subtitle: 'Wear your mood', accentHex: '#FF5A1F', product: products.find((p) => p.collections.includes('t-shirts') && !p.isCustomTee) },
@@ -81,11 +85,25 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
                 <div className="absolute top-5 left-5 right-5 flex items-center justify-between text-[9px] sm:text-[10px] font-black uppercase tracking-[0.22em]">
                   <span className="bg-[#171717] text-[#DFFF00] px-3 py-2">PrintStuff®</span><span className="text-[#171717]">Independent uniform / 001</span>
                 </div>
-                <div className="absolute top-[23%] left-[7%] z-10">
-                  <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.35em] text-[#DFFF00]">Not made to fit in</div>
-                  <div className="mt-2 font-display text-[clamp(3.4rem,8vw,6.8rem)] font-black uppercase leading-[.76] tracking-[-.09em] text-[#F7F5EF] drop-shadow-[5px_5px_0_#171717]">BREAK<br/><span className="text-[#DFFF00]">THE</span><br/>RULES<span className="text-[#FF5A1F]">.</span></div>
+                <div className="absolute top-[18%] right-[5%] z-10 w-[55%] h-[57%]">
+                  <div className="absolute left-[1%] top-[18%] w-[46%] h-[78%] rotate-[-9deg] overflow-hidden border-[3px] border-[#171717] bg-[#FF5A1F] shadow-[6px_7px_0_#171717]">
+                    <ProductImage src={jacketProduct?.images[0]} alt="Streetwear racing jacket" loading="eager" className="w-full h-full object-cover" />
+                    <span className="absolute bottom-0 inset-x-0 bg-[#171717] text-[#DFFF00] px-2 py-1 text-[8px] font-black uppercase tracking-widest">Jackets</span>
+                  </div>
+                  <div className="absolute right-[1%] top-[2%] w-[48%] h-[78%] rotate-[8deg] overflow-hidden border-[3px] border-[#171717] bg-[#DFFF00] shadow-[6px_7px_0_#171717]">
+                    <ProductImage src={hoodieProduct?.images[0]} alt="Graphic streetwear hoodie" loading="eager" className="w-full h-full object-cover" />
+                    <span className="absolute bottom-0 inset-x-0 bg-[#171717] text-[#DFFF00] px-2 py-1 text-[8px] font-black uppercase tracking-widest">Hoodies</span>
+                  </div>
+                  <div className="absolute left-[30%] bottom-[-4%] w-[47%] h-[68%] -rotate-[2deg] overflow-hidden border-[3px] border-[#171717] bg-[#F7F5EF] shadow-[7px_8px_0_#171717]">
+                    <ProductImage src={teeProduct?.images[0]} alt="Graphic streetwear T-shirt" loading="eager" className="w-full h-full object-cover" />
+                    <span className="absolute bottom-0 inset-x-0 bg-[#254BFF] text-white px-2 py-1 text-[8px] font-black uppercase tracking-widest">Graphic tees</span>
+                  </div>
                 </div>
-                <div className="absolute right-[7%] bottom-[22%] z-10 rotate-[-8deg] bg-[#FF5A1F] border-[3px] border-[#171717] px-4 py-3 text-[#171717] shadow-[5px_5px_0_#171717]">
+                <div className="absolute top-[24%] left-[5%] z-20">
+                  <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.35em] text-[#DFFF00]">Not made to fit in</div>
+                  <div className="mt-2 font-display text-[clamp(2.8rem,6vw,5.4rem)] font-black uppercase leading-[.76] tracking-[-.09em] text-[#F7F5EF] drop-shadow-[5px_5px_0_#171717]">BREAK<br/><span className="text-[#DFFF00]">THE</span><br/>RULES<span className="text-[#FF5A1F]">.</span></div>
+                </div>
+                <div className="absolute right-[7%] bottom-[20%] z-20 rotate-[-8deg] bg-[#FF5A1F] border-[3px] border-[#171717] px-4 py-3 text-[#171717] shadow-[5px_5px_0_#171717]">
                   <div className="text-[9px] font-black uppercase tracking-[0.2em]">Streetwear drop</div><div className="text-2xl font-black uppercase leading-none">Own it.</div>
                 </div>
                 <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between border-t-2 border-[#F7F5EF]/70 pt-3">
