@@ -74,7 +74,7 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
           <div className="relative z-10 mx-auto w-full max-w-[650px] lg:ml-auto">
             <div className="relative aspect-[4/4.25] sm:aspect-[5/4] overflow-hidden border-[5px] border-[#171717] rounded-[28px] bg-[#254BFF] shadow-[10px_10px_0_#171717]">
               <div className="ps-campaign-poster absolute inset-0 overflow-hidden bg-[#254BFF] text-[#F7F5EF]">
-              <div className="absolute top-3 right-3 z-30 rotate-[3deg] border-2 border-[#171717] bg-[#FF5A1F] px-3 py-2 text-[#171717] shadow-[4px_4px_0_#171717]">
+              <div className="ps-poster-sticker absolute top-5 right-5 z-30 rotate-[2deg] border-2 border-[#171717] bg-[#FF5A1F] px-3 py-2 text-[#171717] shadow-[4px_4px_0_#171717]">
                 <div className="text-[8px] font-black uppercase tracking-[0.2em]">Made to</div>
                 <div className="text-lg font-black uppercase leading-none">Stand out ✳</div>
               </div>
@@ -102,17 +102,17 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
                   <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.35em] text-[#DFFF00]">Not made to fit in</div>
                   <div className="mt-2 font-display text-[clamp(2.8rem,6vw,5.4rem)] font-black uppercase leading-[.76] tracking-[-.09em] text-[#F7F5EF] drop-shadow-[5px_5px_0_#171717]">BREAK<br/><span className="text-[#DFFF00]">THE</span><br/>RULES<span className="text-[#FF5A1F]">.</span></div>
                 </div>
-                <div className="absolute right-[7%] bottom-[20%] z-20 rotate-[-8deg] bg-[#FF5A1F] border-[3px] border-[#171717] px-4 py-3 text-[#171717] shadow-[5px_5px_0_#171717]">
+                <div className="ps-ownit-sticker absolute right-[9%] bottom-[21%] z-20 rotate-[-8deg] bg-[#FF5A1F] border-[3px] border-[#171717] px-4 py-3 text-[#171717] shadow-[5px_5px_0_#171717]">
                   <div className="text-[9px] font-black uppercase tracking-[0.2em]">Streetwear drop</div><div className="text-2xl font-black uppercase leading-none">Own it.</div>
                 </div>
                 <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between border-t-2 border-[#F7F5EF]/70 pt-3">
                   <div><div className="text-[9px] font-black uppercase tracking-[0.25em] text-[#DFFF00]">Graphic tees • Custom prints</div><div className="mt-1 text-xl sm:text-2xl font-black uppercase">Wear your own rules.</div></div>
                   <div className="w-10 h-10 rounded-full bg-[#DFFF00] text-[#171717] flex items-center justify-center border-2 border-[#171717]"><ArrowDownRight className="w-6 h-6" /></div>
                 </div>
-                <div className="absolute left-[7%] bottom-[27%] rotate-[-10deg] rounded-full bg-[#DFFF00] text-[#171717] border-2 border-[#171717] px-3 py-2 text-[9px] font-black uppercase tracking-widest">No uniform ✳</div>
+                <div className="ps-no-uniform-sticker absolute left-[9%] bottom-[28%] rotate-[-10deg] rounded-full bg-[#DFFF00] text-[#171717] border-2 border-[#171717] px-3 py-2 text-[9px] font-black uppercase tracking-widest">No uniform ✳</div>
               </div>
             </div>
-            <div className="ps-hero__price-sticker absolute -bottom-5 -right-2 sm:-right-5 z-20 bg-[#254BFF] text-white px-4 py-3 rotate-3 border-2 border-[#171717] shadow-[4px_4px_0_#DFFF00]">
+            <div className="ps-drop-sticker ps-hero__price-sticker absolute -bottom-4 right-3 sm:right-5 z-20 bg-[#254BFF] text-white px-4 py-3 rotate-3 border-2 border-[#171717] shadow-[4px_4px_0_#DFFF00]">
               <div className="text-[9px] font-black uppercase tracking-[0.2em]">Fresh fits only</div>
               <div className="text-lg font-black uppercase leading-none">Drop your vibe.</div>
             </div>
