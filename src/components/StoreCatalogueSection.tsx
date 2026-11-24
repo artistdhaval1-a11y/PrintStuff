@@ -93,7 +93,7 @@ export const StoreCatalogueSection: React.FC<StoreCatalogueSectionProps> = ({
   };
 
   return (
-    <section id="catalogue" className="bg-[#F5F5F3]">
+    <section id="catalogue" className="ps-catalogue bg-[#F5F5F3]">
       {/* Dark Atmospheric Filmstrip Spotlight (Video Ref Frames 33-38) */}
       {activeSpotlight && (
         <div className="relative bg-[#111114] text-[#F5F5F3] py-14 sm:py-16 px-4 sm:px-8 overflow-hidden">
@@ -292,7 +292,7 @@ export const StoreCatalogueSection: React.FC<StoreCatalogueSectionProps> = ({
                       onInspectProduct(product, filteredProducts);
                     }
                   }}
-                  className="group bg-white rounded-2xl border border-black/[0.08] overflow-hidden hover:-translate-y-1 hover:shadow-[0_20px_40px_-14px_rgba(17,17,20,0.18)] transition-all duration-200 flex flex-col cursor-pointer"
+                  className="ps-product-card group bg-white rounded-2xl border border-black/[0.08] overflow-hidden hover:-translate-y-1 hover:shadow-[0_20px_40px_-14px_rgba(17,17,20,0.18)] transition-all duration-200 flex flex-col cursor-pointer"
                 >
                   {/* 3:4 Photo Container with Hover Secondary Angle Reveal */}
                   <div className="relative w-full aspect-[3/4] bg-[#ECECE8] overflow-hidden">
