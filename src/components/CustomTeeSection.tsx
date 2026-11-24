@@ -45,9 +45,25 @@ export const CustomTeeSection: React.FC<CustomTeeSectionProps> = ({
   const basePrice = 199;
   const frontTierObj = CUSTOM_TEE_PRINT_TIERS.find((t) => t.key === frontTier) || CUSTOM_TEE_PRINT_TIERS[0];
   const backTierObj = CUSTOM_TEE_PRINT_TIERS.find((t) => t.key === backTier) || CUSTOM_TEE_PRINT_TIERS[0];
-  const unitPrice = basePrice + frontTi
-…[1 chars truncated — re-run with head/grep/tail for full output]…
-  }
+  const unitPrice = basePrice + frontTierObj.charge + backTierObj.charge;
+  const totalPrice = unitPrice * quantity;
+
+  const activeTier = viewSide === 'front' ? frontTier : backTier;
+  const activeArtwork = viewSide === 'front' ? frontArtwork : backArtwork;
+
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = String(reader.result || '');
+      if (viewSide === 'front') {
+        setFrontArtwork({ name: file.name, url: dataUrl });
+        if (frontTier === 'None') setFrontTier('A4');
+      } else {
+        setBackArtwork({ name: file.name, url: dataUrl });
+        if (backTier === 'None') setBackTier('A4');
+      }
     };
     reader.readAsDataURL(file);
     e.target.value = '';
