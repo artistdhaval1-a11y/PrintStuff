@@ -77,7 +77,7 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
               <span className="text-xl sm:text-2xl font-black leading-none">STAND</span>
               <span className="text-[9px] font-black uppercase tracking-widest">OUT ✳</span>
             </div>
-            <div className="relative aspect-[4/4.25] sm:aspect-[5/4] overflow-hidden border-[5px] border-[#171717] rounded-[42%_42%_18px_18px] bg-[#254BFF] shadow-[10px_10px_0_#171717]">
+            <div className="relative aspect-[4/4.25] sm:aspect-[5/4] overflow-hidden border-[5px] border-[#171717] rounded-[28px] bg-[#254BFF] shadow-[10px_10px_0_#171717]">
               <div className="ps-campaign-poster absolute inset-0 overflow-hidden bg-[#254BFF] text-[#F7F5EF]">
                 <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#F7F5EF 1px, transparent 1px)', backgroundSize: '13px 13px' }} />
                 <div className="absolute -right-12 top-10 w-56 h-56 rounded-full bg-[#DFFF00] border-[12px] border-[#171717] shadow-[8px_8px_0_#171717] rotate-12" />
@@ -85,16 +85,16 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
                 <div className="absolute top-5 left-5 right-5 flex items-center justify-between text-[9px] sm:text-[10px] font-black uppercase tracking-[0.22em]">
                   <span className="bg-[#171717] text-[#DFFF00] px-3 py-2">PrintStuff®</span><span className="text-[#171717]">Independent uniform / 001</span>
                 </div>
-                <div className="absolute top-[18%] right-[5%] z-10 w-[55%] h-[57%]">
-                  <div className="absolute left-[1%] top-[18%] w-[46%] h-[78%] rotate-[-9deg] overflow-hidden border-[3px] border-[#171717] bg-[#FF5A1F] shadow-[6px_7px_0_#171717]">
-                    <ProductImage src={jacketProduct?.images[0]} alt="Streetwear racing jacket" loading="eager" className="w-full h-full object-cover" />
+                <div className="absolute top-[15%] right-[5%] z-10 w-[55%] h-[60%]">
+                  <div className="absolute left-[1%] top-[18%] w-[46%] h-[78%] rotate-[-9deg] overflow-hidden border-[3px] border-[#171717] bg-[#F7F5EF] p-1 shadow-[6px_7px_0_#171717]">
+                    <ProductImage src={jacketProduct?.images[0]} alt="Streetwear racing jacket" loading="eager" className="w-full h-full object-contain mix-blend-multiply" />
                     <span className="absolute bottom-0 inset-x-0 bg-[#171717] text-[#DFFF00] px-2 py-1 text-[8px] font-black uppercase tracking-widest">Jackets</span>
                   </div>
-                  <div className="absolute right-[1%] top-[2%] w-[48%] h-[78%] rotate-[8deg] overflow-hidden border-[3px] border-[#171717] bg-[#DFFF00] shadow-[6px_7px_0_#171717]">
+                  <div className="absolute right-[1%] top-[2%] w-[48%] h-[78%] rotate-[8deg] overflow-hidden border-[3px] border-[#171717] bg-[#F7F5EF] p-1 shadow-[6px_7px_0_#171717]">
                     <ProductImage src={hoodieProduct?.images[0]} alt="Graphic streetwear hoodie" loading="eager" className="w-full h-full object-cover" />
                     <span className="absolute bottom-0 inset-x-0 bg-[#171717] text-[#DFFF00] px-2 py-1 text-[8px] font-black uppercase tracking-widest">Hoodies</span>
                   </div>
-                  <div className="absolute left-[30%] bottom-[-4%] w-[47%] h-[68%] -rotate-[2deg] overflow-hidden border-[3px] border-[#171717] bg-[#F7F5EF] shadow-[7px_8px_0_#171717]">
+                  <div className="absolute left-[30%] bottom-[-4%] w-[47%] h-[68%] -rotate-[2deg] overflow-hidden border-[3px] border-[#171717] bg-[#F7F5EF] p-1 shadow-[7px_8px_0_#171717]">
                     <ProductImage src={teeProduct?.images[0]} alt="Graphic streetwear T-shirt" loading="eager" className="w-full h-full object-cover" />
                     <span className="absolute bottom-0 inset-x-0 bg-[#254BFF] text-white px-2 py-1 text-[8px] font-black uppercase tracking-widest">Graphic tees</span>
                   </div>
