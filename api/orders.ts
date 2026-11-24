@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { createHash, randomBytes, randomInt } from 'node:crypto';
+import { createHash, createHmac, randomBytes, randomInt, timingSafeEqual } from 'node:crypto';
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -206,6 +206,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const totalQuantity = safeItems.reduce((sum: number, item: any) => sum + item.totalQuantity, 0);
     const subtotal = safeItems.reduce((sum: number, item: any) => sum + item.totalPrice, 0);
+    const shippingCharge = Number(body?.shippingCharge);
+    if (!Number.isFinite(shippingCharge) || shippingCharge < 0 || shippingCharge > 100000) {
+      return respond(res, 400, { error: 'Invalid shipping charge.' });
+    }
+    const paymentMethod = body?.paymentMethod === 'razorpay' ? 'razorpay' : 'cod';
+    let paymentNote = 'Payment method: Cash on Delivery; payment status: pending';
+    if (paymentMethod === 'razorpay') {
+      const keySecret = process.env.RAZORPAY_KEY_SECRET;
+      const razorpayOrderId = clean(body?.razorpayOrderId, 100);
+      const razorpayPaymentId = clean(body?.razorpayPaymentId, 100);
+      const razorpaySignature = clean(body?.razorpaySignature, 200);
+      if (!keySecret || !razorpayOrderId || !razorpayPaymentId || !razorpaySignature) {
+        return respond(res, 400, { error: 'Razorpay payment details are incomplete.' });
+      }
+      const expected = createHmac('sha256', keySecret).update(`${razorpayOrderId}|${razorpayPaymentId}`).digest('hex');
+      const expectedBuffer = Buffer.from(expected);
+      const receivedBuffer = Buffer.from(razorpaySignature);
+      if (expectedBuffer.length !== receivedBuffer.length || !timingSafeEqual(expectedBuffer, receivedBuffer)) {
+        return respond(res, 400, { error: 'Payment verification failed. Your order has not been placed.' });
+      }
+      const keyId = process.env.RAZORPAY_KEY_ID;
+      const paymentCheck = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(razorpayPaymentId)}`, {
+        headers: { Authorization: 'Basic ' + Buffer.from(`${keyId}:${keySecret}`).toString('base64') }
+      });
+      const payment = await paymentCheck.json() as { order_id?: string; amount?: number; currency?: string; status?: string };
+      const expectedAmount = Math.round((subtotal + shippingCharge) * 100);
+      if (!paymentCheck.ok || payment.order_id !== razorpayOrderId || payment.amount !== expectedAmount || payment.currency !== 'INR' || payment.status !== 'captured') {
+        return respond(res, 400, { error: 'We could not confirm the Razorpay payment. Please contact PrintStuff before trying again.' });
+      }
+      paymentNote = `Payment method: Razorpay; payment status: paid; payment ID: ${razorpayPaymentId}; Razorpay order ID: ${razorpayOrderId}`;
+    }
     const orderNumber = `PS-${new Date().toISOString().slice(2,10).replace(/-/g, '')}-${randomInt(100000, 999999)}`;
     const trackingToken = randomBytes(24).toString('base64url');
     const trackingTokenHash = createHash('sha256').update(trackingToken).digest('hex');
@@ -253,7 +284,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         order_items: safeItems,
         total_quantity: totalQuantity,
         subtotal,
-        customer_notes: notes || null
+        customer_notes: [notes, paymentNote].filter(Boolean).join(' | ')
       })
     });
 
