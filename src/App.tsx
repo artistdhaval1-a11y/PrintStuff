@@ -145,7 +145,7 @@ export default function App() {
             initialProduct={customizerProduct}
             initialColor={customizerColor}
             onAddToCart={handleAddToCart}
-            onDirectWhatsApp={handleDirectWhatsApp}
+            onDirectCheckout={handleDirectCheckout}
           />
 
           <OrderTracking />
