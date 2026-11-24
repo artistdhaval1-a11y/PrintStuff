@@ -1,6 +1,6 @@
 import React from 'react';
 import { CartItem } from '../types';
-import { X, Trash2, ShoppingBag, MessageCircle, ArrowRight, Plus, Minus } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, Plus, Minus } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { RecoloredApparelImage } from './RecoloredApparelImage';
 import { PrintStuffLogoMark } from './BrandLogos';
@@ -11,7 +11,7 @@ interface CartDrawerProps {
   items: CartItem[];
   onUpdateQuantity: (itemId: string, newTotalQty: number) => void;
   onRemoveItem: (itemId: string) => void;
-  onCheckoutWhatsApp: () => void;
+  onCheckout: () => void;
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({
@@ -204,13 +204,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 onClick={onCheckoutWhatsApp}
                 className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-4 bg-emerald-400 hover:bg-emerald-300 text-neutral-950 font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-98"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>Checkout via WhatsApp</span>
+                <ShoppingBag className="w-4 h-4" />
+                <span>Proceed to Checkout</span>
                 <ArrowRight className="w-4 h-4 ml-1" />
               </button>
 
               <p className="text-[10px] text-neutral-400 text-center leading-normal">
-                Transfers order specifications to official PrintStuff WhatsApp (+91-74056-52991) for order confirmation and high-res file submission.
+                Enter your delivery details and pay securely online to confirm your order.
               </p>
             </div>
           )}
