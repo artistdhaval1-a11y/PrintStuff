@@ -38,3 +38,30 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
+
+/* PRINTSTUFF — louder streetwear art direction */
+.ps-hero__top{isolation:isolate;background-image:radial-gradient(rgba(23,23,23,.18) .8px,transparent .8px);background-size:13px 13px}
+.ps-hero__edition{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:7px 11px;background:#fff;border:2px solid #171717;box-shadow:4px 4px 0 #254BFF;transform:rotate(-1.5deg);font:900 9px/1 'JetBrains Mono',monospace;letter-spacing:.16em}
+.ps-hero__edition span{color:#FF5A1F;font-size:14px}
+.ps-hero__burst{z-index:2;color:#FF5A1F;font-size:104px;line-height:1;transform:rotate(14deg);text-shadow:4px 4px 0 #171717;animation:ps-spin 18s linear infinite}
+.ps-hero__side-label{position:absolute;z-index:2;right:12px;top:44%;writing-mode:vertical-rl;font:900 9px/1 'JetBrains Mono',monospace;letter-spacing:.24em;color:#171717}
+.ps-hero__price-sticker{animation:ps-float 4s ease-in-out infinite}
+.ps-lanes{position:relative}
+.ps-lanes:before{content:"PICK A SIDE. MAKE A STATEMENT.";display:inline-block;margin-bottom:18px;padding:7px 12px;background:#254BFF;color:white;transform:rotate(-1deg);font:900 9px/1 'JetBrains Mono',monospace;letter-spacing:.18em}
+.ps-lanes__grid{perspective:1200px}
+.ps-lanes__tile{outline:0 solid #DFFF00;transition:transform .25s ease,box-shadow .25s ease,outline .2s ease}
+.ps-lanes__grid>button:nth-child(3n+1) .ps-lanes__tile{transform:rotate(-1.2deg)}
+.ps-lanes__grid>button:nth-child(3n+2) .ps-lanes__tile{transform:rotate(1deg) translateY(8px)}
+.ps-lanes__grid>button:hover .ps-lanes__tile{transform:translateY(-9px) rotate(0) scale(1.025);outline:3px solid #DFFF00;box-shadow:9px 10px 0 #171717}
+.ps-lookbook{background:#EDEBE3}
+.ps-lookbook__stage{border:3px solid #171717!important;border-radius:4px!important;box-shadow:10px 10px 0 #DFFF00;background-image:radial-gradient(rgba(23,23,23,.08) .8px,transparent .8px);background-size:10px 10px}
+.ps-catalogue{background:#F1EFE8!important}
+.ps-product-card{border:2px solid #171717!important;border-radius:3px!important;box-shadow:5px 5px 0 #171717}
+.ps-product-card:hover{box-shadow:8px 9px 0 #254BFF!important;transform:translate(-2px,-3px) rotate(-.35deg)}
+.ps-trends{background:#DFFF00!important;background-image:radial-gradient(rgba(23,23,23,.13) .8px,transparent .8px)!important;background-size:12px 12px!important}
+.ps-footer{background:#171717!important;color:#F7F5EF!important}
+.ps-footer p,.ps-footer a{color:rgba(247,245,239,.72)!important}
+.ps-footer a:hover{color:#DFFF00!important}
+@keyframes ps-spin{to{transform:rotate(374deg)}}
+@keyframes ps-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
+@media(max-width:640px){.ps-hero__edition{margin-top:12px;font-size:8px}.ps-lanes__grid>button:nth-child(n) .ps-lanes__tile{transform:none}}
