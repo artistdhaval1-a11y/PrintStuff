@@ -36,12 +36,15 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
   ];
 
   return (
-    <section id="top" className="bg-[#F7F5EF] overflow-hidden">
-      <div className="relative bg-[#DFFF00]">
+    <section id="top" className="ps-hero bg-[#F7F5EF] overflow-hidden">
+      <div className="ps-hero__top relative bg-[#DFFF00]">
         <div aria-hidden="true" className="absolute -right-24 -top-28 w-[420px] h-[420px] rounded-full border-[55px] border-[#FF5A1F]/20" />
         <div aria-hidden="true" className="absolute left-[43%] bottom-[-80px] w-52 h-52 rounded-full bg-[#254BFF] hidden lg:block" />
+        <div aria-hidden="true" className="ps-hero__burst absolute left-[47%] top-12 hidden xl:block">✳</div>
+        <div aria-hidden="true" className="ps-hero__side-label hidden lg:block">PRINTSTUFF — MADE TO BE SEEN</div>
         <div className="relative max-w-[1440px] mx-auto px-4 sm:px-8 py-10 sm:py-14 lg:py-16 grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-12 items-center min-h-[540px]">
           <div className="relative z-10 max-w-[660px]">
+            <div className="ps-hero__edition">ISSUE 001 <span>✳</span> THE NO-UNIFORM CLUB</div>
             <div className="inline-flex items-center gap-2 bg-[#171717] text-[#DFFF00] px-3 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] -rotate-2 shadow-[4px_4px_0_#FF5A1F]">
               <Zap className="w-3.5 h-3.5 fill-current" /> Independent streetwear energy
             </div>
@@ -83,7 +86,7 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
                 <div className="w-11 h-11 rounded-full bg-[#DFFF00] text-[#171717] flex items-center justify-center"><ArrowDownRight className="w-6 h-6" /></div>
               </div>
             </div>
-            <div className="absolute -bottom-5 -right-2 sm:-right-5 z-20 bg-[#254BFF] text-white px-4 py-3 rotate-3 border-2 border-[#171717] shadow-[4px_4px_0_#DFFF00]">
+            <div className="ps-hero__price-sticker absolute -bottom-5 -right-2 sm:-right-5 z-20 bg-[#254BFF] text-white px-4 py-3 rotate-3 border-2 border-[#171717] shadow-[4px_4px_0_#DFFF00]">
               <div className="text-[9px] font-black uppercase tracking-[0.2em]">Fresh fits only</div>
               <div className="text-lg font-black uppercase leading-none">Drop your vibe.</div>
             </div>
@@ -99,7 +102,7 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 py-12 sm:py-16">
+      <div className="ps-lanes max-w-[1440px] mx-auto px-4 sm:px-8 py-12 sm:py-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
             <div className="text-[10px] font-black uppercase tracking-[0.22em] text-[#FF5A1F]">Pick your lane ✳</div>
@@ -110,10 +113,10 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
           <p className="text-xs sm:text-sm font-medium text-[#52525B] max-w-sm">Six ways to show up. Pick a drop and make it yours.</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
+        <div className="ps-lanes__grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
           {moods.map((mood, idx) => (
             <button key={mood.key} type="button" onClick={() => mood.key === 'custom-printing' ? onOpenCustomPage() : onSelectCollection(mood.key)} className={`group text-left transition-all duration-200 hover:-translate-y-2 cursor-pointer ${idx % 2 === 0 ? 'lg:rotate-[-1deg]' : 'lg:rotate-[1deg]'} hover:rotate-0`}>
-              <div style={{ borderBottomColor: mood.accentHex }} className="relative aspect-[3/4] overflow-hidden bg-white border-[3px] border-[#171717] border-b-[7px] shadow-[4px_4px_0_#171717] group-hover:shadow-[7px_7px_0_#254BFF] transition-all">
+              <div style={{ borderBottomColor: mood.accentHex }} className="ps-lanes__tile relative aspect-[3/4] overflow-hidden bg-white border-[3px] border-[#171717] border-b-[7px] shadow-[4px_4px_0_#171717] group-hover:shadow-[7px_7px_0_#254BFF] transition-all">
                 <ProductImage src={mood.product?.images[0]} alt={mood.title} loading="eager" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
                 <div className="absolute bottom-3 inset-x-3 text-white">
