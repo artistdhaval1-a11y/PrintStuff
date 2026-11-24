@@ -22,8 +22,7 @@ import {
   Eye,
   Check,
   ShoppingBag,
-  MessageCircle,
-  AlertCircle,
+    AlertCircle,
   HelpCircle,
   Plus,
   Minus
@@ -33,7 +32,7 @@ interface CustomizerStudioProps {
   initialProduct?: Product;
   initialColor?: ProductColor;
   onAddToCart: (item: CartItem) => void;
-  onDirectWhatsApp: (item: CartItem) => void;
+  onDirectCheckout: (item: CartItem) => void;
 }
 
 export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
@@ -1061,8 +1060,8 @@ export const CustomizerStudio: React.FC<CustomizerStudioProps> = ({
                     }}
                     className="min-h-12 inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-3 text-sm font-bold text-[#202020] bg-[#FFF0D8] hover:bg-[#FFE2B5] border border-[#202020]/20 rounded-xl transition-colors active:scale-[0.98]"
                   >
-                    <MessageCircle className="w-4 h-4 shrink-0 text-[#087FA0]" />
-                    <span>Enquire</span>
+                    <ShoppingBag className="w-4 h-4 shrink-0 text-[#087FA0]" />
+                    <span>Checkout</span>
                   </button>
                 </div>
               </div>
