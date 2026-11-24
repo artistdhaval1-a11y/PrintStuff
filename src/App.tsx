@@ -105,7 +105,7 @@ export default function App() {
   const bagCount = bagItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#F5F5F3] text-[#111114] flex flex-col">
+    <div className="min-h-screen bg-[#F7F5EF] text-[#171717] flex flex-col">
       {toastMsg && (
         <div
           role="status"
