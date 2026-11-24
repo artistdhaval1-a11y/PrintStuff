@@ -46,71 +46,344 @@ export const StoreCatalogueSection: React.FC<StoreCatalogueSectionProps> = ({
       .slice(0, 8);
   }, [products]);
 
-  const activeSpotlightÕÈZ®Ëkºwµçkz»§Â+a…æş
-Ş§ûZŠWè­û¥–‹­¦ëHÜ‚‚ˆ]ˆÛ\ÜÓ˜[YOH›]M›^][\ËXÙ[\ˆØ\LÈ‚ˆÜ[ˆÛ\ÜÓ˜[YOH™›Û[[Û›È^L›ÛX›Û^VÈÌNNHX[\‹[[\È‚ˆÙ›Ü›X]S”ŠXİ]™TÜİYÚ›Z[”šXÙJ_BˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH^]Ú]KÍˆ\šXKZY[HYH°­ÏÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH^^È^]Ú]KÍÍH\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ‚ˆØXİ]™TÜİYÚœ›ÙXİ\_BˆÜÜ[‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOH›]Mˆ›^›^]Ü˜\][\ËXÙ[\ˆØ\LÈ‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÛ’[œÜXİ›ÙXİ
-Xİ]™TÜİYÚÜİYÚ][\Ê_BˆÛ\ÜÓ˜[YOHš[›[™KY›^][\ËXÙ[\ˆØ\LˆMˆKLÈ›İ[™YY[™ËVÈÑ‘ĞLWH^VÈÌLLLLMHİ™\˜™ËVÈÑ‘‘ŒÌ×H^^È›ÛX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ˜[œÚ][Û‹XÛÛÜœÈİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆÚÜ[™Ğ˜YÈÛ\ÜÓ˜[YOHËMMˆÏ‚ˆÜ[”ÚÜ\ÈÛÚÏÜÜ[‚ˆØ]Û‚ˆÙ]‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOH›Î˜ÛÛ\Ü[‹MÈÜXÙK^KM‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆ\İYKX™]ÙY[ˆ^^È^]Ú]KÍŒ›Û[[Û›È‚ˆÜ[”ÔÕQÒ’STÕ’TÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOHX[\‹[[\È‚ˆÔİš[™ÊÜİYÚY
-ÈJKœYİ\
-‹	Ì	Ê_HŞÉÈ	ßBˆÔİš[™ÊÜİYÚ][\Ë›[™İ
-KœYİ\
-‹	Ì	Ê_BˆÜÜ[‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆØ\LÈİ™\™›İË^X]]È‹Lˆ‚ˆÜÜİYÚ][\Ë›X\
+  const activeSpotlight = spotlightItems[spotlightIdx] || spotlightItems[0];
 
-][KY
-HOˆÂˆÛÛœİXİ]™HHYOOHÜİYÚYÂˆ™]\›ˆ
-ˆ]Û‚ˆÙ^O^Ú][KšYBˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÙ]ÜİYÚY
-Y
-_BˆÛ\ÜÓ˜[YO^ØÜ›İ\™[]]™HËLÌˆÛNËLÍˆ\ÜXİVÌËÍH›İ[™Y^İ™\™›İËZY[ˆÚš[šËL˜[œÚ][Û‹X[İ\œÛÜ‹\Ú[\ˆ›Ü™\‹Lˆ	ÂˆXİ]™BˆÈ	Ø›Ü™\‹VÈÌNNHØØ[KVÌKŒ×HÚYİË^	Âˆˆ	Ø›Ü™\‹]Ú]KÌLÜXÚ]KMHİ™\›ÜXÚ]KLL	ÂˆXBˆ‚ˆ›ÙXİ[XYÙBˆÜ˜Ï^Ú][Kš[XYÙ\ÖÌ_Bˆ[^Ú][K]_BˆÛ\ÜÓ˜[YOHËY[Y[Øš™XİXÛİ™\ˆ‚ˆÏ‚ˆ]ˆÛ\ÜÓ˜[YOH˜XœÛÛ]H[œÙ]^L›İÛKLLˆ™ËYÜ˜YY[]Ë]œ›ÛKX›XÚËÎHšXKX›XÚËÍË]˜[œÜ\™[^[Y‚ˆ]ˆÛ\ÜÓ˜[YOH^VÌL\H›Û\Ù[ZX›Û^]Ú]H[™KXÛ[\LH‚ˆÚ][K]_BˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YOH^VÌLH›Û[[Û›È^VÈÑ‘ĞLWHX[\‹[[\È‚ˆÙ›Ü›X]S”Š][K›Z[”šXÙJ_BˆÙ]‚ˆÙ]‚ˆØ]Û‚ˆ
-NÂˆJ_BˆÙ]‚ˆÙ]‚ˆÙ]‚ˆÙ]‚ˆ
-_B‚ˆËÊˆ[İÜ™HØ][ÙİYHÜšY
-[Íˆ›ÙXİÊH
-‹ßBˆ]ˆÛ\ÜÓ˜[YOH›X^]ËVÌLÎH^X]]ÈMÛNœNKLMÛNœKLMˆ‚ˆ]ˆÛ\ÜÓ˜[YOH™›^›^XÛÛÎ™›^\›İÈÎš][\ËY[™\İYKX™]ÙY[ˆØ\Mˆ‹Mˆ›Ü™\‹Xˆ›Ü™\‹X›XÚËÖÌŒH‚ˆ]‚ˆ]ˆÛ\ÜÓ˜[YOH^^È›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\İ^VÈÌNNHX‹LKH‚ˆÛÛ\]HİÜ™HØ][ÙİYBˆÙ]‚ˆˆÛ\ÜÓ˜[YOH™›ÛY\Ü^H^LŞÛN^M›ÛX›Û^VÈÌLLLLMH˜XÚÚ[™Ë]YÚ‚ˆ™]È›ÜÈ	˜[\È[Ü›ÙXİË›[™İHYXÙ\ÂˆÚ‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOH™›^›^]Ü˜\][\ËXÙ[\ˆØ\LÈ‚ˆ]ˆÛ\ÜÓ˜[YOHœ™[]]™H›^LHÛN™›^Z[š]X[Z[‹]ËVÌŒÌH‚ˆÙX\˜ÚÛ\ÜÓ˜[YOHËMM^VÈÍ‘M‘MÌ×HXœÛÛ]HYLÈÜLKÌˆ]˜[œÛ]K^KLKÌˆÚ[\‹Y]™[Ë[›Û™HˆÏ‚ˆ[œ]ˆ\OHœÙX\˜Ú‚ˆ˜[YO^ÜÙX\˜Ú]Y\_BˆÛÚ[™ÙO^ÊJHOˆÙ]ÙX\˜Ú]Y\JK\™Ù]˜[YJ_BˆXÙZÛ\H”ÙX\˜ÚÛÙY\ËŒH˜XÚÙ]ËØ\™ÛÜË‹‹ˆ‚ˆ\šXK[X™[H”ÙX\˜ÚİÜ™HØ][ÙİYH‚ˆÛ\ÜÓ˜[YOHËY[NH‹LÈKLˆ^^È™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÌMH›İ[™YY[^VÈÌLLLLMHXÙZÛ\^VÈÍÌMÌMĞWH›Øİ\Î›İ][™K[›Û™H›Øİ\Î˜›Ü™\‹VÈÌLLLLMH‚ˆÏ‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOHœ™[]]™H[›[™KY›^][\ËXÙ[\ˆ‚ˆ\œ›İÕ\İÛˆÛ\ÜÓ˜[YOHËLËHLËH^VÈÍLLP—HXœÛÛ]HYLÈÚ[\‹Y]™[Ë[›Û™HˆÏ‚ˆÙ[Xİˆ˜[YO^ÜÛÜ_BˆÛÚ[™ÙO^ÊJHOˆÙ]ÛÜJK\™Ù]˜[YH\ÈÛÜÙ^J_Bˆ\šXK[X™[H”ÛÜ›ÙXİÈ‚ˆÛ\ÜÓ˜[YOHœN‹MKLˆ^^È›Û[YY][H™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÌMH›İ[™YY[^VÈÌLLLLMH›Øİ\Î›İ][™K[›Û™H›Øİ\Î˜›Ü™\‹VÈÌLLLLMHİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆÜ[Ûˆ˜[YOH™™X]\™Y‘™X]\™YÜ™\ÛÜ[Û‚ˆÜ[Ûˆ˜[YOHœšXÙKX\ØÈ”šXÙNˆİÈÈYÚÛÜ[Û‚ˆÜ[Ûˆ˜[YOHœšXÙKY\ØÈ”šXÙNˆYÚÈİÏÛÜ[Û‚ˆÜÙ[Xİ‚ˆÙ]‚ˆÙ]‚ˆÙ]‚‚ˆËÊˆÛÛÜ™[ÛÛXİ[Ûˆš[\ˆ[È
-‹ßBˆ]ˆÛ\ÜÓ˜[YOH›]MH›^][\ËXÙ[\ˆØ\Lˆİ™\™›İË^X]]È‹Lˆ‚ˆÔÕÔ‘WĞÓÓPÕSÓ”Ë›X\
+  const filteredProducts = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    let list = products.filter((p) => {
+      const matchesCol =
+        activeCollection === 'all' || p.collections.includes(activeCollection);
+      if (!matchesCol) return false;
+      if (!q) return true;
+      return (
+        p.title.toLowerCase().includes(q) ||
+        p.productType.toLowerCase().includes(q) ||
+        p.collections.some((c) => c.toLowerCase().includes(q))
+      );
+    });
 
-ÛÛY
-HOˆÂˆÛÛœİXİ]™HHXİ]™PÛÛXİ[ÛˆOOHÛÛšÙ^NÂˆÛÛœİXØÙ[HPĞÑS•ĞÖPÓVÚY	HPĞÑS•ĞÖPÓK›[™İNÂˆ™]\›ˆ
-ˆ]Û‚ˆÙ^O^ØÛÛšÙ^_Bˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÛÚ[™ÙPÛÛXİ[ÛŠÛÛšÙ^J_Bˆİ[O^ØXİ]™HÈÈ›Ü™\ÛÛÜˆXØÙ[Hˆ[™Yš[™YBˆÛ\ÜÓ˜[YO^ØLËHKLˆ›İ[™YY[^^È›Û\Ù[ZX›ÛÚ]\ÜXÙK[›İÜ˜\Úš[šËL˜[œÚ][Û‹X[İ\œÛÜ‹\Ú[\ˆ›Ü™\ˆ	ÂˆXİ]™BˆÈ	Ø™ËVÈÌLLLLMH^]Ú]HÚYİË\ÛIÂˆˆ	Ø™Ë]Ú]H^VÈÍLLP—H›Ü™\‹X›XÚËÌLİ™\˜›Ü™\‹X›XÚËÌÌİ™\^VÈÌLLLLMIÂˆXBˆ‚ˆÜ[ØÛÛ›X™[OÜÜ[‚ˆÜ[‚ˆİ[O^ŞÈÛÛÜˆXİ]™HÈXØÙ[ˆ	ÈÍÌMÌMĞIÈ_BˆÛ\ÜÓ˜[YOH›[LKH›Û[[Û›ÈX[\‹[[\È‚ˆ‚ˆØÛÛ˜Ûİ[BˆÜÜ[‚ˆØ]Û‚ˆ
-NÂˆJ_BˆÙ]‚‚ˆËÊˆ›ÙXİÜšYÚ]ÙXÛÛ™\HİÈ›\	ˆ]ZXÚËTÚ^™HY
-‹ßBˆÙš[\™Y›ÙXİË›[™İOOHÈ
-ˆ]ˆÛ\ÜÓ˜[YOH›]LLKLMˆ^XÙ[\ˆ™Ë]Ú]H›İ[™YL›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒH‚ˆÛ\ÜÓ˜[YOH^\ÛH›Û[YY][H^VÈÌLLLLMH‚ˆ›ÈYXÙ\ÈX]ÚY	›][ÎŞÜÙX\˜Ú]Y\_Iœ™][ÎË‚ˆÜ‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÂˆÙ]ÙX\˜Ú]Y\J	ÉÊNÂˆÛÚ[™ÙPÛÛXİ[ÛŠ	Ø[	ÊNÂˆ_BˆÛ\ÜÓ˜[YOH›]LÈMHKLˆ›İ[™YY[™ËVÈÌLLLLMH^]Ú]H^^È›Û\Ù[ZX›Ûİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆÚİÈ[YXÙ\ÂˆØ]Û‚ˆÙ]‚ˆ
-Hˆ
-ˆ]ˆÛ\ÜÓ˜[YOH›]NÜšYÜšYXÛÛËLHÛN™ÜšYXÛÛËLˆÎ™ÜšYXÛÛËLÈ™ÜšYXÛÛËMØ\Mˆ‚ˆÙš[\™Y›ÙXİË›X\
+    if (sortBy === 'price-asc') {
+      list = [...list].sort((a, b) => a.minPrice - b.minPrice);
+    } else if (sortBy === 'price-desc') {
+      list = [...list].sort((a, b) => b.minPrice - a.minPrice);
+    }
+    return list;
+  }, [products, activeCollection, searchQuery, sortBy]);
 
-›ÙXİ
-HOˆÂˆÛÛœİšXÙSX™[Bˆ›ÙXİ›Z[”šXÙHOOH›ÙXİ›X^šXÙBˆÈ›Ü›X]S”Š›ÙXİ›Z[”šXÙJBˆˆœ›ÛH	Ù›Ü›X]S”Š›ÙXİ›Z[”šXÙJ_XÂˆÛÛœİÚ^™\ÈBˆ›ÙXİ›Ü[ÛœË™š[™
+  const handleQuickAddSize = (
+    e: React.MouseEvent,
+    product: StoreProduct,
+    size: string
+  ) => {
+    e.stopPropagation();
+    const matchedVariant = product.variants.find(
+      (v) => v.option1.toLowerCase() === size.toLowerCase()
+    );
+    onAddToBag({
+      id: `${product.id}-${size}-${Date.now()}`,
+      productId: product.id,
+      handle: product.handle,
+      title: product.title,
+      image: product.images[0],
+      size,
+      unitPrice: matchedVariant ? matchedVariant.price : product.minPrice,
+      quantity: 1,
+      variantId: matchedVariant?.id,
+    });
+  };
 
-ÊHOˆË›˜[YKÓİÙ\Ø\ÙJ
-HOOH	ÜÚ^™IÊOË˜[Y\È×NÂˆÛÛœİ\ÔÙXÛÛ™[YÈH›ÙXİš[XYÙ\Ë›[™İˆNÂ‚ˆ™]\›ˆ
-ˆ]‚ˆÙ^O^Ü›ÙXİšYBˆÛÛXÚÏ^Ê
-HOˆÂˆYˆ
-›ÙXİš\Ğİ\İÛUYJHÂˆÛ’[œÜXİ›ÙXİ
-›ÙXİš[\™Y›ÙXİÊNÂˆH[ÙHÂˆÛ’[œÜXİ›ÙXİ
-›ÙXİš[\™Y›ÙXİÊNÂˆBˆ_Bˆ›ÛOH˜]Ûˆ‚ˆX’[™^^ÌBˆÛ’Ù^QİÛ^ÊJHOˆÂˆYˆ
-KšÙ^HOOH	Ñ[\‰ÈKšÙ^HOOH	È	ÊHÂˆKœ™]™[Y˜][
+  return (
+    <section id="catalogue" className="bg-[#F5F5F3]">
+      {/* Dark Atmospheric Filmstrip Spotlight (Video Ref Frames 33-38) */}
+      {activeSpotlight && (
+        <div className="relative bg-[#111114] text-[#F5F5F3] py-14 sm:py-16 px-4 sm:px-8 overflow-hidden">
+          <div className="max-w-[1380px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[#FFCA05]">
+                Worth Your Attention
+              </div>
+              <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold text-white leading-tight">
+                {activeSpotlight.title}
+              </h2>
+              <p className="mt-3 text-xs sm:text-sm text-white/70 leading-relaxed line-clamp-2 max-w-md">
+                {activeSpotlight.description}
+              </p>
 
-NÂˆÛ’[œÜXİ›ÙXİ
-›ÙXİš[\™Y›ÙXİÊNÂˆBˆ_BˆÛ\ÜÓ˜[YOH™Ü›İ\™Ë]Ú]H›İ[™YL›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒHİ™\™›İËZY[ˆİ™\‹]˜[œÛ]K^KLHİ™\œÚYİËVÌÌŒÍËLMÜ™Ø˜JMËMËŒŒN
-WH˜[œÚ][Û‹X[\˜][Û‹LŒ›^›^XÛÛİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆËÊˆÎİÈÛÛZ[™\ˆÚ]İ™\ˆÙXÛÛ™\H[™ÛH™]™X[
-‹ßBˆ]ˆÛ\ÜÓ˜[YOHœ™[]]™HËY[\ÜXİVÌËÍH™ËVÈÑPÑPÑNHİ™\™›İËZY[ˆ‚ˆ›ÙXİ[XYÙBˆÜ˜Ï^Ü›ÙXİš[XYÙ\ÖÌ_Bˆ[^Ü›ÙXİ]_BˆØY[™ÏH›^H‚ˆÛ\ÜÓ˜[YO^ØËY[Y[Øš™XİXÛİ™\ˆØš™XİXÙ[\ˆ˜[œÚ][Û‹[ÜXÚ]H\˜][Û‹LÌ	Âˆ\ÔÙXÛÛ™[YÈÈ	ÙÜ›İ\Zİ™\›ÜXÚ]KL	Èˆ	ÙÜ›İ\Zİ™\œØØ[KLLH˜[œÚ][Û‹]˜[œÙ›Ü›IÂˆXBˆÏ‚ˆÚ\ÔÙXÛÛ™[YÈ	‰ˆ
-ˆ›ÙXİ[XYÙBˆÜ˜Ï^Ü›ÙXİš[XYÙ\ÖÌW_Bˆ[^Ø	Ü›ÙXİ]_H[\›˜]HšY]ØBˆØY[™ÏH›^H‚ˆÛ\ÜÓ˜[YOH˜XœÛÛ]H[œÙ]LËY[Y[Øš™XİXÛİ™\ˆØš™XİXÙ[\ˆÜXÚ]KLÜ›İ\Zİ™\›ÜXÚ]KLLÜ›İ\Zİ™\œØØ[KLLH˜[œÚ][Û‹X[\˜][Û‹LÌ‚ˆÏ‚ˆ
-_B‚ˆËÊˆ]ZXÚËPYÚ^™Hİ™\›^HÛˆ\ÚİÜİ™\ˆ
-‹ßBˆÈ\›ÙXİš\Ğİ\İÛUYH	‰ˆÚ^™\Ë›[™İˆ	‰ˆ
-ˆ]ˆÛ\ÜÓ˜[YOHšY[ˆY™›^XœÛÛ]H[œÙ]^LÈ›İÛKLÈLˆ›İ[™Y^™Ë]Ú]KÎMH˜XÚÙ›ÜX›\‹[Y›Ü™\ˆ›Ü™\‹X›XÚËÌLÜXÚ]KL˜[œÛ]K^KLˆÜ›İ\Zİ™\›ÜXÚ]KLLÜ›İ\Zİ™\˜[œÛ]K^KL˜[œÚ][Û‹X[\˜][Û‹LŒ][\ËXÙ[\ˆ\İYKX™]ÙY[ˆØ\LKHÚYİË[È‚ˆÜ[ˆÛ\ÜÓ˜[YOH^VÌLH›ÛX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍLLP—HLHÚš[šËL‚ˆ]ZXÚÈYˆÜÜ[‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆØ\LH›^]Ü˜\\İYKY[™‚ˆÜÚ^™\ËœÛXÙJ
-K›X\
+              <div className="mt-4 flex items-center gap-3">
+                <span className="font-mono text-2xl font-bold text-[#00A8E8] tabular-nums">
+                  {formatINR(activeSpotlight.minPrice)}
+                </span>
+                <span className="text-white/40" aria-hidden="true">Â·</span>
+                <span className="text-xs text-white/75 uppercase tracking-wider">
+                  {activeSpotlight.productType}
+                </span>
+              </div>
 
-ŞŠHOˆ
-ˆ]Û‚ˆÙ^O^ÜŞŸBˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^ÊJHOˆ[™T]ZXÚĞYÚ^™JK›ÙXİŞŠ_BˆÛ\ÜÓ˜[YOHœLˆKLH›İ[™Y™ËVÈÑQQŒ×Hİ™\˜™ËVÈÌLLLLMHİ™\^]Ú]H^VÌLH›ÛX›Û\\˜Ø\ÙH^VÈÌLLLLMH˜[œÚ][Û‹XÛÛÜœÈİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆÜŞŸBˆØ]Û‚ˆ
-J_BˆÙ]‚ˆÙ]‚ˆ
-_B‚ˆÜ›ÙXİš\Ğİ\İÛUYH	‰ˆ
-ˆ]ˆÛ\ÜÓ˜[YOHšY[ˆY™›^XœÛÛ]H[œÙ]^LÈ›İÛKLÈ‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^ÊJHOˆÂˆKœİÜ›ÜYØ][ÛŠ
-NÂˆÛ“Ü[İ\İÛTYÙJ
-NÂˆ_BˆÛ\ÜÓ˜[YOHËY[KLˆ›İ[™Y^™ËVÈÌNNH^VÈÌLLLLMH›ÛX›Û^VÌL\H\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆÚYİË[ÈÜXÚ]KLÜ›İ\Zİ™\›ÜXÚ]KLL˜[œÚ][Û‹[ÜXÚ]Hİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆİ\İÛZ^™H\ÛÜšÈ	˜[\Èš[ˆØ]Û‚ˆÙ]‚ˆ
-_BˆÙ]‚‚ˆËÊˆÛX[ˆY]Y]H
-‹ßBˆ]ˆÛ\ÜÓ˜[YOHœM›^LH›^›^XÛÛ\İYKX™]ÙY[ˆØ\L‹H‚ˆ]‚ˆ]ˆÛ\ÜÓ˜[YOH^VÌL\H›Û[YY][H\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍ‘M‘MÌ×H›^][\ËXÙ[\ˆØ\LKH‚ˆÜ[Ü›ÙXİœ›ÙXİ\_OÜÜ[‚ˆÜÚ^™\Ë›[™İˆ	‰ˆ
-ˆ‚ˆÜ[ˆ\šXKZY[HYH°­ÏÜÜ[‚ˆÜ[ÜÚ^™\Ë›[™İHÚ^™\ÏÜÜ[‚ˆÏ‚ˆ
-_BˆÙ]‚‚ˆÈÛ\ÜÓ˜[YOH›]LH^VÌM\H›Û\Ù[ZX›Û^VÈÌLLLLMHXY[™Ë\ÛYÈ[™KXÛ[\Lˆ‚ˆÜ›ÙXİ]_BˆÚÏ‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOHœLH›^][\ËXÙ[\ˆ\İYKX™]ÙY[ˆ›Ü™\‹]›Ü™\‹X›XÚËÖÌŒ—H‚ˆÜ[ˆÛ\ÜÓ˜[YOH^VÌM\H›ÛX›Û^VÈÌLLLLMHX[\‹[[\È‚ˆÜšXÙSX™[BˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOHš[›[™KY›^][\ËXÙ[\ˆØ\LH^^È›Û\Ù[ZX›Û^VÈÑMŒÑWH‚ˆ\ÈÛ\ÜÓ˜[YOHËLËHLËHˆÏ‚ˆÜ[•šY]ÏÜÜ[‚ˆÜÜ[‚ˆÙ]‚ˆÙ]‚ˆÙ]‚ˆ
-NÂˆJ_BˆÙ]‚ˆ
-_BˆÙ]‚ˆÜÙXİ[Û‚ˆ
-NÂŸNÂ
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => onInspectProduct(activeSpotlight, spotlightItems)}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFCA05] text-[#111114] hover:bg-[#FFD633] text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>Shop This Look</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 space-y-4">
+              <div className="flex items-center justify-between text-xs text-white/60 font-mono">
+                <span>SPOTLIGHT FILMSTRIP</span>
+                <span className="tabular-nums">
+                  {String(spotlightIdx + 1).padStart(2, '0')} /{' '}
+                  {String(spotlightItems.length).padStart(2, '0')}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 overflow-x-auto pb-2">
+                {spotlightItems.map((item, idx) => {
+                  const active = idx === spotlightIdx;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setSpotlightIdx(idx)}
+                      className={`group relative w-32 sm:w-36 aspect-[3/4] rounded-xl overflow-hidden shrink-0 transition-all cursor-pointer border-2 ${
+                        active
+                          ? 'border-[#00A8E8] scale-[1.03] shadow-xl'
+                          : 'border-white/10 opacity-65 hover:opacity-100'
+                      }`}
+                    >
+                      <ProductImage
+                        src={item.images[0]}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-left">
+                        <div className="text-[11px] font-semibold text-white line-clamp-1">
+                          {item.title}
+                        </div>
+                        <div className="text-[10px] font-mono text-[#FFCA05] tabular-nums">
+                          {formatINR(item.minPrice)}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full Store Catalogue Grid (All 76 Products) */}
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-8 py-14 sm:py-16">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-black/[0.08]">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-widest text-[#00A8E8] mb-1.5">
+              Complete Store Catalogue
+            </div>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#111114] tracking-tight">
+              New Drops &amp; All {products.length} Pieces
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="relative flex-1 sm:flex-initial min-w-[230px]">
+              <Search className="w-4 h-4 text-[#6E6E73] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search hoodies, F1 jackets, cargos..."
+                aria-label="Search store catalogue"
+                className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-black/15 rounded-full text-[#111114] placeholder:text-[#71717A] focus:outline-none focus:border-[#111114]"
+              />
+            </div>
+
+            <div className="relative inline-flex items-center">
+              <ArrowUpDown className="w-3.5 h-3.5 text-[#52525B] absolute left-3 pointer-events-none" />
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortKey)}
+                aria-label="Sort products"
+                className="pl-8 pr-4 py-2 text-xs font-medium bg-white border border-black/15 rounded-full text-[#111114] focus:outline-none focus:border-[#111114] cursor-pointer"
+              >
+                <option value="featured">Featured Order</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Colorful Collection Filter Pills */}
+        <div className="mt-5 flex items-center gap-2 overflow-x-auto pb-2">
+          {STORE_COLLECTIONS.map((col, idx) => {
+            const active = activeCollection === col.key;
+            const accent = ACCENT_CYCLE[idx % ACCENT_CYCLE.length];
+            return (
+              <button
+                key={col.key}
+                type="button"
+                onClick={() => onChangeCollection(col.key)}
+                style={active ? { borderColor: accent } : undefined}
+                className={`px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all cursor-pointer border ${
+                  active
+                    ? 'bg-[#111114] text-white shadow-sm'
+                    : 'bg-white text-[#52525B] border-black/10 hover:border-black/30 hover:text-[#111114]'
+                }`}
+              >
+                <span>{col.label}</span>
+                <span
+                  style={{ color: active ? accent : '#71717A' }}
+                  className="ml-1.5 font-mono tabular-nums"
+                >
+                  {col.count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Product Grid with Secondary Photo Flip & Quick-Size Add */}
+        {filteredProducts.length === 0 ? (
+          <div className="mt-10 py-16 text-center bg-white rounded-2xl border border-black/[0.08]">
+            <p className="text-sm font-medium text-[#111114]">
+              No pieces matched &ldquo;{searchQuery}&rdquo;.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery('');
+                onChangeCollection('all');
+              }}
+              className="mt-3 px-5 py-2 rounded-full bg-[#111114] text-white text-xs font-semibold cursor-pointer"
+            >
+              Show All Pieces
+            </button>
+          </div>
+        ) : (
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => {
+              const priceLabel =
+                product.minPrice === product.maxPrice
+                  ? formatINR(product.minPrice)
+                  : `From ${formatINR(product.minPrice)}`;
+              const sizes =
+                product.options.find((o) => o.name.toLowerCase() === 'size')?.values || [];
+              const hasSecondImg = product.images.length > 1;
+
+              return (
+                <div
+                  key={product.id}
+                  onClick={() => {
+                    if (product.isCustomTee) {
+                      onInspectProduct(product, filteredProducts);
+                    } else {
+                      onInspectProduct(product, filteredProducts);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onInspectProduct(product, filteredProducts);
+                    }
+                  }}
+                  className="group bg-white rounded-2xl border border-black/[0.08] overflow-hidden hover:-translate-y-1 hover:shadow-[0_20px_40px_-14px_rgba(17,17,20,0.18)] transition-all duration-200 flex flex-col cursor-pointer"
+                >
+                  {/* 3:4 Photo Container with Hover Secondary Angle Reveal */}
+                  <div className="relative w-full aspect-[3/4] bg-[#ECECE8] overflow-hidden">
+                    <ProductImage
+                      src={product.images[0]}
+                      alt={product.title}
+                      loading="lazy"
+                      className={`w-full h-full object-cover object-center transition-opacity duration-300 ${
+                        hasSecondImg ? 'group-hover:opacity-0' : 'group-hover:scale-105 transition-transform'
+                      }`}
+                    />
+                    {hasSecondImg && (
+                      <ProductImage
+                        src={product.images[1]}
+                        alt={`${product.title} alternate view`}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover object-center opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+                      />
+                    )}
+
+                    {/* Quick-Add Size Overlay on Desktop Hover */}
+                    {!product.isCustomTee && sizes.length > 0 && (
+                      <div className="hidden md:flex absolute inset-x-3 bottom-3 p-2 rounded-xl bg-white/95 backdrop-blur-md border border-black/10 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 items-center justify-between gap-1.5 shadow-lg">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#52525B] pl-1 shrink-0">
+                          Quick Add
+                        </span>
+                        <div className="flex items-center gap-1 flex-wrap justify-end">
+                          {sizes.slice(0, 4).map((sz) => (
+                            <button
+                              key={sz}
+                              type="button"
+                              onClick={(e) => handleQuickAddSize(e, product, sz)}
+                              className="px-2 py-1 rounded bg-[#F5F5F3] hover:bg-[#111114] hover:text-white text-[10px] font-bold uppercase text-[#111114] transition-colors cursor-pointer"
+                            >
+                              {sz}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {product.isCustomTee && (
+                      <div className="hidden md:flex absolute inset-x-3 bottom-3">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onOpenCustomPage();
+                          }}
+                          className="w-full py-2 rounded-xl bg-[#00A8E8] text-[#111114] font-bold text-[11px] uppercase tracking-wider shadow-lg opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                        >
+                          Customize Artwork &amp; Print
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Clean Metadata */}
+                  <div className="p-4 flex-1 flex flex-col justify-between gap-2.5">
+                    <div>
+                      <div className="text-[11px] font-medium uppercase tracking-wider text-[#6E6E73] flex items-center gap-1.5">
+                        <span>{product.productType}</span>
+                        {sizes.length > 0 && (
+                          <>
+                            <span aria-hidden="true">Â·</span>
+                            <span>{sizes.length} Sizes</span>
+                          </>
+                        )}
+                      </div>
+
+                      <h3 className="mt-1 text-[15px] font-semibold text-[#111114] leading-snug line-clamp-2">
+                        {product.title}
+                      </h3>
+                    </div>
+
+                    <div className="pt-1 flex items-center justify-between border-t border-black/[0.06]">
+                      <span className="text-[15px] font-bold text-[#111114] tabular-nums">
+                        {priceLabel}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#E6007E]">
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>View</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};

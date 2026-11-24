@@ -51,90 +51,390 @@ function loadRazorpaySdk(): Promise<boolean> {
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
     script.async = true;
     script.onload = () => resolve(Boolean(window.Razorpay));
-    script.onerror = ÕÈZ®Ëkºwµçkz»§Â+a…æş
-Ş§ûZŠWè­û¥–‹­¦ë[[Â‚ˆÛÛœİİXİ[H][\Ëœ™YXÙJ
-İ[K][JHOˆİ[H
-È][K[š]šXÙH
-ˆ][Kœ]X[]K
-NÂˆÛÛœİÚ\[™ÈHİXİ[HNNNHİXİ[OOHÈˆNNÂˆÛÛœİÜ˜[™İ[HİXİ[
-ÈÚ\[™ÎÂ‚ˆÛÛœİÙ\šX[^™R][\ÈH
+    script.onerror = () => resolve(false);
+    document.head.appendChild(script);
+  });
+}
 
-HO‚ˆ][\Ë›X\
+export const CheckoutModal: React.FC<CheckoutModalProps> = ({
+  isOpen,
+  items,
+  onClose,
+  onOrderConfirmed,
+}) => {
+  const [customer, setCustomer] = useState<CustomerCheckoutInfo>({
+    name: '',
+    phone: '',
+    city: '',
+    address: '',
+    postalCode: '',
+    notes: '',
+  });
+  const [gatewayConfig, setGatewayConfig] = useState<GatewayConfig | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [confirmedReceipt, setConfirmedReceipt] = useState<VerifiedReceiptState | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [copied, setCopied] = useState<boolean>(false);
 
-]
-HOˆ
-Âˆ›ÙXİYˆ]œ›ÙXİYˆÚ^™Nˆ]œÚ^™KˆÛÛÜˆ]˜ÛÛÜ‹ˆœ›Ûš[ˆ]™œ›Ûš[ˆ˜XÚÔš[ˆ]˜˜XÚÔš[ˆ]X[]Nˆ]œ]X[]KˆJJNÂ‚ˆÛÛœİ™\šYP[™š[˜[^™SÜ™\ˆH\Ş[˜È
-^[ØYˆÂˆ^[Y[Y]Ùˆ	Ü˜^›Üœ^IÎÂˆ˜^›Üœ^WÛÜ™\—ÚYÎˆİš[™ÎÂˆ˜^›Üœ^WÜ^[Y[ÚYÎˆİš[™ÎÂˆ˜^›Üœ^WÜÚYÛ˜]\™OÎˆİš[™ÎÂˆJHOˆÂˆÛÛœİ™\ÜH]ØZ]™]Ú
-	ËØ\KÛÜ™\œËİ™\šYKX[™[›İYIËÂˆY]Ùˆ	ÔÔÕ	ËˆXY\œÎˆÈ	ĞÛÛ[U\IÎˆ	Ø\XØ][Û‹ÚœÛÛ‰ÈKˆ›ÙNˆ”ÓÓ‹œİš[™ÚYJÂˆ][\ÎˆÙ\šX[^™R][\Ê
-Kˆİ\İÛY\‹ˆ‹‹œ^[ØYˆJKˆJNÂ‚ˆÛÛœİ]HH]ØZ]™\ÜšœÛÛŠ
-NÂˆYˆ
-\™\Ü›ÚÈY]K™\šYšYY
-HÂˆ›İÈ™]È\œ›ÜŠ]K™\œ›Üˆ	ĞÛİ[›İ™\šYHÜ™\‹‰ÊNÂˆB‚ˆÙ]ÛÛ™š\›YY™XÙZ\
-ÂˆÜ™\’Yˆ]K›Ü™\‹›Ü™\’Yˆ^[Y[İ]\Îˆ]K›Ü™\‹œ^[Y[İ]\Ëˆ˜^›Üœ^T^[Y[Yˆ]K›Ü™\‹œ˜^›Üœ^T^[Y[YˆÜ˜[™İ[[œˆ]K›Ü™\‹™Ü˜[™İ[[œ‹ˆ][PÛİ[ˆ]K›Ü™\‹š][\Ë›[™İˆ™XÙZ\^ˆ]Kœ™XÙZ\^ˆJNÂˆÛ“Ü™\ÛÛ™š\›YY
+  useEffect(() => {
+    if (!isOpen) return;
+    fetch('/api/orders/config')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data) setGatewayConfig(data);
+      })
+      .catch(() => {
+        // Fallback smoothly if offline
+      });
+  }, [isOpen]);
 
-NÂˆNÂ‚ˆÛÛœİ[™PÚXÚÛİ]İX›Z]H\Ş[˜È
-Nˆ™XXİ‘›Ü›Q]™[
-HOˆÂˆKœ™]™[Y˜][
+  if (!isOpen) return null;
 
-NÂˆÙ]\œ›Ü“\ÙÊ[
-NÂ‚ˆÛÛœİYÚ]ÈHİ\İÛY\‹œÛ™Kœ™\XÙJ×ÙË	ÉÊNÂˆYˆ
-ˆXİ\İÛY\‹›˜[YKš[J
-HˆYÚ]Ë›[™İLˆXİ\İÛY\‹˜Y™\ÜËš[J
-HˆXİ\İÛY\‹˜Ú]Kš[J
-HˆXİ\İÛY\‹œÜİ[ÛÙKš[J
-Bˆ
-HÂˆÙ]\œ›Ü“\ÙÊ	ÔX\ÙH[\ˆ[İ\ˆ[˜[YK˜[YLYYÚ][Øš[H[X™\‹Y™\ÜËÚ]K[™SˆÛÙK‰ÊNÂˆ™]\›ÂˆB‚ˆÙ]\ÔİX›Z][™ÊYJNÂˆ]][˜ÚYÜ\H˜[ÙNÂˆHÂˆËÈÜ™X]H˜^›Üœ^HÜ™\ˆšXHÙ\™\‚ˆÛÛœİÜ™\”™\ÜH]ØZ]™]Ú
-	ËØ\KÛÜ™\œËØÜ™X]K\˜^›Üœ^K[Ü™\‰ËÂˆY]Ùˆ	ÔÔÕ	ËˆXY\œÎˆÈ	ĞÛÛ[U\IÎˆ	Ø\XØ][Û‹ÚœÛÛ‰ÈKˆ›ÙNˆ”ÓÓ‹œİš[™ÚYJÂˆ][\ÎˆÙ\šX[^™R][\Ê
-Kˆİ\İÛY\‹ˆJKˆJNÂˆÛÛœİÜ™\‘]HH]ØZ]Ü™\”™\ÜšœÛÛŠ
-NÂˆYˆ
-[Ü™\”™\Ü›ÚÊHÂˆ›İÈ™]È\œ›ÜŠÜ™\‘]K™\œ›Üˆ	Ñ˜Z[YÈ[š]X]H˜^›Üœ^H^[Y[‰ÊNÂˆB‚ˆYˆ
-Ü™\‘]K›[ÙHOOH	Û]™IÈ	‰ˆÜ™\‘]Kœ˜^›Üœ^SÜ™\’Y	‰ˆÜ™\‘]Kœ˜^›Üœ^RÙ^RY
-HÂˆÛÛœİÙÔ™XYHH]ØZ]ØY˜^›Üœ^TÙÊ
-NÂˆYˆ
-\ÙÔ™XYH]Ú[™İË”˜^›Üœ^JHÂˆ›İÈ™]È\œ›ÜŠ	ĞÛİ[›İØY˜^›Üœ^HÚXÚÛİ]ØÜš\ˆX\ÙHHYØZ[‹‰ÊNÂˆB‚ˆÛÛœİœH™]ÈÚ[™İË”˜^›Üœ^JÂˆÙ^NˆÜ™\‘]Kœ˜^›Üœ^RÙ^RYˆ[[İ[ˆÜ™\‘]K˜[[İ[Z\ÙKˆİ\œ™[˜ŞNˆÜ™\‘]K˜İ\œ™[˜ŞH	ÒS”‰Ëˆ˜[YNˆ	Ôš[İY™ˆİÜ™IËˆ\ØÜš\[ÛˆÜ™\ˆ	ÛÜ™\‘]Kœ™XÙZ\™YŸXˆ[XYÙNˆ	ËØœ˜[™Üš[İY™‹]YËZXÛÛ‹œ™ÉËˆÜ™\—ÚYˆÜ™\‘]Kœ˜^›Üœ^SÜ™\’Yˆ™Yš[ˆÂˆ˜[YNˆİ\İÛY\‹›˜[YKˆÛÛXİˆYÚ]Ë›[™İOOHLÈ
-ÎLIÙYÚ]ßXˆ
-ÉÙYÚ]ßXˆKˆ[YNˆÂˆÛÛÜˆ	ÈÌLLLLM	ËˆKˆ[™\ˆ\Ş[˜È
-œ™\ÜÛœÙNˆÂˆ˜^›Üœ^WÛÜ™\—ÚYÎˆİš[™ÎÂˆ˜^›Üœ^WÜ^[Y[ÚYÎˆİš[™ÎÂˆ˜^›Üœ^WÜÚYÛ˜]\™OÎˆİš[™ÎÂˆJHOˆÂˆHÂˆ]ØZ]™\šYP[™š[˜[^™SÜ™\ŠÂˆ^[Y[Y]Ùˆ	Ü˜^›Üœ^IËˆ˜^›Üœ^WÛÜ™\—ÚYˆœ™\ÜÛœÙKœ˜^›Üœ^WÛÜ™\—ÚYˆ˜^›Üœ^WÜ^[Y[ÚYˆœ™\ÜÛœÙKœ˜^›Üœ^WÜ^[Y[ÚYˆ˜^›Üœ^WÜÚYÛ˜]\™Nˆœ™\ÜÛœÙKœ˜^›Üœ^WÜÚYÛ˜]\™KˆJNÂˆHØ]Ú
-\œŠHÂˆÙ]\œ›Ü“\ÙÊ\œˆ[œİ[˜Ù[Ùˆ\œ›ÜˆÈ\œ‹›Y\ÜØYÙHˆ	Ô^[Y[™\šYšXØ][Ûˆ˜Z[Y‰ÊNÂˆHš[˜[HÂˆÙ]\ÔİX›Z][™Ê˜[ÙJNÂˆBˆKˆ[Ù[ˆÂˆÛ™\ÛZ\ÜÎˆ
+  const subtotal = items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
+  const shipping = subtotal >= 1999 || subtotal === 0 ? 0 : 99;
+  const grandTotal = subtotal + shipping;
 
-HOˆÂˆÙ]\ÔİX›Z][™Ê˜[ÙJNÂˆKˆKˆJNÂ‚ˆœ›ÛŠ	Ü^[Y[™˜Z[Y	Ë
-˜Z[™\Ü
-HOˆÂˆÙ]\œ›Ü“\ÙÊ˜Z[™\ÜË™\œ›ÜË™\ØÜš\[Ûˆ	Ô˜^›Üœ^H^[Y[˜Z[YˆX\ÙH™]K‰ÊNÂˆÙ]\ÔİX›Z][™Ê˜[ÙJNÂˆJNÂ‚ˆ][˜ÚYÜ\HYNÂˆœ›Ü[Š
-NÂˆ™]\›ÂˆB‚ˆ›İÈ™]È\œ›ÜŠ	Ô˜^›Üœ^H\È›İÛÛ™šYİ\™YY]ˆX\ÙHÛÛXİHİÜ™H[™HYØZ[ˆ]\‹‰ÊNÂˆHØ]Ú
-\œŠHÂˆÙ]\œ›Ü“\ÙÊ\œˆ[œİ[˜Ù[Ùˆ\œ›ÜˆÈ\œ‹›Y\ÜØYÙHˆ	ĞÚXÚÛİ]˜Z[YˆX\ÙHHYØZ[‹‰ÊNÂˆHš[˜[HÂˆYˆ
-[][˜ÚYÜ\
-HÂˆÙ]\ÔİX›Z][™Ê˜[ÙJNÂˆBˆBˆNÂ‚ˆÛÛœİ[™PÛÜT™XÙZ\H\Ş[˜È
+  const serializeItems = () =>
+    items.map((it) => ({
+      productId: it.productId,
+      size: it.size,
+      color: it.color,
+      frontPrint: it.frontPrint,
+      backPrint: it.backPrint,
+      quantity: it.quantity,
+    }));
 
-HOˆÂˆYˆ
-XÛÛ™š\›YY™XÙZ\
-H™]\›ÂˆHÂˆ]ØZ]˜]šYØ]Ü‹˜Û\›Ø\™Üš]U^
-ÛÛ™š\›YY™XÙZ\œ™XÙZ\^
-NÂˆÙ]ÛÜYY
-YJNÂˆÚ[™İËœÙ][Y[İ]
+  const verifyAndFinalizeOrder = async (payload: {
+    paymentMethod: 'razorpay';
+    razorpay_order_id?: string;
+    razorpay_payment_id?: string;
+    razorpay_signature?: string;
+  }) => {
+    const resp = await fetch('/api/orders/verify-and-notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: serializeItems(),
+        customer,
+        ...payload,
+      }),
+    });
+
+    const data = await resp.json();
+    if (!resp.ok || !data.verified) {
+      throw new Error(data.error || 'Could not verify order.');
+    }
+
+    setConfirmedReceipt({
+      orderId: data.order.orderId,
+      paymentStatus: data.order.paymentStatus,
+      razorpayPaymentId: data.order.razorpayPaymentId,
+      grandTotalInr: data.order.grandTotalInr,
+      itemCount: data.order.items.length,
+      receiptText: data.receiptText,
+    });
+    onOrderConfirmed();
+  };
+
+  const handleCheckoutSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg(null);
+
+    const digits = customer.phone.replace(/\D/g, '');
+    if (
+      !customer.name.trim() ||
+      digits.length < 10 ||
+      !customer.address.trim() ||
+      !customer.city.trim() ||
+      !customer.postalCode.trim()
+    ) {
+      setErrorMsg('Please enter your full name, valid 10-digit mobile number, address, city, and PIN code.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    let launchedPopup = false;
+    try {
+      // Create Razorpay Order via server
+      const orderResp = await fetch('/api/orders/create-razorpay-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: serializeItems(),
+          customer,
+        }),
+      });
+      const orderData = await orderResp.json();
+      if (!orderResp.ok) {
+        throw new Error(orderData.error || 'Failed to initiate Razorpay payment.');
+      }
+
+      if (orderData.mode === 'live' && orderData.razorpayOrderId && orderData.razorpayKeyId) {
+        const sdkReady = await loadRazorpaySdk();
+        if (!sdkReady || !window.Razorpay) {
+          throw new Error('Could not load Razorpay Checkout script. Please try again.');
+        }
+
+        const rzp = new window.Razorpay({
+          key: orderData.razorpayKeyId,
+          amount: orderData.amountPaise,
+          currency: orderData.currency || 'INR',
+          name: 'PrintStuff Store',
+          description: `Order ${orderData.receiptRef}`,
+          image: '/brand/printstuff-tag-icon.png',
+          order_id: orderData.razorpayOrderId,
+          prefill: {
+            name: customer.name,
+            contact: digits.length === 10 ? `+91${digits}` : `+${digits}`,
+          },
+          theme: {
+            color: '#111114',
+          },
+          handler: async (rzpResponse: {
+            razorpay_order_id?: string;
+            razorpay_payment_id?: string;
+            razorpay_signature?: string;
+          }) => {
+            try {
+              await verifyAndFinalizeOrder({
+                paymentMethod: 'razorpay',
+                razorpay_order_id: rzpResponse.razorpay_order_id,
+                razorpay_payment_id: rzpResponse.razorpay_payment_id,
+                razorpay_signature: rzpResponse.razorpay_signature,
+              });
+            } catch (err) {
+              setErrorMsg(err instanceof Error ? err.message : 'Payment verification failed.');
+            } finally {
+              setIsSubmitting(false);
+            }
+          },
+          modal: {
+            ondismiss: () => {
+              setIsSubmitting(false);
+            },
+          },
+        });
+
+        rzp.on('payment.failed', (failResp) => {
+          setErrorMsg(failResp?.error?.description || 'Razorpay payment failed. Please retry.');
+          setIsSubmitting(false);
+        });
+
+        launchedPopup = true;
+        rzp.open();
+        return;
+      }
+
+      throw new Error('Razorpay is not configured yet. Please contact the store and try again later.');
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : 'Checkout failed. Please try again.');
+    } finally {
+      if (!launchedPopup) {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
+  const handleCopyReceipt = async () => {
+    if (!confirmedReceipt) return;
+    try {
+      await navigator.clipboard.writeText(confirmedReceipt.receiptText);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Ignore clipboard failure
+    }
+  };
+
+  const handleResetAndClose = () => {
+    setConfirmedReceipt(null);
+    setErrorMsg(null);
+    setCopied(false);
+    onClose();
+  };
 
 
-HOˆÙ]ÛÜYY
-˜[ÙJKŒ
-NÂˆHØ]ÚÂˆËÈYÛ›Ü™HÛ\›Ø\™˜Z[\™BˆBˆNÂ‚ˆÛÛœİ[™T™\Ù][™ÛÜÙHH
+  return (
+    <div className="fixed inset-0 z-50 bg-black/55 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="PrintStuff Checkout"
+        className="w-full max-w-lg bg-[#F5F5F3] text-[#111114] rounded-2xl border border-black/10 shadow-2xl overflow-hidden my-8"
+      >
+        <div aria-hidden="true" className="h-1 w-full grid grid-cols-3">
+          <div className="bg-[#00A8E8]" />
+          <div className="bg-[#E6007E]" />
+          <div className="bg-[#FFCA05]" />
+        </div>
 
-HOˆÂˆÙ]ÛÛ™š\›YY™XÙZ\
-[
-NÂˆÙ]\œ›Ü“\ÙÊ[
-NÂˆÙ]ÛÜYY
-˜[ÙJNÂˆÛÛÜÙJ
-NÂˆNÂ‚‚ˆ™]\›ˆ
-ˆ]ˆÛ\ÜÓ˜[YOH™š^Y[œÙ]L‹ML™ËX›XÚËÍMH˜XÚÙ›ÜX›\‹^È›^][\ËXÙ[\ˆ\İYKXÙ[\ˆMİ™\™›İË^KX]]È‚ˆ]‚ˆ›ÛOH™X[ÙÈ‚ˆ\šXK[[Ù[HYH‚ˆ\šXK[X™[H”š[İY™ˆÚXÚÛİ]‚ˆÛ\ÜÓ˜[YOHËY[X^]Ë[È™ËVÈÑQQŒ×H^VÈÌLLLLMH›İ[™YL›Ü™\ˆ›Ü™\‹X›XÚËÌLÚYİËLİ™\™›İËZY[ˆ^KN‚ˆ‚ˆ]ˆ\šXKZY[HYHˆÛ\ÜÓ˜[YOHšLHËY[ÜšYÜšYXÛÛËLÈ‚ˆ]ˆÛ\ÜÓ˜[YOH˜™ËVÈÌNNHˆÏ‚ˆ]ˆÛ\ÜÓ˜[YOH˜™ËVÈÑMŒÑWHˆÏ‚ˆ]ˆÛ\ÜÓ˜[YOH˜™ËVÈÑ‘ĞLWHˆÏ‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOHœMˆKM™Ë]Ú]H›Ü™\‹Xˆ›Ü™\‹X›XÚËÖÌŒH›^][\ËXÙ[\ˆ\İYKX™]ÙY[ˆ‚ˆˆÛ\ÜÓ˜[YOH™›ÛY\Ü^H^[È›Û\Ù[ZX›Û‚ˆØÛÛ™š\›YY™XÙZ\È	ÓÜ™\ˆÛÛ™š\›X][Û‰Èˆ	ĞÚXÚÛİ]	ˆ^[Y[	ßBˆÚ‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ú[™T™\Ù][™ÛÜÙ_Bˆ\šXK[X™[HÛÜÙHÚXÚÛİ]‚ˆÛ\ÜÓ˜[YOHœLKH›İ[™YY[İ™\˜™ËX›XÚËÍH^VÈÍLLP—Hİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆÛ\ÜÓ˜[YOHËMMˆÏ‚ˆØ]Û‚ˆÙ]‚‚ˆØÛÛ™š\›YY™XÙZ\È
-ˆ]ˆÛ\ÜÓ˜[YOHœMˆÜXÙK^KMH^XÙ[\ˆ‚ˆ]ˆÛ\ÜÓ˜[YOHËLLˆLLˆ›İ[™YY[™ËVÈÌNNKÌMH^VÈÌNNH›^][\ËXÙ[\ˆ\İYKXÙ[\ˆ^X]]È‚ˆÚXÚĞÚ\˜ÛLˆÛ\ÜÓ˜[YOHËMˆMˆˆÏ‚ˆÙ]‚‚ˆ]‚ˆÈÛ\ÜÓ˜[YOH™›ÛY\Ü^H^^›ÛX›Û^VÈÌLLLLMH‚ˆÜ™\ˆŞØÛÛ™š\›YY™XÙZ\›Ü™\’YHÛÛ™š\›YYˆÚÏ‚ˆÛ\ÜÓ˜[YOH›]LH^^È^VÈÍLLP—H‚ˆØÛÛ™š\›YY™XÙZ\œ^[Y[İ]\ÈOOH	ÜZY	È	‰ˆÛÛ™š\›YY™XÙZ\œ˜^›Üœ^T^[Y[YˆÈZYšXH˜^›Üœ^H0­È^[Y[Q	ØÛÛ™š\›YY™XÙZ\œ˜^›Üœ^T^[Y[YXˆˆ	Ô^[Y[™\šYšYYİXØÙ\ÜÙ[IßBˆÜ‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOHœM›İ[™Y^™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒH^[YÜXÙK^KLˆ^^È‚ˆ]ˆÛ\ÜÓ˜[YOH™›^\İYKX™]ÙY[ˆ›Û\Ù[ZX›Û^VÈÌLLLLMH‚ˆÜ[“Ü™\ˆ™XÙZ\
-ØÛÛ™š\›YY™XÙZ\š][PÛİ[H][^ØÛÛ™š\›YY™XÙZ\š][PÛİ[OOHHÈ	ÉÈˆ	ÜÉßJOÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH™›Û[[Û›ÈX[\‹[[\ÈÙ›Ü›X]S”ŠÛÛ™š\›YY™XÙZ\™Ü˜[™İ[[œŠ_OÜÜ[‚ˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆØ\LˆLH^VÈÍLLP—H‚ˆÚY[ÚXÚÈÛ\ÜÓ˜[YOHËMM^VÈÌNNHˆÏ‚ˆÜ[–[İ\ˆÛ›[™H^[Y[\È™Y[ˆ™\šYšYYÜÜ[‚ˆÙ]‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆ\İYKXÙ[\ˆØ\MLH‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ú[™PÛÜT™XÙZ\BˆÛ\ÜÓ˜[YOHš[›[™KY›^][\ËXÙ[\ˆØ\LKH^^È›Û\Ù[ZX›Û^VÈÍLLP—Hİ™\^VÈÌLLLLMHİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆÛÜHÛ\ÜÓ˜[YOHËLËHLËHˆÏ‚ˆÜ[ØÛÜYYÈ	ĞÛÜYY™XÙZ\^	Èˆ	ĞÛÜHÜ™\ˆ™XÙZ\	ßOÜÜ[‚ˆØ]Û‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ú[™T™\Ù][™ÛÜÙ_BˆÛ\ÜÓ˜[YOH^^È›Û\Ù[ZX›Û^VÈÌLLLLMH[™\›[™H[™\›[™K[Ù™œÙ]Mİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆÛÛ[YHÚÜ[™ÂˆØ]Û‚ˆÙ]‚ˆÙ]‚ˆ
-Hˆ
-ˆ›Ü›HÛ”İX›Z]^Ú[™PÚXÚÛİ]İX›Z]HÛ\ÜÓ˜[YOHœMˆÜXÙK^KM‚ˆ]ˆÛ\ÜÓ˜[YOHœLËH›İ[™Y^™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒH›^][\ËXÙ[\ˆ\İYKX™]ÙY[ˆ^^È‚ˆÜ[ˆÛ\ÜÓ˜[YOH™›Û[YY][H^VÈÍLLP—H‚ˆÚ][\Ëœ™YXÙJ
-ËJHOˆÈ
-ÈKœ]X[]K
-_HYXÙJÊH0­ŞÉÈ	ßBˆÜÚ\[™ÈOOHÈ	Ñœ™YHÚ\[™ÉÈˆ	ø ®NNHÚ\[™ÉßBˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH^X˜\ÙH›ÛX›Û^VÈÌLLLLMHX[\‹[[\È‚ˆÙ›Ü›X]S”ŠÜ˜[™İ[
-_BˆÜÜ[‚ˆÙ]‚‚ˆÙ\œ›Ü“\ÙÈ	‰ˆ
-ˆ]ˆÛ\ÜÓ˜[YOHœLÈ›İ[™Y[È™ËVÈÑMŒÑWKÌL›Ü™\ˆ›Ü™\‹VÈÑMŒÑWKÌÌ^^È›Û[YY][H^VÈÎQMH‚ˆÙ\œ›Ü“\ÙßBˆÙ]‚ˆ
-_B‚ˆ]ˆÛ\ÜÓ˜[YOH™ÜšYÜšYXÛÛËLHÛN™ÜšYXÛÛËLˆØ\LÈ‚ˆ]‚ˆX™[Û\ÜÓ˜[YOH˜›ØÚÈ^VÌL\H›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍLLP—HX‹LH‚ˆ[˜[YBˆÛX™[‚ˆ[œ]ˆ\OH^‚ˆ™\]Z\™Yˆ˜[YO^Øİ\İÛY\‹›˜[Y_BˆÛÚ[™ÙO^ÊJHOˆÙ]İ\İÛY\ŠÈ‹‹˜İ\İÛY\‹˜[YNˆK\™Ù]˜[YHJ_BˆXÙZÛ\HX\˜]ˆYZH‚ˆÛ\ÜÓ˜[YOHËY[LÈKLˆ^^È™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÌMH›İ[™Y[È›Øİ\Î›İ][™K[›Û™H›Øİ\Î˜›Ü™\‹VÈÌLLLLMH‚ˆÏ‚ˆÙ]‚ˆ]‚ˆX™[Û\ÜÓ˜[YOH˜›ØÚÈ^VÌL\H›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍLLP—HX‹LH‚ˆİ\İÛY\ˆ[Øš[H[X™\‚ˆÛX™[‚ˆ[œ]ˆ\OH[‚ˆ™\]Z\™Yˆ˜[YO^Øİ\İÛY\‹œÛ™_BˆÛÚ[™ÙO^ÊJHOˆÙ]İ\İÛY\ŠÈ‹‹˜İ\İÛY\‹Û™NˆK\™Ù]˜[YHJ_BˆXÙZÛ\HŠÎLHNÍHÌŒL‚ˆÛ\ÜÓ˜[YOHËY[LÈKLˆ^^È™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÌMH›İ[™Y[È›Øİ\Î›İ][™K[›Û™H›Øİ\Î˜›Ü™\‹VÈÌLLLLMH‚ˆÏ‚ˆÙ]‚ˆÙ]‚‚ˆ]‚ˆX™[Û\ÜÓ˜[YOH˜›ØÚÈ^VÌL\H›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍLLP—HX‹LH‚ˆİ™Y]Y™\ÜÂˆÛX™[‚ˆ[œ]ˆ\OH^‚ˆ™\]Z\™Yˆ˜[YO^Øİ\İÛY\‹˜Y™\ÜßBˆÛÚ[™ÙO^ÊJHOˆÙ]İ\İÛY\ŠÈ‹‹˜İ\İÛY\‹Y™\ÜÎˆK\™Ù]˜[YHJ_BˆXÙZÛ\H‘›]İ™Y][™X\šÈ‚ˆÛ\ÜÓ˜[YOHËY[LÈKLˆ^^È™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÌMH›İ[™Y[È›Øİ\Î›İ][™K[›Û™H›Øİ\Î˜›Ü™\‹VÈÌLLLLMH‚ˆÏ‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOH™ÜšYÜšYXÛÛËLˆØ\LÈ‚ˆ]‚ˆX™[Û\ÜÓ˜[YOH˜›ØÚÈ^VÌL\H›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍLLP—HX‹LH‚ˆÚ]BˆÛX™[‚ˆ[œ]ˆ\OH^‚ˆ™\]Z\™Yˆ˜[YO^Øİ\İÛY\‹˜Ú]_BˆÛÚ[™ÙO^ÊJHOˆÙ]İ\İÛY\ŠÈ‹‹˜İ\İÛY\‹Ú]NˆK\™Ù]˜[YHJ_BˆXÙZÛ\H“][X˜ZH‚ˆÛ\ÜÓ˜[YOHËY[LÈKLˆ^^È™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÌMH›İ[™Y[È›Øİ\Î›İ][™K[›Û™H›Øİ\Î˜›Ü™\‹VÈÌLLLLMH‚ˆÏ‚ˆÙ]‚ˆ]‚ˆX™[Û\ÜÓ˜[YOH˜›ØÚÈ^VÌL\H›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍLLP—HX‹LH‚ˆSˆÛÙBˆÛX™[‚ˆ[œ]ˆ\OH^‚ˆ™\]Z\™Yˆ˜[YO^Øİ\İÛY\‹œÜİ[ÛÙ_BˆÛÚ[™ÙO^ÊJHOˆÙ]İ\İÛY\ŠÈ‹‹˜İ\İÛY\‹Üİ[ÛÙNˆK\™Ù]˜[YHJ_BˆXÙZÛ\HH‚ˆÛ\ÜÓ˜[YOHËY[LÈKLˆ^^È™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÌMH›İ[™Y[È›Øİ\Î›İ][™K[›Û™H›Øİ\Î˜›Ü™\‹VÈÌLLLLMH‚ˆÏ‚ˆÙ]‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOHœLËH›İ[™Y^™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒH›^][\ËXÙ[\ˆØ\Lˆ^^È^VÈÍLLP—H‚ˆÚY[ÚXÚÈÛ\ÜÓ˜[YOHËMM^VÈÌNNHˆÏ‚ˆÙXİ\™HÛ›[™H^[Y[İÙ\™YH˜^›Üœ^H
-TKØ\™È[™™]˜[šÚ[™ÊK‚ˆÙ]‚‚ˆ]Û‚ˆ\OHœİX›Z]‚ˆ\ØX›Y^Ú\ÔİX›Z][™È][\Ë›[™İOOHBˆÛ\ÜÓ˜[YOHËY[KLËH›İ[™YY[™ËVÈÑMŒÑWHİ™\˜™ËVÈĞÍÌ×H\ØX›Y›ÜXÚ]KML^]Ú]H^^È›ÛX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ˜[œÚ][Û‹XÛÛÜœÈİ\œÛÜ‹\Ú[\ˆÚYİË[Y‚ˆ‚ˆÚ\ÔİX›Z][™ÂˆÈ	Ô›ØÙ\ÜÚ[™Ë‹‹‰Âˆˆ^HÙXİ\™[HÚ]˜^›Üœ^H0­È	Ù›Ü›X]S”ŠÜ˜[™İ[
-_XBˆØ]Û‚ˆÙ›Ü›O‚ˆ
-_BˆÙ]‚ˆÙ]‚ˆ
-NÂŸNÂ
+        <div className="px-6 py-4 bg-white border-b border-black/[0.08] flex items-center justify-between">
+          <h2 className="font-display text-lg font-semibold">
+            {confirmedReceipt ? 'Order Confirmation' : 'Checkout & Payment'}
+          </h2>
+          <button
+            type="button"
+            onClick={handleResetAndClose}
+            aria-label="Close checkout"
+            className="p-1.5 rounded-full hover:bg-black/5 text-[#52525B] cursor-pointer"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {confirmedReceipt ? (
+          <div className="p-6 space-y-5 text-center">
+            <div className="w-12 h-12 rounded-full bg-[#00A8E8]/15 text-[#00A8E8] flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-6 h-6" />
+            </div>
+
+            <div>
+              <h3 className="font-display text-xl font-bold text-[#111114]">
+                Order #{confirmedReceipt.orderId} Confirmed
+              </h3>
+              <p className="mt-1 text-xs text-[#52525B]">
+                {confirmedReceipt.paymentStatus === 'paid' && confirmedReceipt.razorpayPaymentId
+                  ? `Paid via Razorpay Â· Payment ID ${confirmedReceipt.razorpayPaymentId}`
+                  : 'Payment verified successfully'}
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-white border border-black/[0.08] text-left space-y-2 text-xs">
+              <div className="flex justify-between font-semibold text-[#111114]">
+                <span>Order Receipt ({confirmedReceipt.itemCount} item{confirmedReceipt.itemCount === 1 ? '' : 's'})</span>
+                <span className="font-mono tabular-nums">{formatINR(confirmedReceipt.grandTotalInr)}</span>
+              </div>
+              <div className="flex items-center gap-2 pt-1 text-[#52525B]">
+                <ShieldCheck className="w-4 h-4 text-[#00A8E8]" />
+                <span>Your online payment has been verified.</span>
+              </div>
+            </div>
+
+              <div className="flex items-center justify-center gap-4 pt-1">
+                <button
+                  type="button"
+                  onClick={handleCopyReceipt}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#52525B] hover:text-[#111114] cursor-pointer"
+                >
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>{copied ? 'Copied Receipt Text' : 'Copy Order Receipt'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleResetAndClose}
+                  className="text-xs font-semibold text-[#111114] underline underline-offset-4 cursor-pointer"
+                >
+                  Continue Shopping
+                </button>
+              </div>
+            </div>
+        ) : (
+          <form onSubmit={handleCheckoutSubmit} className="p-6 space-y-4">
+            <div className="p-3.5 rounded-xl bg-white border border-black/[0.08] flex items-center justify-between text-xs">
+              <span className="font-medium text-[#52525B]">
+                {items.reduce((s, i) => s + i.quantity, 0)} piece(s) Â·{' '}
+                {shipping === 0 ? 'Free Shipping' : 'â‚¹99 Shipping'}
+              </span>
+              <span className="text-base font-bold text-[#111114] tabular-nums">
+                {formatINR(grandTotal)}
+              </span>
+            </div>
+
+            {errorMsg && (
+              <div className="p-3 rounded-lg bg-[#E6007E]/10 border border-[#E6007E]/30 text-xs font-medium text-[#9D0054]">
+                {errorMsg}
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#52525B] mb-1">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={customer.name}
+                  onChange={(e) => setCustomer({ ...customer, name: e.target.value })}
+                  placeholder="Aarav Mehta"
+                  className="w-full px-3 py-2 text-xs bg-white border border-black/15 rounded-lg focus:outline-none focus:border-[#111114]"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#52525B] mb-1">
+                  Customer Mobile Number
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={customer.phone}
+                  onChange={(e) => setCustomer({ ...customer, phone: e.target.value })}
+                  placeholder="+91 98765 43210"
+                  className="w-full px-3 py-2 text-xs bg-white border border-black/15 rounded-lg focus:outline-none focus:border-[#111114]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#52525B] mb-1">
+                Street Address
+              </label>
+              <input
+                type="text"
+                required
+                value={customer.address}
+                onChange={(e) => setCustomer({ ...customer, address: e.target.value })}
+                placeholder="Flat, Street, Landmark"
+                className="w-full px-3 py-2 text-xs bg-white border border-black/15 rounded-lg focus:outline-none focus:border-[#111114]"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#52525B] mb-1">
+                  City
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={customer.city}
+                  onChange={(e) => setCustomer({ ...customer, city: e.target.value })}
+                  placeholder="Mumbai"
+                  className="w-full px-3 py-2 text-xs bg-white border border-black/15 rounded-lg focus:outline-none focus:border-[#111114]"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#52525B] mb-1">
+                  PIN Code
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={customer.postalCode}
+                  onChange={(e) => setCustomer({ ...customer, postalCode: e.target.value })}
+                  placeholder="400001"
+                  className="w-full px-3 py-2 text-xs bg-white border border-black/15 rounded-lg focus:outline-none focus:border-[#111114]"
+                />
+              </div>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-white border border-black/[0.08] flex items-center gap-2 text-xs text-[#52525B]">
+              <ShieldCheck className="w-4 h-4 text-[#00A8E8]" />
+              Secure online payment powered by Razorpay (UPI, cards and netbanking).
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting || items.length === 0}
+              className="w-full py-3.5 rounded-full bg-[#E6007E] hover:bg-[#C7006C] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-md"
+            >
+              {isSubmitting
+                ? 'Processing...'
+                : `Pay securely with Razorpay Â· ${formatINR(grandTotal)}`}
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+};

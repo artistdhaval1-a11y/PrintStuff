@@ -35,73 +35,402 @@ export const CustomTeeSection: React.FC<CustomTeeSectionProps> = ({
 
   const [frontArtwork, setFrontArtwork] = useState<{ name: string; url: string } | null>({
     name: 'PrintStuff Tag Mark',
-    url: '/brand/printstuff-tag-iconÕÈZ®Ëkºwµçkz»§Â+a…æş
-Ş§ûZŠWè­û¥–‹­¦ëHÙ]‚‚ˆËÊˆ[ØÚİ\œ˜[YH
-‹ßBˆ]ˆÛ\ÜÓ˜[YOHœ™[]]™H^X]]ÈËY[X^]ËVÍŒH\ÜXİVÍËÎH™Ë]Ú]H›İ[™Y^İ™\™›İËZY[ˆ›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒ—HÚYİË\ÛH›^][\ËXÙ[\ˆ\İYKXÙ[\ˆ‚ˆ›ÙXİ[XYÙBˆÜ˜Ï^İšY]ÔÚYHOOH	Ùœ›Û	ÈÈÙ[XİYÛÛÜ‹™œ›Û[YÈˆÙ[XİYÛÛÜ‹˜˜XÚÒ[YßBˆ[^Øİ\İÛHš[YTÚ\8 %	ÜÙ[XİYÛÛÜ‹›˜[Y_H	İšY]ÔÚY_XBˆØY[™ÏH™XYÙ\ˆ‚ˆÛ\ÜÓ˜[YOHËY[Y[Øš™XİXÛÛZ[ˆ‚ˆÏ‚‚ˆËÊˆš[\™XH›İ[™[™È[™XØ]Üˆ	ˆ]™H\ÛÜšÈ™]šY]È
-‹ßBˆØXİ]™UY\ˆOOH	Ó›Û™IÈ	‰ˆ
-ˆ]‚ˆÛ\ÜÓ˜[YO^ØXœÛÛ]HÚ[\‹Y]™[Ë[›Û™H›Ü™\ˆ›Ü™\‹Y\ÚY›Ü™\‹VÈÌNNKÍÍH™ËVÈÌNNKÖÌŒH›^][\ËXÙ[\ˆ\İYKXÙ[\ˆ˜[œÚ][Û‹X[	ÙÙ]›Û™PÛ\ÜÊ
-_XBˆ‚ˆØXİ]™P\ÛÜšÈÈ
-ˆ[YÂˆÜ˜Ï^ØXİ]™P\ÛÜšË\›Bˆ[Hİ\İÛH\ÛÜšÈ™]šY]È‚ˆİ[O^ŞÈÚYˆ	Ø\ØØ[_IXZYÚˆ	Ø\ØØ[_IX_BˆÛ\ÜÓ˜[YOH›Øš™XİXÛÛZ[ˆ›Ü\ÚYİË\ÛH‚ˆÏ‚ˆ
-Hˆ
-ˆÜ[ˆÛ\ÜÓ˜[YOH^VÌLH›Û[[Û›È\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÌNNH^XÙ[\ˆLH‚ˆØXİ]™UY\ŸBˆÜÜ[‚ˆ
-_BˆÙ]‚ˆ
-_BˆÙ]‚‚ˆËÊˆÛÛİ\ˆXÚÙ\ˆİš\
-‹ßBˆ]ˆÛ\ÜÓ˜[YOH›]MH›^›^]Ü˜\][\ËXÙ[\ˆ\İYKX™]ÙY[ˆØ\LÈM›Ü™\‹]›Ü™\‹X›XÚËÖÌŒH‚ˆÜ[ˆÛ\ÜÓ˜[YOH^^È›Û\Ù[ZX›Û^VÈÌLLLLMH‚ˆYHÛÛİ\ˆÜ[ˆÛ\ÜÓ˜[YOH™›Û[›Ü›X[^VÈÍLLP—HÜÙ[XİYÛÛÜ‹›˜[Y_OÜÜ[‚ˆÜÜ[‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆØ\Lˆ‚ˆĞÕTÕÓWÕQWĞÓÓÔ”Ë›X\
+    url: '/brand/printstuff-tag-icon.png',
+  });
+  const [backArtwork, setBackArtwork] = useState<{ name: string; url: string } | null>(null);
+  const [artScale, setArtScale] = useState<number>(58);
 
-ÊHOˆÂˆÛÛœİXİ]™HHË›˜[YHOOHÙ[XİYÛÛÜ‹›˜[YNÂˆ™]\›ˆ
-ˆ]Û‚ˆÙ^O^ØË›˜[Y_Bˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÙ]Ù[XİYÛÛÜŠÊ_Bˆ]O^ØË›˜[Y_Bˆ\šXK[X™[^ØÙ[Xİ	ØË›˜[Y_XBˆİ[O^ŞÈ˜XÚÙÜ›İ[™ÛÛÜˆËš^_BˆÛ\ÜÓ˜[YO^ØËMÈMÈ›İ[™YY[›Ü™\ˆ›Ü™\‹X›XÚËÌŒ˜[œÚ][Û‹]˜[œÙ›Ü›Hİ\œÛÜ‹\Ú[\ˆ	ÂˆXİ]™HÈ	Üš[™ËLˆš[™ËVÈÌLLLLMHš[™Ë[Ù™œÙ]Lˆš[™Ë[Ù™œÙ]VÈÑQQŒ×HØØ[KLLL	Èˆ	Úİ™\œØØ[KLLIÂˆXBˆÏ‚ˆ
-NÂˆJ_BˆÙ]‚ˆÙ]‚ˆÙ]‚‚ˆËÊˆšYÚˆš[šXÚ[™Ë\ÛÜšÈ	ˆÚ^™HÛÛ›ÛÈ
-‹ßBˆ]ˆÛ\ÜÓ˜[YOH›Î˜ÛÛ\Ü[‹Mˆ›^›^XÛÛ\İYKX™]ÙY[ˆØ\Mˆ‚ˆ]ˆÛ\ÜÓ˜[YOHœÜXÙK^KMˆ‚ˆËÊˆœ›Û	ˆ˜XÚÈš[Ú^™HÙ[XİÜœÈ
-‹ßBˆ]ˆÛ\ÜÓ˜[YOH™ÜšYÜšYXÛÛËLHÛN™ÜšYXÛÛËLˆØ\M‚ˆ]ˆÛ\ÜÓ˜[YOHœM›İ[™Y^™ËVÈÑQQŒ×H›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒH‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆ\İYKX™]ÙY[ˆX‹L‹H‚ˆÜ[ˆÛ\ÜÓ˜[YOH^^È›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÌLLLLMH‚ˆœ›Ûš[Ú^™BˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH^^È›Û[[Û›È›Û\Ù[ZX›ÛX[\‹[[\È^VÈÌNNH‚ˆ
-ŞÙ›Ü›X]S”Šœ›ÛY\“Øš‹˜Ú\™ÙJ_BˆÜÜ[‚ˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YOHœÜXÙK^KLKH‚ˆĞÕTÕÓWÕQWÔ’S•ÕQT”Ë›X\
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-Y\ŠHOˆÂˆÛÛœİXİ]™HHœ›ÛY\ˆOOHY\‹šÙ^NÂˆ™]\›ˆ
-ˆ]Û‚ˆÙ^O^Øœ›ÛIİY\‹šÙ^_XBˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÂˆÙ]œ›ÛY\ŠY\‹šÙ^JNÂˆÙ]šY]ÔÚYJ	Ùœ›Û	ÊNÂˆ_BˆÛ\ÜÓ˜[YO^ØËY[LÈKLˆ›İ[™Y[È^^È›^][\ËXÙ[\ˆ\İYKX™]ÙY[ˆ˜[œÚ][Û‹XÛÛÜœÈİ\œÛÜ‹\Ú[\ˆ	ÂˆXİ]™BˆÈ	Ø™ËVÈÌLLLLMH^]Ú]H›Û\Ù[ZX›Û	Âˆˆ	Ø™Ë]Ú]H^VÈÌLLLLMH›Ü™\ˆ›Ü™\‹X›XÚËÌLİ™\˜›Ü™\‹X›XÚËÌÌ	ÂˆXBˆ‚ˆÜ[İY\‹›X™[OÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH™›Û[[Û›ÈX[\‹[[\ÈÜXÚ]KNH‚ˆİY\‹˜Ú\™ÙHOOHÈ	ø ®L	Èˆ
-ø ®IİY\‹˜Ú\™Ù_XBˆÜÜ[‚ˆØ]Û‚ˆ
-NÂˆJ_BˆÙ]‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOHœM›İ[™Y^™ËVÈÑQQŒ×H›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒH‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆ\İYKX™]ÙY[ˆX‹L‹H‚ˆÜ[ˆÛ\ÜÓ˜[YOH^^È›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÌLLLLMH‚ˆ˜XÚÈš[Ú^™BˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH^^È›Û[[Û›È›Û\Ù[ZX›ÛX[\‹[[\È^VÈÑMŒÑWH‚ˆ
-ŞÙ›Ü›X]S”Š˜XÚÕY\“Øš‹˜Ú\™ÙJ_BˆÜÜ[‚ˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YOHœÜXÙK^KLKH‚ˆĞÕTÕÓWÕQWÔ’S•ÕQT”Ë›X\
+  const basePrice = 199;
+  const frontTierObj = CUSTOM_TEE_PRINT_TIERS.find((t) => t.key === frontTier) || CUSTOM_TEE_PRINT_TIERS[0];
+  const backTierObj = CUSTOM_TEE_PRINT_TIERS.find((t) => t.key === backTier) || CUSTOM_TEE_PRINT_TIERS[0];
+  const unitPrice = basePrice + frontTi
+â€¦[1 chars truncated â€” re-run with head/grep/tail for full output]â€¦
+  }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
 
-Y\ŠHOˆÂˆÛÛœİXİ]™HH˜XÚÕY\ˆOOHY\‹šÙ^NÂˆ™]\›ˆ
-ˆ]Û‚ˆÙ^O^Ø˜XÚËIİY\‹šÙ^_XBˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÂˆÙ]˜XÚÕY\ŠY\‹šÙ^JNÂˆÙ]šY]ÔÚYJ	Ø˜XÚÉÊNÂˆ_BˆÛ\ÜÓ˜[YO^ØËY[LÈKLˆ›İ[™Y[È^^È›^][\ËXÙ[\ˆ\İYKX™]ÙY[ˆ˜[œÚ][Û‹XÛÛÜœÈİ\œÛÜ‹\Ú[\ˆ	ÂˆXİ]™BˆÈ	Ø™ËVÈÌLLLLMH^]Ú]H›Û\Ù[ZX›Û	Âˆˆ	Ø™Ë]Ú]H^VÈÌLLLLMH›Ü™\ˆ›Ü™\‹X›XÚËÌLİ™\˜›Ü™\‹X›XÚËÌÌ	ÂˆXBˆ‚ˆÜ[İY\‹›X™[OÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH™›Û[[Û›ÈX[\‹[[\ÈÜXÚ]KNH‚ˆİY\‹˜Ú\™ÙHOOHÈ	ø ®L	Èˆ
-ø ®IİY\‹˜Ú\™Ù_XBˆÜÜ[‚ˆØ]Û‚ˆ
-NÂˆJ_BˆÙ]‚ˆÙ]‚ˆÙ]‚‚ˆËÊˆ\ÛÜšÈ\ØY	ˆØØ[H
-‹ßBˆ]ˆÛ\ÜÓ˜[YOHœM›İ[™Y^™ËVÈÑQQŒ×H›Ü™\ˆ›Ü™\‹X›XÚËÖÌŒHÜXÙK^KLÈ‚ˆ]ˆÛ\ÜÓ˜[YOH™›^›^]Ü˜\][\ËXÙ[\ˆ\İYKX™]ÙY[ˆØ\Lˆ‚ˆÜ[ˆÛ\ÜÓ˜[YOH^^È›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÌLLLLMH‚ˆ\ÛÜšÈ›ÜˆİšY]ÔÚYHOOH	Ùœ›Û	ÈÈ	Ñœ›Û	Èˆ	Ğ˜XÚÉßHÚYBˆÜÜ[‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆØ\Lˆ‚ˆ[œ]ˆ™Y^Ùš[R[œ]™YŸBˆ\OH™š[H‚ˆXØÙ\Hš[XYÙKÜ™Ë[XYÙKÚœYË[XYÙKİÙXœ[XYÙKÜİ™ÊŞ[‚ˆÛÚ[™ÙO^Ú[™U\ØYBˆÛ\ÜÓ˜[YOHšY[ˆ‚ˆÏ‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆš[R[œ]™Y‹˜İ\œ™[Ë˜ÛXÚÊ
-_BˆÛ\ÜÓ˜[YOHš[›[™KY›^][\ËXÙ[\ˆØ\LKHLÈKLKH›İ[™Y[È™ËVÈÌLLLLMH^]Ú]H^^È›Û\Ù[ZX›Ûİ™\˜™ËVÈÌÌÌ‘Hİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆ\ØYÛ\ÜÓ˜[YOHËLËHLËHˆÏ‚ˆÜ[•\ØYÜ˜\XÏÜÜ[‚ˆØ]Û‚ˆØXİ]™P\ÛÜšÈ	‰ˆ
-ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HO‚ˆšY]ÔÚYHOOH	Ùœ›Û	ÈÈÙ]œ›Û\ÛÜšÊ[
-HˆÙ]˜XÚĞ\ÛÜšÊ[
-BˆBˆ\šXK[X™[HÛX\ˆ\ÛÜšÈ‚ˆÛ\ÜÓ˜[YOHœLKH›İ[™Y[È›Ü™\ˆ›Ü™\‹X›XÚËÌMH™Ë]Ú]H^VÈÍLLP—Hİ™\^VÈÌLLLLMHİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆ›İ]PØİÈÛ\ÜÓ˜[YOHËLËHLËHˆÏ‚ˆØ]Û‚ˆ
-_BˆÙ]‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YOH™›^›^]Ü˜\][\ËXÙ[\ˆØ\Lˆ‚ˆÔĞSTWÑÔTPÔË›X\
+  const applySampleGraphic = (sample: { name: string; url: string }) => {
+    if (viewSide === 'front') {
+      setFrontArtwork(sample);
+      if (frontTier === 'None') setFrontTier('A4');
+    } else {
+      setBackArtwork(sample);
+      if (backTier === 'None') setBackTier('A4');
+    }
+  };
 
-ÊHOˆ
-ˆ]Û‚ˆÙ^O^ÙË›˜[Y_Bˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆ\TØ[\QÜ˜\XÊÊ_BˆÛ\ÜÓ˜[YOHœL‹HKLKH›İ[™Y[Y™Ë]Ú]H›Ü™\ˆ›Ü™\‹X›XÚËÌLİ™\˜›Ü™\‹VÈÌLLLLMH^VÌL\H›Û[YY][H^VÈÌLLLLMHİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆ\ÙHÙË›˜[Y_BˆØ]Û‚ˆ
-J_BˆÙ]‚‚ˆØXİ]™P\ÛÜšÈ	‰ˆXİ]™UY\ˆOOH	Ó›Û™IÈ	‰ˆ
-ˆ]ˆÛ\ÜÓ˜[YOHœLH›^][\ËXÙ[\ˆØ\LÈ‚ˆX™[[›ÜH˜\\ØØ[HˆÛ\ÜÓ˜[YOH^VÌL\H›Û[YY][H^VÈÍLLP—HÚ]\ÜXÙK[›İÜ˜\‚ˆØØ[H
-Ø\ØØ[_IJBˆÛX™[‚ˆ[œ]ˆYH˜\\ØØ[H‚ˆ\OHœ˜[™ÙH‚ˆZ[^Ì_BˆX^^ÎM_Bˆ˜[YO^Ø\ØØ[_BˆÛÚ[™ÙO^ÊJHOˆÙ]\ØØ[J[X™\ŠK\™Ù]˜[YJJ_BˆÛ\ÜÓ˜[YOHËY[XØÙ[VÈÌLLLLMH‚ˆÏ‚ˆÙ]‚ˆ
-_BˆÙ]‚‚ˆËÊˆÚ^™H	ˆ]X[]H
-‹ßBˆ]ˆÛ\ÜÓ˜[YOH™›^›^]Ü˜\][\ËXÙ[\ˆ\İYKX™]ÙY[ˆØ\M‚ˆ]‚ˆ]ˆÛ\ÜÓ˜[YOH^^È›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍLLP—HX‹Lˆ‚ˆÚ^™BˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YOH™›^][\ËXÙ[\ˆØ\LKH‚ˆÖÉÔÉË	ÓIË	Ó	Ë	Ö	Ë	Ì–	×K›X\
+  // Overlay placement bounds matching print tier size
+  const getZoneClass = () => {
+    if (activeTier === 'Pocket') return 'top-[28%] left-[53%] w-[16%] aspect-square';
+    if (activeTier === 'A4') return 'top-[26%] left-1/2 -translate-x-1/2 w-[30%] aspect-[3/4]';
+    if (activeTier === 'A3') return 'top-[23%] left-1/2 -translate-x-1/2 w-[37%] aspect-[3/4]';
+    if (activeTier === 'Full print') return 'top-[20%] left-1/2 -translate-x-1/2 w-[44%] aspect-[3/4]';
+    return 'hidden';
+  };
 
-ŞŠHOˆ
-ˆ]Û‚ˆÙ^O^ÜŞŸBˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÙ]Ù[XİYÚ^™JŞŠ_BˆÛ\ÜÓ˜[YO^ØËLLLL›İ[™Y[È^^È›Û\Ù[ZX›Û˜[œÚ][Û‹XÛÛÜœÈİ\œÛÜ‹\Ú[\ˆ	ÂˆÙ[XİYÚ^™HOOHŞ‚ˆÈ	Ø™ËVÈÌLLLLMH^]Ú]IÂˆˆ	Ø™ËVÈÑQQŒ×H^VÈÌLLLLMH›Ü™\ˆ›Ü™\‹X›XÚËÌLİ™\˜›Ü™\‹VÈÌLLLLMIÂˆXBˆ‚ˆÜŞŸBˆØ]Û‚ˆ
-J_BˆÙ]‚ˆÙ]‚‚ˆ]‚ˆ]ˆÛ\ÜÓ˜[YOH^^È›Û\Ù[ZX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ^VÈÍLLP—HX‹Lˆ‚ˆ]X[]BˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YOHš[›[™KY›^][\ËXÙ[\ˆ›Ü™\ˆ›Ü™\‹X›XÚËÌMH›İ[™Y[È™ËVÈÑQQŒ×H‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÙ]]X[]J
-JHOˆX]›X^
-KHHJJ_BˆÛ\ÜÓ˜[YOHËNHLL^\ÛH›Û\Ù[ZX›Ûİ™\˜™ËX›XÚËÍHİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆ8¢$‚ˆØ]Û‚ˆÜ[ˆÛ\ÜÓ˜[YOHËLL^XÙ[\ˆ^^È›Û[[Û›È›ÛX›ÛX[\‹[[\È‚ˆÜ]X[]_BˆÜÜ[‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ê
-HOˆÙ]]X[]J
-JHOˆH
-ÈJ_BˆÛ\ÜÓ˜[YOHËNHLL^\ÛH›Û\Ù[ZX›Ûİ™\˜™ËX›XÚËÍHİ\œÛÜ‹\Ú[\ˆ‚ˆ‚ˆ
-ÂˆØ]Û‚ˆÙ]‚ˆÙ]‚ˆÙ]‚ˆÙ]‚‚ˆËÊˆšXÚ[™Èİ[[X\H	ˆYÈ˜YÈ
-‹ßBˆ]ˆÛ\ÜÓ˜[YOHœMH›İ[™YL™ËVÈÌLLLLMH^VÈÑQQŒ×H›^›^XÛÛÛN™›^\›İÈÛNš][\ËXÙ[\ˆ\İYKX™]ÙY[ˆØ\M‚ˆ]‚ˆ]ˆÛ\ÜÓ˜[YOH^^È^]Ú]KÍÌ›Û[[Û›ÈX[\‹[[\È‚ˆ8 ®LNNH˜\ÙH
-È8 ®^Ùœ›ÛY\“Øš‹˜Ú\™Ù_Hœ›Û
-È8 ®^Ø˜XÚÕY\“Øš‹˜Ú\™Ù_H˜XÚÂˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YOH›]LH›ÛY\Ü^H^L›ÛX›ÛX[\‹[[\È‚ˆÙ›Ü›X]S”Šİ[šXÙJ_BˆÜ]X[]HˆH	‰ˆ
-ˆÜ[ˆÛ\ÜÓ˜[YOH›[Lˆ^^È›Û[›Ü›X[^]Ú]KÍÌ‚ˆ
-Ù›Ü›X]S”Š[š]šXÙJ_HXXÚ
-BˆÜÜ[‚ˆ
-_BˆÙ]‚ˆÙ]‚‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛÛXÚÏ^Ú[™PYİ\İÛ_BˆÛ\ÜÓ˜[YOHš[›[™KY›^][\ËXÙ[\ˆ\İYKXÙ[\ˆØ\LˆMˆKLÈ›İ[™YY[™ËVÈÑ‘ĞLWH^VÈÌLLLLMHİ™\˜™ËVÈÑ‘‘ŒÌ×H^^È›ÛX›Û\\˜Ø\ÙH˜XÚÚ[™Ë]ÚY\ˆ˜[œÚ][Û‹XÛÛÜœÈİ\œÛÜ‹\Ú[\ˆÚš[šËL‚ˆ‚ˆÚÜ[™Ğ˜YÈÛ\ÜÓ˜[YOHËMMˆÏ‚ˆÜ[Yİ\İÛHYHÈ˜YÏÜÜ[‚ˆØ]Û‚ˆÙ]‚ˆÙ]‚ˆÙ]‚ˆÙ]‚ˆÜÙXİ[Û‚ˆ
-NÂŸNÂ
+  const handleAddCustom = () => {
+    onAddToBag({
+      id: `custom-tee-${selectedColor.name}-${selectedSize}-${frontTier}-${backTier}-${Date.now()}`,
+      productId: customProduct?.id || '11014367019148',
+      handle: customProduct?.handle || 'custom-printed-t-shirt',
+      title: 'Custom Printed T-Shirt',
+      image: viewSide === 'front' ? selectedColor.frontImg : selectedColor.backImg,
+      size: selectedSize,
+      color: selectedColor.name,
+      printSummary: `Front: ${frontTier} | Back: ${backTier}`,
+      frontPrint: frontTier,
+      backPrint: backTier,
+      customArtworkName: frontArtwork?.name || backArtwork?.name,
+      customArtworkDataUrl: frontArtwork?.url || backArtwork?.url,
+      unitPrice,
+      quantity,
+    });
+  };
+
+  return (
+    <section id="custom-studio" className="bg-white min-h-[calc(100vh-110px)] py-10 sm:py-14 px-4 sm:px-8">
+      <div className="max-w-[1380px] mx-auto">
+        {onBackToStore && (
+          <div className="mb-6">
+            <button
+              type="button"
+              onClick={onBackToStore}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5F5F3] border border-black/15 hover:border-[#111114] text-xs font-semibold text-[#111114] cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to All 76 Store Pieces</span>
+            </button>
+          </div>
+        )}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-black/[0.08]">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-widest text-[#00A8E8] mb-2">
+              Custom Print Studio Â· Base â‚¹199
+            </div>
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-[#111114] tracking-tight">
+              Design Your Custom Printed T-Shirt
+            </h2>
+          </div>
+          <p className="text-sm text-[#52525B] max-w-md">
+            Exact PrintStuff Shopify pricing: â‚¹199 blank tee plus your chosen Front and Back print sizes â€” Pocket (+â‚¹50), A4 (+â‚¹100), A3 (+â‚¹150), or Full Print (+â‚¹200).
+          </p>
+        </div>
+
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          {/* Left: Live Garment Canvas */}
+          <div className="lg:col-span-6 bg-[#F5F5F3] rounded-2xl border border-black/[0.08] p-6 flex flex-col justify-between">
+            <div className="flex items-center justify-between gap-4 mb-4">
+              <div className="flex items-center gap-1 p-1 bg-black/[0.06] rounded-lg">
+                <button
+                  type="button"
+                  onClick={() => setViewSide('front')}
+                  className={`px-3.5 py-1.5 text-xs font-semibold rounded-md transition-colors cursor-pointer ${
+                    viewSide === 'front' ? 'bg-white text-[#111114] shadow-xs' : 'text-[#52525B]'
+                  }`}
+                >
+                  Front View
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewSide('back')}
+                  className={`px-3.5 py-1.5 text-xs font-semibold rounded-md transition-colors cursor-pointer ${
+                    viewSide === 'back' ? 'bg-white text-[#111114] shadow-xs' : 'text-[#52525B]'
+                  }`}
+                >
+                  Back View
+                </button>
+              </div>
+
+              <span className="text-xs font-medium text-[#52525B]">
+                {selectedColor.name} Â· {viewSide === 'front' ? `Front: ${frontTier}` : `Back: ${backTier}`}
+              </span>
+            </div>
+
+            {/* Mockup Frame */}
+            <div className="relative mx-auto w-full max-w-[420px] aspect-[7/8] bg-white rounded-xl overflow-hidden border border-black/[0.06] shadow-sm flex items-center justify-center">
+              <ProductImage
+                src={viewSide === 'front' ? selectedColor.frontImg : selectedColor.backImg}
+                alt={`Custom Printed T-Shirt â€” ${selectedColor.name} ${viewSide}`}
+                loading="eager"
+                className="w-full h-full object-contain"
+              />
+
+              {/* Print Area Bounding Indicator & Live Artwork Preview */}
+              {activeTier !== 'None' && (
+                <div
+                  className={`absolute pointer-events-none border border-dashed border-[#00A8E8]/75 bg-[#00A8E8]/[0.04] flex items-center justify-center transition-all ${getZoneClass()}`}
+                >
+                  {activeArtwork ? (
+                    <img
+                      src={activeArtwork.url}
+                      alt="Custom artwork preview"
+                      style={{ width: `${artScale}%`, height: `${artScale}%` }}
+                      className="object-contain drop-shadow-sm"
+                    />
+                  ) : (
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#00A8E8] text-center px-1">
+                      {activeTier}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Colour Picker Strip */}
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-black/[0.08]">
+              <span className="text-xs font-semibold text-[#111114]">
+                Tee Colour: <span className="font-normal text-[#52525B]">{selectedColor.name}</span>
+              </span>
+              <div className="flex items-center gap-2">
+                {CUSTOM_TEE_COLORS.map((c) => {
+                  const active = c.name === selectedColor.name;
+                  return (
+                    <button
+                      key={c.name}
+                      type="button"
+                      onClick={() => setSelectedColor(c)}
+                      title={c.name}
+                      aria-label={`Select ${c.name}`}
+                      style={{ backgroundColor: c.hex }}
+                      className={`w-7 h-7 rounded-full border border-black/20 transition-transform cursor-pointer ${
+                        active ? 'ring-2 ring-[#111114] ring-offset-2 ring-offset-[#F5F5F3] scale-110' : 'hover:scale-105'
+                      }`}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Print Pricing, Artwork & Size Controls */}
+          <div className="lg:col-span-6 flex flex-col justify-between gap-6">
+            <div className="space-y-6">
+              {/* Front & Back Print Size Selectors */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-[#F5F5F3] border border-black/[0.08]">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-[#111114]">
+                      Front Print Size
+                    </span>
+                    <span className="text-xs font-mono font-semibold tabular-nums text-[#00A8E8]">
+                      +{formatINR(frontTierObj.charge)}
+                    </span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {CUSTOM_TEE_PRINT_TIERS.map((tier) => {
+                      const active = frontTier === tier.key;
+                      return (
+                        <button
+                          key={`front-${tier.key}`}
+                          type="button"
+                          onClick={() => {
+                            setFrontTier(tier.key);
+                            setViewSide('front');
+                          }}
+                          className={`w-full px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                            active
+                              ? 'bg-[#111114] text-white font-semibold'
+                              : 'bg-white text-[#111114] border border-black/10 hover:border-black/30'
+                          }`}
+                        >
+                          <span>{tier.label}</span>
+                          <span className="font-mono tabular-nums opacity-85">
+                            {tier.charge === 0 ? 'â‚¹0' : `+â‚¹${tier.charge}`}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-[#F5F5F3] border border-black/[0.08]">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-[#111114]">
+                      Back Print Size
+                    </span>
+                    <span className="text-xs font-mono font-semibold tabular-nums text-[#E6007E]">
+                      +{formatINR(backTierObj.charge)}
+                    </span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {CUSTOM_TEE_PRINT_TIERS.map((tier) => {
+                      const active = backTier === tier.key;
+                      return (
+                        <button
+                          key={`back-${tier.key}`}
+                          type="button"
+                          onClick={() => {
+                            setBackTier(tier.key);
+                            setViewSide('back');
+                          }}
+                          className={`w-full px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                            active
+                              ? 'bg-[#111114] text-white font-semibold'
+                              : 'bg-white text-[#111114] border border-black/10 hover:border-black/30'
+                          }`}
+                        >
+                          <span>{tier.label}</span>
+                          <span className="font-mono tabular-nums opacity-85">
+                            {tier.charge === 0 ? 'â‚¹0' : `+â‚¹${tier.charge}`}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Artwork Upload & Scale */}
+              <div className="p-4 rounded-xl bg-[#F5F5F3] border border-black/[0.08] space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[#111114]">
+                    Artwork for {viewSide === 'front' ? 'Front' : 'Back'} Side
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                      onChange={handleUpload}
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111114] text-white text-xs font-semibold hover:bg-[#27272D] cursor-pointer"
+                    >
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>Upload Graphic</span>
+                    </button>
+                    {activeArtwork && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          viewSide === 'front' ? setFrontArtwork(null) : setBackArtwork(null)
+                        }
+                        aria-label="Clear artwork"
+                        className="p-1.5 rounded-lg border border-black/15 bg-white text-[#52525B] hover:text-[#111114] cursor-pointer"
+                      >
+                        <RotateCcw className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  {SAMPLE_GRAPHICS.map((g) => (
+                    <button
+                      key={g.name}
+                      type="button"
+                      onClick={() => applySampleGraphic(g)}
+                      className="px-2.5 py-1.5 rounded-md bg-white border border-black/10 hover:border-[#111114] text-[11px] font-medium text-[#111114] cursor-pointer"
+                    >
+                      Use {g.name}
+                    </button>
+                  ))}
+                </div>
+
+                {activeArtwork && activeTier !== 'None' && (
+                  <div className="pt-1 flex items-center gap-3">
+                    <label htmlFor="art-scale" className="text-[11px] font-medium text-[#52525B] whitespace-nowrap">
+                      Scale ({artScale}%)
+                    </label>
+                    <input
+                      id="art-scale"
+                      type="range"
+                      min={25}
+                      max={95}
+                      value={artScale}
+                      onChange={(e) => setArtScale(Number(e.target.value))}
+                      className="w-full accent-[#111114]"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Size & Quantity */}
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#52525B] mb-2">
+                    Size
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    {['S', 'M', 'L', 'XL', '2XL'].map((sz) => (
+                      <button
+                        key={sz}
+                        type="button"
+                        onClick={() => setSelectedSize(sz)}
+                        className={`w-10 h-10 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                          selectedSize === sz
+                            ? 'bg-[#111114] text-white'
+                            : 'bg-[#F5F5F3] text-[#111114] border border-black/10 hover:border-[#111114]'
+                        }`}
+                      >
+                        {sz}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#52525B] mb-2">
+                    Quantity
+                  </div>
+                  <div className="inline-flex items-center border border-black/15 rounded-lg bg-[#F5F5F3]">
+                    <button
+                      type="button"
+                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                      className="w-9 h-10 text-sm font-semibold hover:bg-black/5 cursor-pointer"
+                    >
+                      âˆ’
+                    </button>
+                    <span className="w-10 text-center text-xs font-mono font-bold tabular-nums">
+                      {quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setQuantity((q) => q + 1)}
+                      className="w-9 h-10 text-sm font-semibold hover:bg-black/5 cursor-pointer"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Pricing Summary & Add to Bag */}
+            <div className="p-5 rounded-2xl bg-[#111114] text-[#F5F5F3] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="text-xs text-white/70 font-mono tabular-nums">
+                  â‚¹199 Base + â‚¹{frontTierObj.charge} Front + â‚¹{backTierObj.charge} Back
+                </div>
+                <div className="mt-1 font-display text-2xl font-bold tabular-nums">
+                  {formatINR(totalPrice)}
+                  {quantity > 1 && (
+                    <span className="ml-2 text-xs font-normal text-white/70">
+                      ({formatINR(unitPrice)} each)
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddCustom}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#FFCA05] text-[#111114] hover:bg-[#FFD633] text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shrink-0"
+              >
+                <ShoppingBag className="w-4 h-4" />
+                <span>Add Custom Tee to Bag</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
