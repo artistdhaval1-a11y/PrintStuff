@@ -27,7 +27,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   });
 
   const [savedOrder, setSavedOrder] = useState<{ orderNumber: string; trackingToken: string } | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'cod'>('razorpay');
+  const paymentMethod = 'razorpay' as const;
   const [isSavingOrder, setIsSavingOrder] = useState<boolean>(false);
   const [orderError, setOrderError] = useState<string>('');
   const [deliveryState, setDeliveryState] = useState<string>('');
@@ -291,10 +291,6 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
               <span className="text-sm text-white font-semibold">Pay Online with Razorpay</span>
               <span className="ml-auto text-[10px] text-emerald-300">UPI • Cards • Netbanking</span>
             </label>
-            <label className="flex items-center gap-3 p-3 rounded-xl border border-neutral-700 cursor-pointer">
-              <input type="radio" name="paymentMethod" value="cod" checked={paymentMethod === 'cod'} onChange={() => setPaymentMethod('cod')} />
-              <span className="text-sm text-white font-semibold">Cash on Delivery</span>
-            </label>
           </div>
 
           {/* Formatted Message Preview Box */}
@@ -345,7 +341,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
                 disabled={isSavingOrder || !!savedOrder || shippingCharge === null || customer.pincode.length !== 6}
                 className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 text-xs font-bold text-neutral-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-98"
               >
-                <span>{isSavingOrder ? (paymentMethod === 'razorpay' ? 'Processing…' : 'Saving Order…') : savedOrder ? 'Order Placed' : paymentMethod === 'razorpay' ? 'Pay & Place Order' : 'Place COD Order'}</span>
+                <span>{isSavingOrder ? ('Processing payment…') : savedOrder ? 'Order Placed' : 'Pay securely & place order'}</span>
               </button>
             </div>
           </div>
@@ -354,7 +350,7 @@ export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
             <div className="p-3 bg-emerald-950/60 border border-emerald-800/80 rounded-xl flex items-center gap-2 text-xs text-emerald-300">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>
-                {paymentMethod === 'razorpay' ? 'Your payment was successful and your order has been placed on the website. Order number:' : 'Your COD order has been placed on the website. Order number:'} {savedOrder.orderNumber}. Tracking token: {savedOrder.trackingToken}. Save these details to track your order.
+                {'Payment successful. Your order has been placed. Order number:'} {savedOrder.orderNumber}. Tracking token: {savedOrder.trackingToken}. Save these details to track your order.
               </span>
             </div>
           )}
