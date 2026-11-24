@@ -1,6 +1,6 @@
 import React from 'react';
 import { CartItem } from '../types';
-import { X, Trash2, ShoppingBag, MessageCircle, ArrowRight, Plus, Minus } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, Plus, Minus } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { RecoloredApparelImage } from './RecoloredApparelImage';
 import { PrintStuffLogoMark } from './BrandLogos';
