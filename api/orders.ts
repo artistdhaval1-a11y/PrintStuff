@@ -210,9 +210,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!Number.isFinite(shippingCharge) || shippingCharge < 0 || shippingCharge > 100000) {
       return respond(res, 400, { error: 'Invalid shipping charge.' });
     }
-    const paymentMethod = body?.paymentMethod === 'razorpay' ? 'razorpay' : 'cod';
-    let paymentNote = 'Payment method: Cash on Delivery; payment status: pending';
-    if (paymentMethod === 'razorpay') {
+    const paymentMethod = body?.paymentMethod;
+    if (paymentMethod !== 'razorpay') {
+      return respond(res, 400, { error: 'Online payment through Razorpay is required to place an order.' });
+    }
+    let paymentNote = ''; 
+    {
       const keySecret = process.env.RAZORPAY_KEY_SECRET;
       const razorpayOrderId = clean(body?.razorpayOrderId, 100);
       const razorpayPaymentId = clean(body?.razorpayPaymentId, 100);
