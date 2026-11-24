@@ -44,7 +44,7 @@ export const TrendsAndFooter: React.FC<TrendsAndFooterProps> = ({
   return (
     <>
       {/* Editorial LATEST TRENDS Stacked Card Deck (Video Ref Frame 40) */}
-      <section className="bg-white border-t border-black/[0.08] py-16 px-4 sm:px-8 overflow-hidden">
+      <section className="ps-trends bg-white border-t border-black/[0.08] py-16 px-4 sm:px-8 overflow-hidden">
         <div className="max-w-[1380px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Typography + CTAs */}
           <div className="lg:col-span-5">
@@ -157,7 +157,7 @@ export const TrendsAndFooter: React.FC<TrendsAndFooterProps> = ({
       </div>
 
       {/* Multi-Column Store Footer */}
-      <footer className="bg-[#F5F5F3] py-12 px-4 sm:px-8">
+      <footer className="ps-footer bg-[#F5F5F3] py-12 px-4 sm:px-8">
         <div className="max-w-[1380px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-5">
             <img
