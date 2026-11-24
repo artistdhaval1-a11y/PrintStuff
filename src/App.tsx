@@ -7,7 +7,7 @@ import { CatalogSection } from './components/CatalogSection';
 import { CustomizerStudio } from './components/CustomizerStudio';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
-import { WhatsAppCheckoutModal } from './components/WhatsAppCheckoutModal';
+import { CheckoutModal } from './components/WhatsAppCheckoutModal';
 import { ProductQuickViewModal } from './components/ProductQuickViewModal';
 import { OrderTracking } from './components/OrderTracking';
 import { BrandProvider } from './context/BrandContext';
@@ -49,7 +49,7 @@ export default function App() {
   };
 
   // Direct checkout enquiry from Customizer
-  const handleDirectWhatsApp = (item: CartItem) => {
+  const handleDirectCheckout = (item: CartItem) => {
     setSingleCheckoutItem(item);
     setIsCheckoutModalOpen(true);
   };
@@ -161,11 +161,11 @@ export default function App() {
           items={cartItems}
           onUpdateQuantity={handleUpdateCartQuantity}
           onRemoveItem={handleRemoveFromCart}
-          onCheckoutWhatsApp={handleCheckoutFromCart}
+          onCheckout={handleCheckoutFromCart}
         />
 
-        {/* WhatsApp Checkout Modal */}
-        <WhatsAppCheckoutModal
+        {/* Website checkout with Razorpay */}
+        <CheckoutModal
           isOpen={isCheckoutModalOpen}
           onClose={() => setIsCheckoutModalOpen(false)}
           items={cartItems}
