@@ -4,56 +4,37 @@
   --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --color-ps-canvas: #F5F5F3;
-  --color-ps-ink: #111114;
-  --color-ps-cyan: #00A8E8;
-  --color-ps-magenta: #E6007E;
-  --color-ps-yellow: #FFCA05;
+  --color-ps-canvas: #F7F5EF;
+  --color-ps-ink: #171717;
+  --color-ps-cyan: #254BFF;
+  --color-ps-magenta: #FF5A1F;
+  --color-ps-yellow: #DFFF00;
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    background-color: #F5F5F3;
-    color: #111114;
-  }
-
-  body {
-    font-family: var(--font-sans);
-    background-color: #F5F5F3;
-    color: #111114;
-  }
-
-  h1, h2, h3, .font-display {
-    font-family: var(--font-display);
-    text-wrap: balance;
-  }
+  html { scroll-behavior: smooth; background-color: #F7F5EF; color: #171717; }
+  body { font-family: var(--font-sans); background-color: #F7F5EF; color: #171717; }
+  h1, h2, h3, .font-display { font-family: var(--font-display); text-wrap: balance; }
+  ::selection { background: #DFFF00; color: #171717; }
+  button, a { -webkit-tap-highlight-color: transparent; }
 }
 
-.rail-perspective {
-  perspective: 1400px;
+@keyframes ps-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
+.rail-perspective { perspective: 1400px; }
 .rail-garment-3d {
   transform-style: preserve-3d;
   transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease, filter 220ms ease;
 }
 
-/* Custom subtle light scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #E9E7DF; }
+::-webkit-scrollbar-thumb { background: #A7A79C; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #254BFF; }
 
-::-webkit-scrollbar-track {
-  background: #EBEBE8;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #C4C4BE;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #9E9E96;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
