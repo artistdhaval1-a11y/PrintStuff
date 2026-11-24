@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowDownRight, ArrowRight, Palette, Zap } from 'lucide-react';
-import heroShowroomImg from '../assets/images/hero_printstuff_showroom_1795357534119.jpg';
 import { CollectionKey, StoreProduct } from '../data/shopifyCatalog';
 import { formatINR } from '../utils/format';
 import { ProductImage } from './ProductImage';
@@ -26,6 +25,8 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
   onOpenCustomPage,
   onBrowseAll,
 }) => {
+  const heroProduct = products.find((p) => p.isCustomTee) || products.find((p) => p.collections.includes('t-shirts'));
+
   const moods: MoodCard[] = [
     { key: 'custom-printing', title: 'Custom Print', subtitle: 'Make it yours', accentHex: '#DFFF00', product: products.find((p) => p.isCustomTee) },
     { key: 't-shirts', title: 'Graphic Tees', subtitle: 'Wear your mood', accentHex: '#FF5A1F', product: products.find((p) => p.collections.includes('t-shirts') && !p.isCustomTee) },
@@ -39,7 +40,6 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
     <section id="top" className="ps-hero bg-[#F7F5EF] overflow-hidden">
       <div className="ps-hero__top relative bg-[#DFFF00]">
         <div aria-hidden="true" className="absolute -right-24 -top-28 w-[420px] h-[420px] rounded-full border-[55px] border-[#FF5A1F]/20" />
-        <div aria-hidden="true" className="absolute left-[43%] bottom-[-80px] w-52 h-52 rounded-full bg-[#254BFF] hidden lg:block" />
         <div aria-hidden="true" className="ps-hero__burst absolute left-[47%] top-12 hidden xl:block">✳</div>
         <div aria-hidden="true" className="ps-hero__side-label hidden lg:block">PRINTSTUFF — MADE TO BE SEEN</div>
         <div className="relative max-w-[1440px] mx-auto px-4 sm:px-8 py-10 sm:py-14 lg:py-16 grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-12 items-center min-h-[540px]">
@@ -76,7 +76,7 @@ export const StoreHero: React.FC<StoreHeroProps> = ({
               <span className="text-[9px] font-black uppercase tracking-widest">OUT ✳</span>
             </div>
             <div className="relative aspect-[4/4.25] sm:aspect-[5/4] overflow-hidden border-[5px] border-[#171717] rounded-[42%_42%_18px_18px] bg-[#254BFF] shadow-[10px_10px_0_#171717]">
-              <img src={heroShowroomImg} alt="PrintStuff streetwear collection" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <ProductImage src={heroProduct?.images[0]} alt="PrintStuff custom streetwear T-shirt" loading="eager" className="absolute inset-0 w-full h-full object-cover object-center" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#171717]/55 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white">
                 <div>
