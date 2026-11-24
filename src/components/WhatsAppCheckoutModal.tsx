@@ -10,7 +10,7 @@ interface WebsiteCheckoutModalProps {
   singleItem?: CartItem | null;
 }
 
-export const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
+export const CheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   isOpen,
   onClose,
   items,
