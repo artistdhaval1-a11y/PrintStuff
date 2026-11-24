@@ -65,3 +65,19 @@
 @keyframes ps-spin{to{transform:rotate(374deg)}}
 @keyframes ps-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
 @media(max-width:640px){.ps-hero__edition{margin-top:12px;font-size:8px}.ps-lanes__grid>button:nth-child(n) .ps-lanes__tile{transform:none}}
+
+/* Poster stickers: gentle motion, with safe spacing from clipped edges */
+.ps-poster-sticker,.ps-ownit-sticker,.ps-no-uniform-sticker,.ps-drop-sticker {
+  animation: ps-sticker-float 3.8s ease-in-out infinite;
+  will-change: translate;
+}
+.ps-ownit-sticker { animation-delay: -.9s; }
+.ps-no-uniform-sticker { animation-delay: -1.8s; }
+.ps-drop-sticker { animation-delay: -2.7s; }
+@keyframes ps-sticker-float {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ps-poster-sticker,.ps-ownit-sticker,.ps-no-uniform-sticker,.ps-drop-sticker { animation: none !important; }
+}
